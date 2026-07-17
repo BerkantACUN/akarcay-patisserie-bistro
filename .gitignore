@@ -1,0 +1,8 @@
+# Yerel referans/analiz materyali — repoya girmez
+docs/
+
+# Araç artıkları
+.playwright-mcp/
+*.log
+Thumbs.db
+Desktop.ini

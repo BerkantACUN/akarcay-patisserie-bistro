@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Akarçay Patisserie &amp; Bistro — Tatlı Bir Başlangıç</title>
+  <meta name="description" content="Akarçay Patisserie & Bistro: el yapımı pastalar, taze fırın ürünleri ve günün her saati bistro lezzetleri.">
+  <meta name="theme-color" content="#2E1C13">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A5%90%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,560;0,9..144,640;1,9..144,480;1,9..144,560&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/scenes.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- ═══ Yükleme perdesi ═══ -->
+  <div class="preloader" aria-hidden="true">
+    <div class="preloader-mark">
+      <span class="preloader-name">Akarçay</span>
+      <span class="preloader-sub">Patisserie &amp; Bistro</span>
+    </div>
+  </div>
+
+  <!-- ═══ Sabit arayüz iskeleti ═══ -->
+  <a class="skip-link" href="#iletisim">İletişime atla</a>
+
+  <header class="site-chrome site-header">
+    <a class="brand" href="#anasayfa" data-goto="0" aria-label="Akarçay Patisserie ve Bistro — Anasayfa">
+      <span class="brand-name">Akarçay</span>
+      <span class="brand-sub">Patisserie &amp; Bistro</span>
+    </a>
+    <nav class="site-nav" aria-label="Ana menü">
+      <a href="#anasayfa"   data-goto="0">Anasayfa</a>
+      <a href="#patisserie" data-goto="1">Patisserie</a>
+      <a href="#bistro"     data-goto="2">Bistro</a>
+      <a href="#kahve"      data-goto="3">Kahve &amp; Çay</a>
+      <a href="#menu"       data-goto="4">Menü</a>
+      <a href="#iletisim"   data-goto="5">İletişim</a>
+    </nav>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-overlay" aria-label="Menüyü aç">
+      <span></span><span></span>
+    </button>
+  </header>
+
+  <nav class="bullets site-chrome" aria-label="Sahne gezinmesi">
+    <button type="button" data-goto="0" aria-label="1. sahne — Tatlı Bir Başlangıç" aria-current="true"></button>
+    <button type="button" data-goto="1" aria-label="2. sahne — Patisserie"></button>
+    <button type="button" data-goto="2" aria-label="3. sahne — Bistro"></button>
+    <button type="button" data-goto="3" aria-label="4. sahne — Kahve ve Çay"></button>
+    <button type="button" data-goto="4" aria-label="5. sahne — Menü"></button>
+    <button type="button" data-goto="5" aria-label="6. sahne — İletişim"></button>
+  </nav>
+
+  <div class="slide-counter site-chrome" aria-hidden="true">
+    <span class="counter-current">01</span><span class="counter-sep"></span><span class="counter-total">06</span>
+  </div>
+
+  <div class="scroll-hint site-chrome" aria-hidden="true">
+    <span class="scroll-hint-mouse"><span class="scroll-hint-dot"></span></span>
+  </div>
+
+  <div class="socials site-chrome">
+    <a href="#" aria-label="Instagram (yakında)">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5.5" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="17.2" cy="6.8" r="1.25" fill="currentColor"/></svg>
+    </a>
+    <a href="#" aria-label="Facebook (yakında)">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.6 21v-7h2.6l.5-3h-3.1V9.1c0-.9.3-1.6 1.7-1.6h1.5V4.8c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4V11H8v3h2.6v7z" fill="currentColor"/></svg>
+    </a>
+  </div>
+
+  <svg class="ornament ornament-tl site-chrome" aria-hidden="true"><use href="#orn-wheat"/></svg>
+  <svg class="ornament ornament-tr site-chrome" aria-hidden="true"><use href="#orn-wheat"/></svg>
+  <svg class="ornament ornament-bl site-chrome" aria-hidden="true"><use href="#orn-wheat"/></svg>
+  <svg class="ornament ornament-br site-chrome" aria-hidden="true"><use href="#orn-wheat"/></svg>
+
+  <!-- ═══ Sahne destesi ═══ -->
+  <main class="deck" id="deck" aria-label="Akarçay tanıtım sahneleri">
+
+    <div class="deck-bgs" aria-hidden="true">
+      <div class="deck-bg bg-espresso is-visible"></div>
+      <div class="deck-bg bg-cherry"></div>
+      <div class="deck-bg bg-olive"></div>
+      <div class="deck-bg bg-mocha"></div>
+      <div class="deck-bg bg-cream"></div>
+      <div class="deck-bg bg-night"></div>
+    </div>
+
+    <!-- ── Sahne 1 · Açılış ── -->
+    <section class="slide is-active" id="anasayfa" data-theme="dark" role="group" aria-roledescription="sahne" aria-label="1 / 6 — Tatlı Bir Başlangıç">
+      <div class="copy">
+        <p class="kicker layer" data-depth="6" style="--d:40ms"><span class="anim">Akarçay Patisserie &amp; Bistro</span></p>
+        <h1 class="headline layer" data-depth="10" style="--d:120ms"><span class="anim">Tatlı Bir <em>Başlangıç</em></span></h1>
+        <p class="lead layer" data-depth="8" style="--d:220ms"><span class="anim">Her sabah fırınımızdan yükselen çıtır croissant kokusuyla açılır kapılarımız. El açması hamur, gerçek tereyağı ve acele etmeyen bir mutfak — Akarçay'ın hikayesi bu kadar sade.</span></p>
+      </div>
+      <div class="scene s1">
+        <div class="layer s1-shadow" data-depth="18" style="--d:260ms"><div class="anim"><div class="shadow-blob"></div></div></div>
+        <div class="layer s1-croissant" data-depth="26" style="--d:200ms"><div class="anim"><div class="float float-a">
+          <svg viewBox="0 0 480 300" aria-hidden="true">
+            <defs>
+              <linearGradient id="g-cro" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#EBB463"/><stop offset=".55" stop-color="#D08F3E"/><stop offset="1" stop-color="#A96A26"/>
+              </linearGradient>
+              <linearGradient id="g-cro-hi" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#F5CE8C"/><stop offset="1" stop-color="#E0A652"/>
+              </linearGradient>
+            </defs>
+            <g stroke="#8A5420" stroke-width="3">
+              <ellipse cx="64"  cy="210" rx="44" ry="30" fill="url(#g-cro)" transform="rotate(-42 64 210)"/>
+              <ellipse cx="416" cy="210" rx="44" ry="30" fill="url(#g-cro)" transform="rotate(42 416 210)"/>
+              <ellipse cx="126" cy="184" rx="60" ry="48" fill="url(#g-cro)" transform="rotate(-24 126 184)"/>
+              <ellipse cx="354" cy="184" rx="60" ry="48" fill="url(#g-cro)" transform="rotate(24 354 184)"/>
+              <ellipse cx="240" cy="160" rx="86" ry="68" fill="url(#g-cro-hi)"/>
+            </g>
+            <path d="M172 122 Q240 84 308 122" fill="none" stroke="#F6DCA6" stroke-width="7" stroke-linecap="round" opacity=".8"/>
+            <path d="M188 216 Q240 238 292 216" fill="none" stroke="#8A5420" stroke-width="4" stroke-linecap="round" opacity=".55"/>
+            <path d="M176 110 Q158 160 178 210" fill="none" stroke="#8A5420" stroke-width="3" stroke-linecap="round" opacity=".4"/>
+            <path d="M304 110 Q322 160 302 210" fill="none" stroke="#8A5420" stroke-width="3" stroke-linecap="round" opacity=".4"/>
+            <g fill="#FBF0D2" opacity=".9">
+              <circle cx="206" cy="132" r="3.2"/><circle cx="252" cy="120" r="2.6"/><circle cx="286" cy="142" r="3"/><circle cx="232" cy="168" r="2.4"/>
+            </g>
+          </svg>
+        </div></div></div>
+        <div class="layer s1-steam" data-depth="14" style="--d:420ms"><div class="anim">
+          <svg class="steam" viewBox="0 0 120 150" aria-hidden="true">
+            <path class="steam-p steam-1" d="M38 140 C30 112 52 100 44 74 C38 52 52 40 48 18" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+            <path class="steam-p steam-2" d="M64 146 C56 118 78 106 70 80 C64 58 78 46 74 24" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+            <path class="steam-p steam-3" d="M90 140 C82 112 104 100 96 74 C90 52 104 40 100 18" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+          </svg>
+        </div></div>
+        <div class="layer s1-wheat-l" data-depth="34" style="--d:340ms"><div class="anim"><div class="float float-c">
+          <svg viewBox="0 0 60 120" aria-hidden="true"><use href="#orn-wheat-solid"/></svg>
+        </div></div></div>
+        <div class="layer s1-wheat-r" data-depth="40" style="--d:380ms"><div class="anim"><div class="float float-b">
+          <svg viewBox="0 0 60 120" aria-hidden="true"><use href="#orn-wheat-solid"/></svg>
+        </div></div></div>
+        <div class="layer s1-bean-1" data-depth="52" style="--d:440ms"><div class="anim"><div class="float float-b">
+          <svg viewBox="0 0 40 40" aria-hidden="true"><use href="#ic-bean"/></svg>
+        </div></div></div>
+        <div class="layer s1-bean-2" data-depth="60" style="--d:500ms"><div class="anim"><div class="float float-c">
+          <svg viewBox="0 0 40 40" aria-hidden="true"><use href="#ic-bean"/></svg>
+        </div></div></div>
+        <div class="layer s1-spark" data-depth="70" style="--d:560ms"><div class="anim">
+          <svg class="sparkle" viewBox="0 0 32 32" aria-hidden="true"><use href="#ic-spark"/></svg>
+        </div></div></div>
+      </div>
+    </section>
+
+    <!-- ── Sahne 2 · Patisserie ── -->
+    <section class="slide" id="patisserie" data-theme="dark" role="group" aria-roledescription="sahne" aria-label="2 / 6 — El Emeği, Katman Katman">
+      <div class="copy">
+        <p class="kicker layer" data-depth="6" style="--d:40ms"><span class="anim">Patisserie</span></p>
+        <h2 class="headline layer" data-depth="10" style="--d:120ms"><span class="anim">El Emeği, <em>Katman Katman</em></span></h2>
+        <p class="lead layer" data-depth="8" style="--d:220ms"><span class="anim">Pandispanyadan kremaya her kat, ölçüyle değil sabırla hazırlanır. Vitrinimizdeki her dilim, günün en tatlı kararıdır.</span></p>
+      </div>
+      <div class="scene s2">
+        <div class="layer s2-shadow" data-depth="18" style="--d:260ms"><div class="anim"><div class="shadow-blob"></div></div></div>
+        <div class="layer s2-cake" data-depth="26" style="--d:200ms"><div class="anim"><div class="float float-a">
+          <svg viewBox="0 0 380 400" aria-hidden="true">
+            <defs>
+              <linearGradient id="g-sponge" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#F6E7C8"/><stop offset="1" stop-color="#E8CFA0"/>
+              </linearGradient>
+              <linearGradient id="g-berrycream" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#D96A82"/><stop offset="1" stop-color="#B94660"/>
+              </linearGradient>
+            </defs>
+            <ellipse cx="190" cy="356" rx="86" ry="14" fill="#B98A4C"/>
+            <rect x="180" y="304" width="20" height="52" fill="#C99A56"/>
+            <ellipse cx="190" cy="304" rx="126" ry="18" fill="#D9AC62"/>
+            <g stroke="#8E5A2A" stroke-width="2.5">
+              <rect x="76" y="236" width="228" height="62" rx="10" fill="url(#g-sponge)"/>
+              <rect x="76" y="206" width="228" height="34" rx="10" fill="url(#g-berrycream)"/>
+              <rect x="76" y="148" width="228" height="62" rx="10" fill="url(#g-sponge)"/>
+            </g>
+            <path d="M76 152 q0 -10 10 -10 h208 q10 0 10 10 v10 q-14 26 -26 2 q-10 30 -24 4 q-12 26 -25 2 q-11 28 -24 3 q-12 26 -25 2 q-11 28 -24 3 q-13 26 -26 2 q-12 28 -24 4 q-10 22 -20 -2 z" fill="#8E3548" stroke="#6E2635" stroke-width="2.5"/>
+            <g transform="translate(190 106)">
+              <path d="M0 34 C-26 18 -20 -12 0 -6 C20 -12 26 18 0 34" fill="#C6394F" stroke="#8E2438" stroke-width="2.5"/>
+              <path d="M-9 -8 L0 -20 L9 -8 L0 -12 Z" fill="#5E7C46"/>
+              <g fill="#F2C9C0" opacity=".85"><circle cx="-7" cy="8" r="1.6"/><circle cx="6" cy="4" r="1.6"/><circle cx="0" cy="18" r="1.6"/></g>
+            </g>
+            <g fill="#FBF0D2" opacity=".8"><circle cx="106" cy="178" r="2.6"/><circle cx="196" cy="186" r="2.2"/><circle cx="270" cy="172" r="2.6"/><circle cx="140" cy="262" r="2.4"/><circle cx="246" cy="268" r="2.4"/></g>
+          </svg>
+        </div></div></div>
+        <div class="layer s2-mac-1" data-depth="46" style="--d:380ms"><div class="anim"><div class="float float-b">
+          <svg viewBox="0 0 90 60" style="color:#C4536A" aria-hidden="true"><use href="#ic-macaron"/></svg>
+        </div></div></div>
+        <div class="layer s2-mac-2" data-depth="58" style="--d:440ms"><div class="anim"><div class="float float-c">
+          <svg viewBox="0 0 90 60" style="color:#A9BC8F" aria-hidden="true"><use href="#ic-macaron"/></svg>
+        </div></div></div>
+        <div class="layer s2-mac-3" data-depth="38" style="--d:500ms"><div class="anim"><div class="float float-a">
+          <svg viewBox="0 0 90 60" style="color:#D9A441" aria-hidden="true"><use href="#ic-macaron"/></svg>
+        </div></div></div>
+        <div class="layer s2-berry-1" data-depth="64" style="--d:520ms"><div class="anim"><div class="float float-b">
+          <svg viewBox="0 0 36 40" aria-hidden="true"><use href="#ic-berry"/></svg>
+        </div></div></div>
+        <div class="layer s2-berry-2" data-depth="50" style="--d:560ms"><div class="anim"><div class="float float-c">
+          <svg viewBox="0 0 36 40" aria-hidden="true"><use href="#ic-berry"/></svg>
+        </div></div></div>
+        <div class="layer s2-spark" data-depth="72" style="--d:600ms"><div class="anim">
+          <svg class="sparkle" viewBox="0 0 32 32" aria-hidden="true"><use href="#ic-spark"/></svg>
+        </div></div></div>
+      </div>
+    </section>
+
+    <!-- ── Sahne 3 · Bistro ── -->
+    <section class="slide" id="bistro" data-theme="dark" role="group" aria-roledescription="sahne" aria-label="3 / 6 — Günün Her Saati Sofra">
+      <div class="copy">
+        <p class="kicker layer" data-depth="6" style="--d:40ms"><span class="anim">Bistro</span></p>
+        <h2 class="headline layer" data-depth="10" style="--d:120ms"><span class="anim">Günün Her Saati <em>Sofra</em></span></h2>
+        <p class="lead layer" data-depth="8" style="--d:220ms"><span class="anim">Kahvaltıdan akşam sofrasına uzanan all-day mutfağımızda tabaklar mevsimle değişir; lezzet hep aynı kalır.</span></p>
+      </div>
+      <div class="scene s3">
+        <div class="layer s3-shadow" data-depth="18" style="--d:260ms"><div class="anim"><div class="shadow-blob"></div></div></div>
+        <div class="layer s3-plate" data-depth="26" style="--d:200ms"><div class="anim"><div class="float float-a">
+          <svg viewBox="0 0 460 330" aria-hidden="true">
+            <defs>
+              <linearGradient id="g-toast" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#E8B462"/><stop offset="1" stop-color="#C08540"/>
+              </linearGradient>
+            </defs>
+            <ellipse cx="230" cy="180" rx="196" ry="122" fill="#F1E6D2" stroke="#C9B48E" stroke-width="3"/>
+            <ellipse cx="230" cy="178" rx="164" ry="98" fill="#FAF3E4"/>
+            <g transform="rotate(-7 210 172)">
+              <rect x="96" y="118" width="212" height="126" rx="16" fill="url(#g-toast)" stroke="#8A5420" stroke-width="3"/>
+              <rect x="110" y="130" width="184" height="102" rx="10" fill="#F0C87E" opacity=".65"/>
+            </g>
+            <path d="M156 148 C120 132 118 186 152 196 C130 224 178 244 200 224 C214 250 262 244 264 216 C296 228 322 196 298 176 C322 156 292 122 264 136 C254 108 202 108 196 134 C176 118 148 124 156 148 Z" fill="#FFF9EE" stroke="#E4D2AE" stroke-width="3"/>
+            <circle cx="212" cy="180" r="34" fill="#E8A33D" stroke="#C77F1F" stroke-width="3"/>
+            <ellipse cx="202" cy="170" rx="10" ry="7" fill="#F6C86E" opacity=".9"/>
+            <g transform="rotate(14 350 208)">
+              <path d="M296 208 A54 34 0 0 1 404 208 L404 214 A54 34 0 0 1 296 214 Z" fill="#7E9457" stroke="#55693A" stroke-width="3"/>
+              <path d="M310 206 A40 24 0 0 1 390 206 L390 210 A40 24 0 0 1 310 210 Z" fill="#B7CB8B"/>
+              <circle cx="350" cy="204" r="9" fill="#6B4B2A"/>
+            </g>
+            <g fill="#43512F" opacity=".85"><circle cx="150" cy="238" r="2.4"/><circle cx="252" cy="252" r="2.4"/><circle cx="318" cy="150" r="2.4"/></g>
+          </svg>
+        </div></div></div>
+        <div class="layer s3-tomato" data-depth="52" style="--d:400ms"><div class="anim"><div class="float float-b">
+          <svg viewBox="0 0 56 56" aria-hidden="true">
+            <circle cx="28" cy="28" r="24" fill="#D95746" stroke="#A93526" stroke-width="2.5"/>
+            <circle cx="28" cy="28" r="17" fill="#EE7A64"/>
+            <g fill="#F8C9B4"><ellipse cx="28" cy="16" rx="4" ry="6"/><ellipse cx="38" cy="24" rx="4" ry="6" transform="rotate(72 38 24)"/><ellipse cx="34" cy="37" rx="4" ry="6" transform="rotate(144 34 37)"/><ellipse cx="22" cy="37" rx="4" ry="6" transform="rotate(216 22 37)"/><ellipse cx="18" cy="24" rx="4" ry="6" transform="rotate(288 18 24)"/></g>
+            <circle cx="28" cy="28" r="4" fill="#F5B49A"/>
+          </svg>
+        </div></div></div>
+        <div class="layer s3-basil-1" data-depth="62" style="--d:460ms"><div class="anim"><div class="float float-c">
+          <svg viewBox="0 0 44 52" aria-hidden="true"><use href="#ic-leaf"/></svg>
+        </div></div></div>
+        <div class="layer s3-basil-2" data-depth="44" style="--d:520ms"><div class="anim"><div class="float float-a">
+          <svg viewBox="0 0 44 52" aria-hidden="true"><use href="#ic-leaf"/></svg>
+        </div></div></div>
+        <div class="layer s3-pepper" data-depth="70" style="--d:560ms"><div class="anim"><div class="float float-b">
+          <svg viewBox="0 0 48 30" aria-hidden="true">
+            <path d="M6 22 C10 8 34 4 42 10 C40 14 36 14 32 13 C26 24 12 28 6 22 Z" fill="#C24A38" stroke="#8E2F20" stroke-width="2"/>
+            <path d="M42 10 C45 8 46 6 45 3" fill="none" stroke="#5E7C46" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </div></div></div>
+      </div>
+    </section>
+
+    <!-- ── Sahne 4 · Kahve & Çay ── -->
+    <section class="slide" id="kahve" data-theme="dark" role="group" aria-roledescription="sahne" aria-label="4 / 6 — Fincanın Sıcak Tarafı">
+      <div class="copy">
+        <p class="kicker layer" data-depth="6" style="--d:40ms"><span class="anim">Kahve &amp; Çay</span></p>
+        <h2 class="headline layer" data-depth="10" style="--d:120ms"><span class="anim">Fincanın <em>Sıcak</em> Tarafı</span></h2>
+        <p class="lead layer" data-depth="8" style="--d:220ms"><span class="anim">Özenle kavrulmuş çekirdekler, ince demlenmiş çaylar; yanında küçük bir tatlı, karşınızda büyük bir mola.</span></p>
+      </div>
+      <div class="scene s4">
+        <div class="layer s4-shadow" data-depth="18" style="--d:260ms"><div class="anim"><div class="shadow-blob"></div></div></div>
+        <div class="layer s4-cup" data-depth="26" style="--d:200ms"><div class="anim"><div class="float float-a">
+          <svg viewBox="0 0 400 340" aria-hidden="true">
+            <defs>
+              <linearGradient id="g-cup" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#FBF3E2"/><stop offset="1" stop-color="#E9D6B4"/>
+              </linearGradient>
+            </defs>
+            <ellipse cx="200" cy="296" rx="132" ry="22" fill="#D9AC62"/>
+            <ellipse cx="200" cy="290" rx="108" ry="16" fill="#EFD9AE"/>
+            <path d="M298 172 C336 164 344 216 300 226 C292 228 284 228 280 226 L286 206 C302 210 316 204 312 190 C309 179 300 176 292 180 Z" fill="url(#g-cup)" stroke="#B08A4E" stroke-width="3"/>
+            <path d="M104 150 L120 268 Q122 284 146 284 L254 284 Q278 284 280 268 L296 150 Z" fill="url(#g-cup)" stroke="#B08A4E" stroke-width="3"/>
+            <path d="M112 196 L288 196" stroke="#C98A3D" stroke-width="5" opacity=".55"/>
+            <ellipse cx="200" cy="150" rx="96" ry="26" fill="#4A2C14" stroke="#B08A4E" stroke-width="3"/>
+            <path d="M200 136 C188 142 190 152 200 156 C210 152 212 142 200 136 M200 156 C198 160 198 164 200 168" fill="none" stroke="#EFD9AE" stroke-width="4" stroke-linecap="round"/>
+            <ellipse cx="200" cy="150" rx="72" ry="17" fill="none" stroke="#D9A441" stroke-width="2.5" opacity=".6"/>
+          </svg>
+        </div></div></div>
+        <div class="layer s4-steam" data-depth="14" style="--d:420ms"><div class="anim">
+          <svg class="steam steam-big" viewBox="0 0 120 150" aria-hidden="true">
+            <path class="steam-p steam-1" d="M38 140 C30 112 52 100 44 74 C38 52 52 40 48 18" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+            <path class="steam-p steam-2" d="M64 146 C56 118 78 106 70 80 C64 58 78 46 74 24" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+            <path class="steam-p steam-3" d="M90 140 C82 112 104 100 96 74 C90 52 104 40 100 18" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+          </svg>
+        </div></div>
+        <div class="layer s4-bean-1" data-depth="56" style="--d:400ms"><div class="anim"><div class="float float-b">
+          <svg viewBox="0 0 40 40" aria-hidden="true"><use href="#ic-bean"/></svg>
+        </div></div></div>
+        <div class="layer s4-bean-2" data-depth="44" style="--d:460ms"><div class="anim"><div class="float float-c">
+          <svg viewBox="0 0 40 40" aria-hidden="true"><use href="#ic-bean"/></svg>
+        </div></div></div>
+        <div class="layer s4-cinnamon" data-depth="64" style="--d:520ms"><div class="anim"><div class="float float-a">
+          <svg viewBox="0 0 90 34" aria-hidden="true">
+            <rect x="4" y="8" width="82" height="18" rx="9" fill="#A96A32" stroke="#7C481D" stroke-width="2.5"/>
+            <path d="M12 12 q8 5 0 10 M26 12 q8 5 0 10 M40 12 q8 5 0 10 M54 12 q8 5 0 10 M68 12 q8 5 0 10" fill="none" stroke="#7C481D" stroke-width="2" stroke-linecap="round" opacity=".8"/>
+          </svg>
+        </div></div></div>
+        <div class="layer s4-anise" data-depth="74" style="--d:560ms"><div class="anim"><div class="float float-b">
+          <svg viewBox="0 0 44 44" aria-hidden="true">
+            <g fill="#6E4A26" stroke="#4E3218" stroke-width="1.6">
+              <ellipse cx="22" cy="8"  rx="4.5" ry="8"/><ellipse cx="22" cy="36" rx="4.5" ry="8"/>
+              <ellipse cx="8"  cy="22" rx="8" ry="4.5"/><ellipse cx="36" cy="22" rx="8" ry="4.5"/>
+              <ellipse cx="12" cy="12" rx="4.2" ry="7.4" transform="rotate(-45 12 12)"/><ellipse cx="32" cy="32" rx="4.2" ry="7.4" transform="rotate(-45 32 32)"/>
+              <ellipse cx="32" cy="12" rx="4.2" ry="7.4" transform="rotate(45 32 12)"/><ellipse cx="12" cy="32" rx="4.2" ry="7.4" transform="rotate(45 12 32)"/>
+            </g>
+            <circle cx="22" cy="22" r="4.5" fill="#8A5E30"/>
+          </svg>
+        </div></div></div>
+      </div>
+    </section>
+
+    <!-- ── Sahne 5 · Menü kapısı (aydınlık) ── -->
+    <section class="slide" id="menu" data-theme="light" role="group" aria-roledescription="sahne" aria-label="5 / 6 — Sofra Kuruldu">
+      <div class="copy">
+        <p class="kicker layer" data-depth="6" style="--d:40ms"><span class="anim">Menü</span></p>
+        <h2 class="headline layer" data-depth="10" style="--d:120ms"><span class="anim">Sofra <em>Kuruldu</em></span></h2>
+        <p class="lead layer" data-depth="8" style="--d:220ms"><span class="anim">Patisserie vitrininden bistro klasiklerine — hepsi tek menüde bir araya geliyor.</span></p>
+        <div class="cta-wrap layer" data-depth="12" style="--d:320ms"><div class="anim">
+          <button class="btn btn-dark" type="button" data-soon>Menüyü Keşfet</button>
+          <p class="cta-note">QR menümüz çok yakında burada</p>
+          <span class="soon-stamp" aria-hidden="true">Çok Yakında</span>
+        </div></div>
+      </div>
+      <div class="scene s5">
+        <div class="layer s5-tart" data-depth="40" style="--d:300ms"><div class="anim"><div class="float float-a">
+          <svg viewBox="0 0 200 200" aria-hidden="true">
+            <circle cx="100" cy="100" r="96" fill="#FFFDF6" stroke="#DCC9A4" stroke-width="3"/>
+            <circle cx="100" cy="100" r="64" fill="#E8B462" stroke="#B07C34" stroke-width="3"/>
+            <circle cx="100" cy="100" r="48" fill="#8E3548"/>
+            <g fill="#C6394F" stroke="#6E2635" stroke-width="1.5"><circle cx="86" cy="88" r="9"/><circle cx="114" cy="86" r="9"/><circle cx="122" cy="112" r="9"/><circle cx="96" cy="118" r="9"/><circle cx="76" cy="108" r="9"/><circle cx="104" cy="100" r="9"/></g>
+          </svg>
+        </div></div></div>
+        <div class="layer s5-coffee" data-depth="56" style="--d:360ms"><div class="anim"><div class="float float-b">
+          <svg viewBox="0 0 180 180" aria-hidden="true">
+            <circle cx="90" cy="90" r="86" fill="#FFFDF6" stroke="#DCC9A4" stroke-width="3"/>
+            <circle cx="90" cy="90" r="58" fill="#4A2C14"/>
+            <path d="M62 92 C74 74 106 74 118 92 C106 108 74 108 62 92 Z" fill="#C98A3D" opacity=".85"/>
+            <path d="M78 90 q12 -12 24 0 q-12 12 -24 0" fill="#F1E2C2"/>
+          </svg>
+        </div></div></div>
+        <div class="layer s5-roll" data-depth="34" style="--d:420ms"><div class="anim"><div class="float float-c">
+          <svg viewBox="0 0 190 190" aria-hidden="true">
+            <circle cx="95" cy="95" r="90" fill="#FFFDF6" stroke="#DCC9A4" stroke-width="3"/>
+            <circle cx="95" cy="95" r="58" fill="#D9A441" stroke="#A96A26" stroke-width="3"/>
+            <path d="M95 95 m0 -44 a44 44 0 1 1 -44 44 a34 34 0 1 0 34 -34 a24 24 0 1 1 -24 24 a14 14 0 1 0 14 -14" fill="none" stroke="#8A5420" stroke-width="7" stroke-linecap="round"/>
+          </svg>
+        </div></div></div>
+        <div class="layer s5-salad" data-depth="48" style="--d:480ms"><div class="anim"><div class="float float-a">
+          <svg viewBox="0 0 200 200" aria-hidden="true">
+            <circle cx="100" cy="100" r="96" fill="#FFFDF6" stroke="#DCC9A4" stroke-width="3"/>
+            <circle cx="100" cy="100" r="62" fill="#EFE6CE"/>
+            <g fill="#7E9457" stroke="#55693A" stroke-width="2"><ellipse cx="82" cy="92" rx="20" ry="14" transform="rotate(-24 82 92)"/><ellipse cx="116" cy="88" rx="20" ry="14" transform="rotate(18 116 88)"/><ellipse cx="100" cy="116" rx="22" ry="15" transform="rotate(-6 100 116)"/></g>
+            <circle cx="94" cy="94" r="7" fill="#D95746"/><circle cx="120" cy="110" r="7" fill="#D95746"/><circle cx="76" cy="112" r="6" fill="#E8A33D"/>
+          </svg>
+        </div></div></div>
+        <div class="layer s5-slice" data-depth="62" style="--d:520ms"><div class="anim"><div class="float float-b">
+          <svg viewBox="0 0 170 170" aria-hidden="true">
+            <circle cx="85" cy="85" r="80" fill="#FFFDF6" stroke="#DCC9A4" stroke-width="3"/>
+            <g transform="rotate(-18 85 85)">
+              <path d="M85 40 L122 124 Q85 140 48 124 Z" fill="#F6E7C8" stroke="#B07C34" stroke-width="3"/>
+              <path d="M62 116 Q85 126 108 116" fill="none" stroke="#B94660" stroke-width="8"/>
+              <circle cx="85" cy="52" r="7" fill="#C6394F"/>
+            </g>
+          </svg>
+        </div></div></div>
+        <div class="layer s5-fork" data-depth="70" style="--d:560ms"><div class="anim"><div class="float float-c">
+          <svg viewBox="0 0 40 150" aria-hidden="true">
+            <g stroke="#8A6B3F" stroke-width="4" stroke-linecap="round" fill="none">
+              <path d="M12 8 V40 M20 8 V40 M28 8 V40"/>
+              <path d="M12 40 Q20 52 20 60 V138 M28 40 Q20 52 20 60"/>
+            </g>
+          </svg>
+        </div></div></div>
+      </div>
+    </section>
+
+    <!-- ── Sahne 6 · Mekan & İletişim ── -->
+    <section class="slide" id="iletisim" data-theme="dark" role="group" aria-roledescription="sahne" aria-label="6 / 6 — Çayınız Demlendi, Bekleriz">
+      <div class="lamps layer" data-depth="10" style="--d:80ms" aria-hidden="true"><div class="anim">
+        <svg viewBox="0 0 600 190" aria-hidden="true">
+          <defs>
+            <radialGradient id="g-glow" cx=".5" cy=".5" r=".5">
+              <stop offset="0" stop-color="#F5CE8C" stop-opacity=".85"/><stop offset="1" stop-color="#F5CE8C" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <g stroke="#8A6B3F" stroke-width="3">
+            <line x1="120" y1="0" x2="120" y2="96"/><line x1="300" y1="0" x2="300" y2="52"/><line x1="480" y1="0" x2="480" y2="76"/>
+          </g>
+          <g>
+            <circle cx="120" cy="118" r="40" fill="url(#g-glow)"/><circle cx="120" cy="112" r="15" fill="#E8B85C" stroke="#B08A4E" stroke-width="2.5"/>
+            <circle cx="300" cy="74" r="46" fill="url(#g-glow)"/><circle cx="300" cy="68" r="16" fill="#F0C368" stroke="#B08A4E" stroke-width="2.5"/>
+            <circle cx="480" cy="98" r="38" fill="url(#g-glow)"/><circle cx="480" cy="92" r="14" fill="#E8B85C" stroke="#B08A4E" stroke-width="2.5"/>
+          </g>
+        </svg>
+      </div></div>
+      <div class="copy copy-contact">
+        <p class="kicker layer" data-depth="6" style="--d:40ms"><span class="anim">Mekan &amp; İletişim</span></p>
+        <h2 class="headline layer" data-depth="10" style="--d:120ms"><span class="anim">Çayınız Demlendi, <em>Bekleriz</em></span></h2>
+        <div class="contact-grid layer" data-depth="8" style="--d:240ms"><div class="anim">
+          <div class="contact-item">
+            <h3>Adres</h3>
+            <p data-slot="adres">Adres bilgisi<br>çok yakında</p>
+          </div>
+          <div class="contact-item">
+            <h3>Çalışma Saatleri</h3>
+            <p data-slot="saatler">Her gün<br>08.00 — 23.00</p>
+          </div>
+          <div class="contact-item">
+            <h3>Rezervasyon</h3>
+            <p data-slot="telefon">Telefon numarası<br>çok yakında</p>
+          </div>
+        </div></div>
+        <div class="cta-wrap layer" data-depth="12" style="--d:340ms"><div class="anim">
+          <button class="btn btn-light" type="button" data-soon>Yol Tarifi Al</button>
+          <span class="soon-stamp" aria-hidden="true">Çok Yakında</span>
+        </div></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══ Mobil menü katmanı ═══ -->
+  <div class="menu-overlay" id="menu-overlay" aria-hidden="true">
+    <nav aria-label="Mobil menü">
+      <a href="#anasayfa"   data-goto="0">Anasayfa</a>
+      <a href="#patisserie" data-goto="1">Patisserie</a>
+      <a href="#bistro"     data-goto="2">Bistro</a>
+      <a href="#kahve"      data-goto="3">Kahve &amp; Çay</a>
+      <a href="#menu"       data-goto="4">Menü</a>
+      <a href="#iletisim"   data-goto="5">İletişim</a>
+    </nav>
+  </div>
+
+  <!-- ═══ Doku katmanı ═══ -->
+  <svg class="grain" aria-hidden="true">
+    <filter id="grain-f"><feTurbulence type="fractalNoise" baseFrequency="0.72" numOctaves="2" stitchTiles="stitch"/></filter>
+    <rect width="100%" height="100%" filter="url(#grain-f)"/>
+  </svg>
+
+  <!-- ═══ Ortak semboller ═══ -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="orn-wheat" viewBox="0 0 60 120">
+        <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+          <path d="M30 116 C30 84 30 48 30 10"/>
+          <path d="M30 22 C22 20 16 12 17 4 C25 6 30 13 30 22 Z"/><path d="M30 22 C38 20 44 12 43 4 C35 6 30 13 30 22 Z"/>
+          <path d="M30 44 C21 42 14 33 15 24 C24 26 30 34 30 44 Z"/><path d="M30 44 C39 42 46 33 45 24 C36 26 30 34 30 44 Z"/>
+          <path d="M30 66 C21 64 14 55 15 46 C24 48 30 56 30 66 Z"/><path d="M30 66 C39 64 46 55 45 46 C36 48 30 56 30 66 Z"/>
+          <path d="M30 88 C21 86 14 77 15 68 C24 70 30 78 30 88 Z"/><path d="M30 88 C39 86 46 77 45 68 C36 70 30 78 30 88 Z"/>
+        </g>
+      </symbol>
+      <symbol id="orn-wheat-solid" viewBox="0 0 60 120">
+        <g fill="#D9A441" stroke="#A9752B" stroke-width="1.4">
+          <path d="M30 116 C30 84 30 48 30 12" fill="none" stroke-width="2.4"/>
+          <path d="M30 24 C22 22 16 13 17 5 C25 7 30 14 30 24 Z"/><path d="M30 24 C38 22 44 13 43 5 C35 7 30 14 30 24 Z"/>
+          <path d="M30 48 C21 46 14 36 15 27 C24 29 30 38 30 48 Z"/><path d="M30 48 C39 46 46 36 45 27 C36 29 30 38 30 48 Z"/>
+          <path d="M30 72 C21 70 14 60 15 51 C24 53 30 62 30 72 Z"/><path d="M30 72 C39 70 46 60 45 51 C36 53 30 62 30 72 Z"/>
+          <path d="M30 96 C21 94 14 84 15 75 C24 77 30 86 30 96 Z"/><path d="M30 96 C39 94 46 84 45 75 C36 77 30 86 30 96 Z"/>
+        </g>
+      </symbol>
+      <symbol id="ic-bean" viewBox="0 0 40 40">
+        <ellipse cx="20" cy="20" rx="13" ry="17" fill="#6E4A26" stroke="#4E3218" stroke-width="2" transform="rotate(24 20 20)"/>
+        <path d="M14 8 C24 16 16 26 26 33" fill="none" stroke="#3C2712" stroke-width="2.6" stroke-linecap="round" transform="rotate(24 20 20)"/>
+      </symbol>
+      <symbol id="ic-spark" viewBox="0 0 32 32">
+        <path d="M16 2 C17.5 9 23 14.5 30 16 C23 17.5 17.5 23 16 30 C14.5 23 9 17.5 2 16 C9 14.5 14.5 9 16 2 Z" fill="currentColor"/>
+      </symbol>
+      <symbol id="ic-macaron" viewBox="0 0 90 60">
+        <ellipse cx="45" cy="20" rx="36" ry="16" fill="currentColor"/>
+        <ellipse cx="45" cy="40" rx="36" ry="16" fill="currentColor"/>
+        <ellipse cx="45" cy="12" rx="26" ry="8" fill="#FFFFFF" opacity=".22"/>
+        <rect x="11" y="26" width="68" height="8" rx="4" fill="#FBF0D2"/>
+        <ellipse cx="45" cy="52" rx="30" ry="5" fill="#000000" opacity=".14"/>
+      </symbol>
+      <symbol id="ic-berry" viewBox="0 0 36 40">
+        <path d="M18 38 C4 30 6 12 18 8 C30 12 32 30 18 38 Z" fill="#C6394F" stroke="#8E2438" stroke-width="2"/>
+        <path d="M12 8 L18 1 L24 8 L18 5 Z" fill="#5E7C46"/>
+        <g fill="#F2C9C0" opacity=".85"><circle cx="14" cy="18" r="1.4"/><circle cx="22" cy="16" r="1.4"/><circle cx="18" cy="26" r="1.4"/><circle cx="13" cy="27" r="1.2"/><circle cx="23" cy="26" r="1.2"/></g>
+      </symbol>
+      <symbol id="ic-leaf" viewBox="0 0 44 52">
+        <path d="M22 50 C4 38 4 14 22 2 C40 14 40 38 22 50 Z" fill="#5E7C46" stroke="#3F5630" stroke-width="2"/>
+        <path d="M22 46 C22 32 22 18 22 6 M22 18 C16 20 12 24 11 29 M22 18 C28 20 32 24 33 29 M22 30 C17 32 14 35 13 39 M22 30 C27 32 30 35 31 39" fill="none" stroke="#3F5630" stroke-width="1.6" stroke-linecap="round"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <script src="js/utils.js"></script>
+  <script src="js/parallax.js"></script>
+  <script src="js/deck.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

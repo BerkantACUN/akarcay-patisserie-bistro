@@ -1,0 +1,79 @@
+/* ═══ Duyarlı düzen + hareket tercihleri ═══ */
+
+/* ── Tablet ── */
+@media (max-width: 1024px) {
+  .site-nav { display: none; }
+  .menu-toggle { display: grid; }
+  .ornament-bl, .ornament-br { display: none; }
+  .scene { width: 100%; }
+}
+
+/* ── Mobil ── */
+@media (max-width: 768px) {
+  .bullets { left: auto; right: calc(var(--space-edge) * 0.55); gap: 0.9rem; }
+  .bullets button { width: 8px; height: 8px; }
+  .slide-counter { display: none; }
+  .socials { display: none; }
+  .ornament { display: none; }
+  .scroll-hint { bottom: 1.1rem; }
+
+  .copy { gap: 0.8rem; }
+  .lead { max-width: 34ch; }
+
+  /* Sahne 1 */
+  .s1-croissant { width: min(78vw, 340px); top: 44%; }
+  .s1-steam { width: 64px; top: 8%; }
+  .s1-wheat-l { left: 13%; }
+  .s1-wheat-r { left: 87%; }
+  .s1-bean-2, .s1-spark { display: none; }
+
+  /* Sahne 2 */
+  .s2-cake { width: min(64vw, 280px); }
+  .s2-mac-1 { left: 16%; top: 24%; }
+  .s2-mac-2 { left: 85%; }
+  .s2-berry-2, .s2-spark { display: none; }
+
+  /* Sahne 3 */
+  .s3-plate { width: min(88vw, 380px); }
+  .s3-tomato { left: 15%; top: 20%; }
+  .s3-basil-1 { left: 86%; top: 24%; }
+  .s3-pepper { left: 82%; }
+
+  /* Sahne 4 */
+  .s4-cup { width: min(62vw, 270px); }
+  .s4-cinnamon { left: 84%; top: 20%; }
+  .s4-anise { left: 16%; }
+  .s4-bean-2 { display: none; }
+
+  /* Sahne 5 — kenar tabakları sadeleşir */
+  .s5-tart   { left: 2%;  top: 2%;  width: 108px; }
+  .s5-coffee { left: 98%; top: 12%; width: 92px; }
+  .s5-roll   { left: 4%;  top: 86%; width: 100px; }
+  .s5-salad  { left: 96%; top: 88%; width: 108px; }
+  .s5-slice, .s5-fork { display: none; }
+  .soon-stamp { right: -1rem; top: -2rem; }
+
+  /* Sahne 6 */
+  .lamps { width: 92vw; opacity: 0.65; }
+  .contact-grid .anim { grid-template-columns: 1fr; gap: 1.1rem; text-align: center; }
+  .contact-item p br { display: none; }
+  .copy-contact { margin-top: clamp(2.5rem, 6vh, 4rem); }
+}
+
+/* ── Kısa ekranlar (dizüstü 768p vb.) ── */
+@media (max-height: 760px) {
+  .copy { gap: 0.7rem; }
+  .lead { font-size: 0.95rem; line-height: 1.6; }
+  .s1-croissant, .s4-cup { width: clamp(240px, 30vh, 380px); }
+  .s2-cake { width: clamp(200px, 26vh, 300px); }
+  .scroll-hint { display: none; }
+}
+
+/* ── Hareket azaltma tercihi ── */
+@media (prefers-reduced-motion: reduce) {
+  .anim, .deck-bg, .btn, .bullets button { transition-duration: 1ms !important; transition-delay: 0ms !important; }
+  .float, .float-a, .float-b, .float-c,
+  .steam-p, .sparkle, .scroll-hint-dot,
+  .preloader-name, .preloader-sub { animation: none !important; }
+  .preloader-name, .preloader-sub { opacity: 1; transform: none; }
+}

@@ -1,0 +1,60 @@
+/* ═══ Akarçay Patisserie & Bistro — Tasarım Token'ları ═══ */
+
+:root {
+  /* Palet — sıcak patisserie */
+  --espresso-900: #1F130D;
+  --espresso-800: #2E1C13;
+  --espresso-700: #3A2418;
+  --mocha-700: #4A2E18;
+  --cherry-800: #571E2B;
+  --cherry-700: #7A2B3C;
+  --olive-800: #2A331F;
+  --olive-700: #3D4A2F;
+  --cream-50: #FBF5E9;
+  --cream-100: #F6EDDC;
+  --cream-300: #EBD9BC;
+  --caramel-400: #D9A441;
+  --caramel-500: #C98A3D;
+  --gold-300: #E8C97F;
+  --berry-400: #C4536A;
+  --pistachio-400: #A9BC8F;
+  --ink: #2B1B12;
+
+  /* Rol bazlı renkler (sahne temasına göre JS/CSS değiştirir) */
+  --chrome: var(--cream-100);
+  --chrome-soft: rgba(246, 237, 220, 0.55);
+  --chrome-line: rgba(246, 237, 220, 0.28);
+  --accent: var(--caramel-400);
+
+  /* Tipografi */
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body: "Manrope", "Segoe UI", system-ui, sans-serif;
+  --text-hero: clamp(2.6rem, 1rem + 6.8vw, 6.6rem);
+  --text-kicker: clamp(0.7rem, 0.62rem + 0.35vw, 0.88rem);
+  --text-lead: clamp(0.95rem, 0.88rem + 0.35vw, 1.13rem);
+  --text-ui: 0.82rem;
+
+  /* Ritim */
+  --space-edge: clamp(1.25rem, 0.8rem + 2.4vw, 3.5rem);
+  --header-h: clamp(4.2rem, 3.4rem + 2vw, 5.6rem);
+
+  /* Hareket fiziği */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-soft: cubic-bezier(0.33, 1, 0.68, 1);
+  --dur-slide: 1200ms;
+  --dur-out: 640ms;
+  --dur-ui: 350ms;
+
+  /* Katman düzeni */
+  --z-deck: 1;
+  --z-chrome: 40;
+  --z-overlay: 60;
+  --z-preloader: 80;
+}
+
+/* Aydınlık sahnede (Menü) arayüz mürekkep rengine döner */
+html[data-scene-theme="light"] {
+  --chrome: var(--ink);
+  --chrome-soft: rgba(43, 27, 18, 0.55);
+  --chrome-line: rgba(43, 27, 18, 0.22);
+}
