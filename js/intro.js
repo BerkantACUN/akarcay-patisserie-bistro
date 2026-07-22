@@ -65,12 +65,25 @@
     const gecis = AK.qs(".gecis");
     if (!gecis) return;
 
-    // Yeni sayfa açılırken perdeyi yukarı çek
-    if (sessionStorage.getItem("akarcay-gecis") === "1") {
-      sessionStorage.removeItem("akarcay-gecis");
+    function perdeyiAc() {
       gecis.classList.add("aciliyor");
       setTimeout(() => gecis.classList.remove("aciliyor"), 900);
     }
+
+    // Yeni sayfa açılırken perdeyi yukarı çek
+    if (sessionStorage.getItem("akarcay-gecis") === "1") {
+      sessionStorage.removeItem("akarcay-gecis");
+      perdeyiAc();
+    }
+
+    /* Geri/ileri tuşuyla önbellekten (bfcache) dönüldüğünde sayfa, terk
+       edildiği anki haliyle geri yüklenir — kapanmış perde ekranda kalır
+       ve site donmuş görünür. pageshow bu durumu yakalayıp perdeyi kaldırır. */
+    window.addEventListener("pageshow", (olay) => {
+      if (!gecis.classList.contains("kapaniyor")) return;
+      gecis.classList.remove("kapaniyor");
+      if (olay.persisted) perdeyiAc();
+    });
 
     AK.qsa("a[data-gecis]").forEach((baglanti) => {
       baglanti.addEventListener("click", (olay) => {
@@ -91,6 +104,14 @@
         setTimeout(() => {
           window.location.href = hedef;
         }, 720);
+
+        // Gezinme herhangi bir sebeple gerçekleşmezse perde ekranda kalmasın
+        setTimeout(() => {
+          if (gecis.classList.contains("kapaniyor")) {
+            gecis.classList.remove("kapaniyor");
+            sessionStorage.removeItem("akarcay-gecis");
+          }
+        }, 4000);
       });
     });
   }
