@@ -1,74 +1,78 @@
-/* ═══ Fare paralaksı — katmanlar imleci derinlik katsayısıyla izler ═══
-   data-depth="N" → katmanın gezinme yarıçapı (px). İmleç ekran merkezinden
-   uzaklaştıkça katman, N ile orantılı kayar; lerp ile yumuşatılır. */
+/* ═══════════════════════════════════════════════════════════
+   Fare paralaksı + vitrin eğimi
+
+   Katmanlar imleci derinlik katsayısıyla izler (data-derinlik =
+   px cinsinden gezinme yarıçapı). Tüm yazma işlemleri tek rAF
+   döngüsünde toplanır; hedefe varınca döngü uyur.
+   ═══════════════════════════════════════════════════════════ */
 (function () {
   "use strict";
 
-  var LERP_FACTOR = 0.075;
-  var IDLE_EPSILON = 0.02;
+  const YUMUSAMA = 0.08;
+  const ESIK = 0.0004;
 
-  function Parallax(root) {
-    this.layers = AK.qsa("[data-depth]", root);
-    this.targetX = 0;
-    this.targetY = 0;
-    this.currentX = 0;
-    this.currentY = 0;
-    this.rafId = null;
-    this.enabled = !AK.prefersReducedMotion() && !AK.isTouchDevice();
+  function Paralaks(kok) {
+    this.katmanlar = AK.qsa("[data-derinlik]", kok);
+    this.egimler = AK.qsa("[data-egim]", kok);
+    this.hedefX = 0;
+    this.hedefY = 0;
+    this.x = 0;
+    this.y = 0;
+    this.uyuyor = true;
+    this.acik = !AK.azHareket() && !AK.dokunmatik();
 
-    if (!this.enabled || this.layers.length === 0) { return; }
+    if (!this.acik || !this.katmanlar.length) return;
 
-    this.onMove = this.onMove.bind(this);
-    this.tick = this.tick.bind(this);
-
-    window.addEventListener("mousemove", this.onMove, { passive: true });
-    document.addEventListener("visibilitychange", this.onVisibility.bind(this));
-    this.start();
+    this.dongu = this.dongu.bind(this);
+    window.addEventListener("mousemove", (o) => this.imlec(o), { passive: true });
+    AK.gorunurlukte(
+      () => (this.acik = false),
+      () => {
+        this.acik = true;
+        this.uyandir();
+      }
+    );
   }
 
-  Parallax.prototype.onMove = function (event) {
-    // -0.5 .. 0.5 aralığına normalize edilmiş imleç konumu
-    this.targetX = event.clientX / window.innerWidth - 0.5;
-    this.targetY = event.clientY / window.innerHeight - 0.5;
+  Paralaks.prototype.imlec = function (olay) {
+    // -0.5 … 0.5 aralığına normalize edilmiş imleç konumu
+    this.hedefX = olay.clientX / window.innerWidth - 0.5;
+    this.hedefY = olay.clientY / window.innerHeight - 0.5;
+    this.uyandir();
   };
 
-  Parallax.prototype.onVisibility = function () {
-    if (document.hidden) { this.stop(); } else { this.start(); }
-  };
-
-  Parallax.prototype.start = function () {
-    if (this.rafId === null && this.enabled) {
-      this.rafId = window.requestAnimationFrame(this.tick);
+  Paralaks.prototype.uyandir = function () {
+    if (this.uyuyor && this.acik) {
+      this.uyuyor = false;
+      requestAnimationFrame(this.dongu);
     }
   };
 
-  Parallax.prototype.stop = function () {
-    if (this.rafId !== null) {
-      window.cancelAnimationFrame(this.rafId);
-      this.rafId = null;
-    }
-  };
+  Paralaks.prototype.dongu = function () {
+    this.x = AK.lerp(this.x, this.hedefX, YUMUSAMA);
+    this.y = AK.lerp(this.y, this.hedefY, YUMUSAMA);
 
-  Parallax.prototype.tick = function () {
-    this.currentX = AK.lerp(this.currentX, this.targetX, LERP_FACTOR);
-    this.currentY = AK.lerp(this.currentY, this.targetY, LERP_FACTOR);
-
-    var idle =
-      Math.abs(this.currentX - this.targetX) < IDLE_EPSILON / 100 &&
-      Math.abs(this.currentY - this.targetY) < IDLE_EPSILON / 100;
-
-    if (!idle) {
-      for (var i = 0; i < this.layers.length; i += 1) {
-        var layer = this.layers[i];
-        var depth = parseFloat(layer.getAttribute("data-depth")) || 0;
-        var x = (this.currentX * depth).toFixed(2);
-        var y = (this.currentY * depth * 0.85).toFixed(2);
-        layer.style.translate = x + "px " + y + "px";
-      }
+    for (let i = 0; i < this.katmanlar.length; i += 1) {
+      const el = this.katmanlar[i];
+      const d = parseFloat(el.dataset.derinlik) || 0;
+      el.style.translate = `${(this.x * d).toFixed(2)}px ${(this.y * d * 0.82).toFixed(2)}px`;
     }
 
-    this.rafId = window.requestAnimationFrame(this.tick);
+    // Vitrin ürünü imlece doğru hafifçe eğilir — sahte derinlik
+    for (let i = 0; i < this.egimler.length; i += 1) {
+      this.egimler[i].style.transform =
+        `perspective(900px) rotateY(${(this.x * 13).toFixed(2)}deg) ` +
+        `rotateX(${(-this.y * 9).toFixed(2)}deg)`;
+    }
+
+    const durgun =
+      Math.abs(this.x - this.hedefX) < ESIK && Math.abs(this.y - this.hedefY) < ESIK;
+    if (durgun || !this.acik) {
+      this.uyuyor = true;
+      return;
+    }
+    requestAnimationFrame(this.dongu);
   };
 
-  AK.Parallax = Parallax;
+  window.AKParalaks = Paralaks;
 })();

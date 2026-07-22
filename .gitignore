@@ -1,5 +1,10 @@
 # Yerel referans/analiz materyali — repoya girmez
 docs/
+Pastalar/
+*.pdf
+
+# Üretim betikleri ve geçici çıktılar
+.tmp-logo/
 
 # Araç artıkları
 .playwright-mcp/

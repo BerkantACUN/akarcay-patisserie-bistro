@@ -1,122 +1,143 @@
-/* ═══ Sahne kompozisyonları: konum, ölçü, efekt ═══ */
+/* ═══ Sahne kompozisyonları: her sahnenin kendi yerleşimi ═══ */
 
-.slide { overflow: hidden; }
+/* ─────────── Sahne 1 · Tatlı Bir Başlangıç ─────────── */
+.s1-vitrin { left: 50%; top: 47%; width: clamp(210px, 25vw, 380px); }
+.s1-golge  { left: 50%; top: 78%; width: clamp(210px, 24vw, 360px); height: clamp(44px, 5vw, 78px); }
+.s1-u1 { left: 14%; top: 26%; width: clamp(86px, 10.5vw, 170px); }
+.s1-u2 { left: 86%; top: 32%; width: clamp(78px, 9.5vw, 154px); }
+.s1-u3 { left: 21%; top: 76%; width: clamp(72px, 8.5vw, 140px); }
+.s1-u4 { left: 80%; top: 74%; width: clamp(80px, 9.5vw, 152px); }
 
-.layer { position: absolute; }
-.scene .layer { transform: translate(-50%, -50%); }
+/* ─────────── Sahne 2 · Katman Katman ─────────── */
+.s2-vitrin { left: 50%; top: 48%; width: clamp(200px, 24vw, 360px); }
+.s2-golge  { left: 50%; top: 79%; width: clamp(200px, 23vw, 340px); height: clamp(40px, 4.6vw, 72px); }
+.s2-u1 { left: 16%; top: 34%; width: clamp(84px, 10vw, 164px); }
+.s2-u2 { left: 84%; top: 40%; width: clamp(78px, 9vw, 148px); }
+.s2-u3 { left: 24%; top: 78%; width: clamp(70px, 8vw, 132px); }
 
-/* Metin katmanları akış içinde kalır */
-.copy .layer { position: relative; }
-
-/* ── Ortak parçalar ── */
-.shadow-blob {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.38) 0%, rgba(0, 0, 0, 0) 68%);
-}
-
-.steam { color: var(--cream-100); opacity: 0.5; }
-.steam-p { animation: steam-rise 3.4s ease-in-out infinite; }
-.steam-2 { animation-delay: -1.1s; }
-.steam-3 { animation-delay: -2.3s; }
-@keyframes steam-rise {
-  0%, 100% { transform: translateY(0); opacity: 0.25; }
-  50% { transform: translateY(-10px); opacity: 0.85; }
-}
-
-.sparkle { color: var(--gold-300); animation: twinkle 2.6s ease-in-out infinite; }
-@keyframes twinkle {
-  0%, 100% { transform: scale(0.7) rotate(0deg); opacity: 0.35; }
-  50% { transform: scale(1.15) rotate(18deg); opacity: 1; }
-}
-
-/* ═══ Sahne 1 · Açılış ═══ */
-.s1-croissant { left: 50%; top: 44%; width: clamp(300px, 36vw, 540px); }
-.s1-shadow    { left: 50%; top: 72%; width: clamp(260px, 30vw, 460px); height: clamp(60px, 7vw, 110px); }
-.s1-steam     { left: 50%; top: 13%; width: clamp(72px, 7vw, 110px); }
-.s1-wheat-l   { left: 21%; top: 42%; width: clamp(44px, 4.6vw, 72px); }
-.s1-wheat-r   { left: 79%; top: 30%; width: clamp(40px, 4.2vw, 64px); transform: translate(-50%, -50%) rotate(24deg); }
-.s1-bean-1    { left: 30%; top: 72%; width: clamp(26px, 2.6vw, 40px); }
-.s1-bean-2    { left: 71%; top: 64%; width: clamp(22px, 2.2vw, 34px); }
-.s1-spark     { left: 64%; top: 12%; width: clamp(20px, 2vw, 30px); }
-
-/* ═══ Sahne 2 · Patisserie ═══ */
-.s2-cake    { left: 50%; top: 44%; width: clamp(250px, 27vw, 400px); }
-.s2-shadow  { left: 50%; top: 76%; width: clamp(230px, 24vw, 360px); height: clamp(50px, 6vw, 90px); }
-.s2-mac-1   { left: 24%; top: 32%; width: clamp(70px, 7vw, 112px); }
-.s2-mac-2   { left: 77%; top: 56%; width: clamp(62px, 6.2vw, 96px); transform: translate(-50%, -50%) rotate(-14deg); }
-.s2-mac-3   { left: 27%; top: 76%; width: clamp(56px, 5.6vw, 88px); transform: translate(-50%, -50%) rotate(10deg); }
-.s2-berry-1 { left: 72%; top: 24%; width: clamp(26px, 2.6vw, 40px); }
-.s2-berry-2 { left: 36%; top: 12%; width: clamp(22px, 2.2vw, 34px); transform: translate(-50%, -50%) rotate(-16deg); }
-.s2-spark   { left: 16%; top: 52%; width: clamp(20px, 2vw, 30px); }
-
-/* ═══ Sahne 3 · Bistro ═══ */
-.s3-plate   { left: 50%; top: 45%; width: clamp(320px, 38vw, 580px); }
-.s3-shadow  { left: 50%; top: 73%; width: clamp(280px, 33vw, 500px); height: clamp(56px, 6.6vw, 100px); }
-.s3-tomato  { left: 24%; top: 26%; width: clamp(38px, 3.8vw, 58px); }
-.s3-basil-1 { left: 78%; top: 32%; width: clamp(30px, 3vw, 46px); transform: translate(-50%, -50%) rotate(22deg); }
-.s3-basil-2 { left: 29%; top: 74%; width: clamp(26px, 2.6vw, 40px); transform: translate(-50%, -50%) rotate(-30deg); }
-.s3-pepper  { left: 74%; top: 72%; width: clamp(32px, 3.2vw, 50px); }
-
-/* ═══ Sahne 4 · Kahve & Çay ═══ */
-.s4-cup      { left: 50%; top: 46%; width: clamp(250px, 27vw, 400px); }
-.s4-shadow   { left: 50%; top: 76%; width: clamp(230px, 24vw, 360px); height: clamp(46px, 5.6vw, 84px); }
-.s4-steam    { left: 50%; top: 14%; width: clamp(78px, 8vw, 122px); }
-.s4-bean-1   { left: 28%; top: 34%; width: clamp(26px, 2.6vw, 40px); }
-.s4-bean-2   { left: 73%; top: 58%; width: clamp(22px, 2.2vw, 34px); }
-.s4-cinnamon { left: 75%; top: 24%; width: clamp(58px, 5.8vw, 90px); transform: translate(-50%, -50%) rotate(-24deg); }
-.s4-anise    { left: 25%; top: 66%; width: clamp(30px, 3vw, 46px); }
-.steam-big { opacity: 0.6; }
-
-/* ═══ Sahne 5 · Menü (aydınlık, kuşbakışı) ═══ */
-#menu .copy { z-index: 6; }
-.s5-tart   { left: 8%;  top: 6%;  width: clamp(120px, 13vw, 200px); }
-.s5-coffee { left: 92%; top: 16%; width: clamp(104px, 11vw, 172px); }
-.s5-roll   { left: 12%; top: 78%; width: clamp(112px, 12vw, 186px); }
-.s5-salad  { left: 88%; top: 80%; width: clamp(120px, 13vw, 200px); }
-.s5-slice  { left: 34%; top: 96%; width: clamp(96px, 10.4vw, 164px); }
-.s5-fork   { left: 68%; top: 100%; width: clamp(26px, 2.6vw, 38px); transform: translate(-50%, -50%) rotate(18deg); }
-
-/* Aydınlık sahnede süslemeler ve gölgeler yumuşar */
-#menu .shadow-blob { opacity: 0.4; }
-
-/* ═══ Sahne 6 · Mekan & İletişim ═══ */
-#iletisim { justify-content: flex-start; }
-
-.lamps {
+/* Katman çizgileri — "kat kat" fikrini görselleştirir */
+.kat-cizgi {
+  position: absolute;
   left: 50%;
-  top: calc(var(--header-h) * 0.4);
+  width: min(76vw, 46rem);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--line) 18%, var(--line) 82%, transparent);
   transform: translateX(-50%);
-  width: min(660px, 76vw);
-  z-index: 2;
-  opacity: 0.9;
 }
-.lamps svg ellipse, .lamps svg circle { transform-origin: center; }
+.kat-cizgi-1 { top: 40%; }
+.kat-cizgi-2 { top: 56%; }
+.kat-cizgi-3 { top: 72%; }
 
-.copy-contact { margin-top: clamp(4rem, 10vh, 8rem); }
-
-.contact-grid { margin-top: clamp(1rem, 2.4vh, 2rem); }
-.contact-grid .anim {
+/* ─────────── Kategori tabakları ───────────
+   Fotoğrafı henüz gelmemiş kategoriler için marka mührü taşıyan
+   tabak. Görsel eklenince <img> ile değiştirilir, düzen aynı kalır. */
+.tabak {
+  position: relative;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: clamp(1.4rem, 3vw, 3.6rem);
-  padding-top: clamp(1.4rem, 3vh, 2.4rem);
-  border-top: 1px solid var(--chrome-line);
+  place-items: center;
+  gap: 0.5rem;
+  aspect-ratio: 1;
+  padding: 12%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 32%, #fff 0%, var(--sand-50) 62%, var(--sand-100) 100%);
+  box-shadow: var(--shadow-soft), inset 0 0 0 1px rgba(146, 62, 37, 0.1);
 }
-.contact-item h3 {
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.34em;
+.tabak::before {
+  content: "";
+  position: absolute;
+  inset: 7%;
+  border: 1.5px dashed rgba(146, 62, 37, 0.3);
+  border-radius: 50%;
+}
+[data-tone="dark"] .tabak {
+  background: radial-gradient(circle at 38% 32%, var(--clay-600) 0%, var(--clay-700) 60%, var(--clay-800) 100%);
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(227, 217, 198, 0.16);
+}
+[data-tone="dark"] .tabak::before {
+  border-color: rgba(227, 217, 198, 0.3);
+}
+.tabak-muhur {
+  width: 62%;
+  height: auto;
+  opacity: 0.9;
+  animation: muhur-don 44s linear infinite;
+}
+@keyframes muhur-don {
+  to { transform: rotate(360deg); }
+}
+.tabak-not {
+  position: absolute;
+  bottom: 13%;
+  font-size: clamp(0.5rem, 1.1vw, 0.62rem);
+  font-weight: 800;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: 0.7em;
+  opacity: 0.8;
+  text-align: center;
 }
-.contact-item p {
-  font-size: 0.95rem;
-  line-height: 1.7;
-  color: var(--chrome-soft);
-  font-weight: 500;
+.tabak-kucuk .tabak-not {
+  display: none;
 }
 
-#iletisim .cta-wrap { margin-top: clamp(1.6rem, 3.4vh, 2.8rem); }
+/* Kategori sahnesi yerleşimi */
+.kt-ana { left: 50%; top: 48%; width: clamp(190px, 23vw, 340px); }
+.kt-golge { left: 50%; top: 79%; width: clamp(190px, 22vw, 320px); height: clamp(38px, 4.4vw, 68px); }
+.kt-1 { left: 15%; top: 30%; width: clamp(74px, 9vw, 146px); }
+.kt-2 { left: 85%; top: 37%; width: clamp(68px, 8.2vw, 132px); }
+.kt-3 { left: 22%; top: 76%; width: clamp(62px, 7.4vw, 118px); }
+.kt-4 { left: 79%; top: 73%; width: clamp(66px, 8vw, 126px); }
+
+/* ─────────── Sahne 3 · Vitrinimiz (koyu) ─────────── */
+.vitrin-yay {
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  width: min(94vw, 68rem);
+  height: clamp(180px, 30vh, 320px);
+  transform: translate(-50%, -50%);
+}
+.yay-oge {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: clamp(96px, 12vw, 190px);
+  transform: translate(-50%, -50%) translateX(var(--x)) translateY(var(--y))
+    rotate(var(--r, 0deg));
+  transition: transform 520ms var(--ease-back), filter 420ms;
+}
+.yay-oge:hover {
+  transform: translate(-50%, -50%) translateX(var(--x)) translateY(calc(var(--y) - 16px))
+    rotate(0deg) scale(1.09);
+  z-index: 5;
+}
+
+/* ─────────── Sahne 4 · Menü ─────────── */
+.s4-vitrin { left: 50%; top: 52%; width: clamp(190px, 22vw, 330px); }
+.s4-golge  { left: 50%; top: 80%; width: clamp(190px, 21vw, 310px); height: clamp(38px, 4.4vw, 68px); }
+.s4-u1 { left: 17%; top: 40%; width: clamp(80px, 9.5vw, 152px); }
+.s4-u2 { left: 83%; top: 46%; width: clamp(76px, 9vw, 144px); }
+
+/* ─────────── Sahne 5 · İletişim ─────────── */
+.lambalar {
+  left: 50%;
+  top: calc(var(--header-h) * 0.2);
+  width: min(660px, 80vw);
+  transform: translateX(-50%);
+  z-index: 2;
+}
+.metin-iletisim {
+  margin-top: clamp(2.4rem, 8vh, 6rem);
+}
+
+/* Sarkıt lamba ışıması */
+.lamba-hale {
+  animation: lamba-nefes 4.6s ease-in-out infinite;
+  transform-origin: center;
+}
+.lamba-hale:nth-of-type(2) { animation-delay: -1.6s; }
+.lamba-hale:nth-of-type(3) { animation-delay: -3s; }
+@keyframes lamba-nefes {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.08); }
+}

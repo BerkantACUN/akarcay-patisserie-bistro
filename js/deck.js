@@ -1,194 +1,207 @@
-/* ═══ SceneDeck — tam ekran dikey sahne destesi ═══
-   Tekerlek / dokunma / klavye / nokta gezinmesiyle tek adımlık sahne
-   geçişleri. Geçiş koreografisi CSS'te; burada durum makinesi ve kilit var. */
+/* ═══════════════════════════════════════════════════════════
+   SceneDeck — tam ekran dikey sahne destesi
+
+   Tekerlek / dokunma / klavye / nokta gezinmesiyle tek adımlık
+   geçişler. Koreografi CSS'te; burada durum makinesi ve kilit var.
+   ═══════════════════════════════════════════════════════════ */
 (function () {
   "use strict";
 
-  var WHEEL_THRESHOLD = 30;   // px cinsinden birikimli tekerlek eşiği
-  var SWIPE_THRESHOLD = 48;   // px cinsinden dokunma kaydırma eşiği
-  var LOCK_MS = 1400;         // geçiş sırasında girişlerin kilitli kaldığı süre
-  var LEAVE_MS = 700;         // is-leaving sınıfının temizlenme süresi
+  const TEKER_ESIK = 34; // birikimli tekerlek eşiği (px)
+  const KAYDIRMA_ESIK = 46; // dokunma kaydırma eşiği (px)
+  const KILIT_MS = 1280; // geçiş boyunca girdi kilidi
+  const CIKIS_MS = 680; // "cikiyor" sınıfının temizlenmesi
 
-  function Deck(root) {
-    this.root = root;
-    this.slides = AK.qsa(".slide", root);
-    this.bgs = AK.qsa(".deck-bg", root);
-    this.bullets = AK.qsa(".bullets [data-goto]");
-    this.navLinks = AK.qsa("[data-goto]");
-    this.counterCurrent = AK.qs(".counter-current");
-    this.scrollHint = AK.qs(".scroll-hint");
-    this.index = 0;
-    this.isLocked = false;
-    this.wheelAccum = 0;
-    this.touchStartY = null;
-    this.inputEnabled = true;
+  function Deste(kok) {
+    this.kok = kok;
+    this.sahneler = AK.qsa(".sahne", kok);
+    this.zeminler = AK.qsa(".zemin", kok);
+    this.noktalar = AK.qsa(".noktalar [data-git]");
+    this.baglantilar = AK.qsa("[data-git]");
+    this.sayacSimdi = AK.qs(".sayac-simdi");
+    this.sayacToplam = AK.qs(".sayac-toplam");
+    this.ipucu = AK.qs(".ipucu");
+    this.indeks = 0;
+    this.kilitli = false;
+    this.tekerToplam = 0;
+    this.dokunusY = null;
+    this.girdiAcik = true;
+    this.az = AK.azHareket();
 
-    if (this.slides.length === 0) { return; }
+    if (!this.sahneler.length) return;
 
-    this.reduced = AK.prefersReducedMotion();
-    this.bindInputs();
-    this.applyState(this.index);
+    if (this.sayacToplam) this.sayacToplam.textContent = AK.pad2(this.sahneler.length);
+    this.girdileriBagla();
+    this.durumUygula(0);
   }
 
-  /* ── Durum uygulaması: arka plan, tema, noktalar, sayaç, erişilebilirlik ── */
-  Deck.prototype.applyState = function (index) {
-    var slide = this.slides[index];
+  /* ── Durum: zemin, ton, noktalar, sayaç, erişilebilirlik ── */
+  Deste.prototype.durumUygula = function (i) {
+    const sahne = this.sahneler[i];
 
-    this.bgs.forEach(function (bg, i) {
-      bg.classList.toggle("is-visible", i === index);
+    this.zeminler.forEach((z, n) => z.classList.toggle("acik", n === i));
+
+    const ton = sahne.dataset.sahneTone || "light";
+    document.body.dataset.tone = ton;
+    document
+      .querySelector('meta[name="theme-color"]')
+      ?.setAttribute("content", ton === "dark" ? "#71301C" : "#FFFFFF");
+
+    this.noktalar.forEach((d, n) => {
+      if (n === i) d.setAttribute("aria-current", "true");
+      else d.removeAttribute("aria-current");
     });
 
-    if (slide.getAttribute("data-theme") === "light") {
-      document.documentElement.setAttribute("data-scene-theme", "light");
-    } else {
-      document.documentElement.removeAttribute("data-scene-theme");
-    }
-
-    this.bullets.forEach(function (bullet, i) {
-      if (i === index) {
-        bullet.setAttribute("aria-current", "true");
-      } else {
-        bullet.removeAttribute("aria-current");
-      }
+    this.baglantilar.forEach((b) => {
+      if (b.tagName !== "A") return;
+      const hedef = parseInt(b.dataset.git, 10);
+      if (hedef === i) b.setAttribute("aria-current", "page");
+      else b.removeAttribute("aria-current");
     });
 
-    this.navLinks.forEach(function (link) {
-      var target = parseInt(link.getAttribute("data-goto"), 10);
-      link.classList.toggle("is-active", target === index && link.tagName === "A");
+    this.sahneler.forEach((s, n) => {
+      const etkin = n === i;
+      s.setAttribute("aria-hidden", etkin ? "false" : "true");
+      if ("inert" in s) s.inert = !etkin;
     });
 
-    this.slides.forEach(function (s, i) {
-      var isActive = i === index;
-      s.setAttribute("aria-hidden", isActive ? "false" : "true");
-      if ("inert" in s) { s.inert = !isActive; }
-    });
+    if (this.sayacSimdi) this.sayacSimdi.textContent = AK.pad2(i + 1);
+    if (this.ipucu) this.ipucu.classList.toggle("gizli", i === this.sahneler.length - 1);
 
-    if (this.counterCurrent) { this.counterCurrent.textContent = AK.pad2(index); }
-
-    if (this.scrollHint) {
-      this.scrollHint.classList.toggle("is-hidden", index === this.slides.length - 1);
-    }
-
-    if (slide.id && window.history && window.history.replaceState) {
-      window.history.replaceState(null, "", "#" + slide.id);
+    if (sahne.id && window.history?.replaceState) {
+      window.history.replaceState(null, "", `#${sahne.id}`);
     }
   };
 
-  /* ── Sahne geçişi ── */
-  Deck.prototype.goTo = function (nextIndex, direction) {
-    nextIndex = AK.clamp(nextIndex, 0, this.slides.length - 1);
-    if (nextIndex === this.index || this.isLocked) { return; }
+  /* ── Geçiş ── */
+  Deste.prototype.git = function (hedef, yon) {
+    hedef = AK.clamp(hedef, 0, this.sahneler.length - 1);
+    if (hedef === this.indeks || this.kilitli) return;
 
-    var self = this;
-    var current = this.slides[this.index];
-    var next = this.slides[nextIndex];
-    var dir = direction || (nextIndex > this.index ? 1 : -1);
+    const simdiki = this.sahneler[this.indeks];
+    const yeni = this.sahneler[hedef];
+    const d = yon || (hedef > this.indeks ? 1 : -1);
 
-    this.isLocked = true;
-    this.root.style.setProperty("--dir", String(dir));
+    this.kilitli = true;
+    this.kok.style.setProperty("--yon", String(d));
 
-    current.classList.remove("is-active");
-    current.classList.add("is-leaving");
+    simdiki.classList.remove("etkin");
+    simdiki.classList.add("cikiyor");
 
-    // Yeni sahnenin giriş konumu --dir'e göre hesaplansın diye reflow zorlanır
-    void next.offsetWidth;
-    next.classList.add("is-active");
+    void yeni.offsetWidth; // yeni yön değeriyle konumlansın
+    yeni.classList.add("etkin");
 
-    this.index = nextIndex;
-    this.applyState(nextIndex);
+    this.indeks = hedef;
+    this.durumUygula(hedef);
 
-    window.setTimeout(function () {
-      current.classList.remove("is-leaving");
-    }, this.reduced ? 30 : LEAVE_MS);
-
-    window.setTimeout(function () {
-      self.isLocked = false;
-      self.wheelAccum = 0;
-    }, this.reduced ? 60 : LOCK_MS);
+    setTimeout(() => simdiki.classList.remove("cikiyor"), this.az ? 20 : CIKIS_MS);
+    setTimeout(
+      () => {
+        this.kilitli = false;
+        this.tekerToplam = 0;
+      },
+      this.az ? 40 : KILIT_MS
+    );
   };
 
-  Deck.prototype.next = function () { this.goTo(this.index + 1, 1); };
-  Deck.prototype.prev = function () { this.goTo(this.index - 1, -1); };
-
-  /* ── Hash'ten sahneye animasyonsuz sıçrama (ilk yükleme) ── */
-  Deck.prototype.jumpToHash = function () {
-    var hash = window.location.hash.replace("#", "");
-    if (!hash) { return; }
-
-    var target = -1;
-    this.slides.forEach(function (slide, i) {
-      if (slide.id === hash) { target = i; }
-    });
-    if (target <= 0) { return; }
-
-    var previous = this.slides[this.index];
-    previous.classList.remove("is-active");
-
-    this.root.classList.add("no-anim");
-    this.index = target;
-    this.slides[target].classList.add("is-active");
-    this.applyState(target);
-
-    var self = this;
-    window.requestAnimationFrame(function () {
-      window.requestAnimationFrame(function () {
-        self.root.classList.remove("no-anim");
-      });
-    });
+  Deste.prototype.ileri = function () {
+    this.git(this.indeks + 1, 1);
+  };
+  Deste.prototype.geri = function () {
+    this.git(this.indeks - 1, -1);
   };
 
-  /* ── Girdi bağlama ── */
-  Deck.prototype.bindInputs = function () {
-    var self = this;
+  /* ── Adres çubuğundaki bölüme animasyonsuz atla ── */
+  Deste.prototype.adresteneAtla = function () {
+    const ad = window.location.hash.replace("#", "");
+    if (!ad) return;
+    const hedef = this.sahneler.findIndex((s) => s.id === ad);
+    if (hedef <= 0) return;
 
-    window.addEventListener("wheel", function (event) {
-      if (!self.inputEnabled) { return; }
-      event.preventDefault();
-      if (self.isLocked) { return; }
+    this.sahneler[this.indeks].classList.remove("etkin");
+    this.kok.classList.add("anim-yok");
+    this.indeks = hedef;
+    this.sahneler[hedef].classList.add("etkin");
+    this.durumUygula(hedef);
 
-      self.wheelAccum += event.deltaY;
-      if (self.wheelAccum > WHEEL_THRESHOLD) { self.next(); }
-      else if (self.wheelAccum < -WHEEL_THRESHOLD) { self.prev(); }
-    }, { passive: false });
+    requestAnimationFrame(() =>
+      requestAnimationFrame(() => this.kok.classList.remove("anim-yok"))
+    );
+  };
 
-    window.addEventListener("touchstart", function (event) {
-      if (event.touches.length === 1) {
-        self.touchStartY = event.touches[0].clientY;
-      }
-    }, { passive: true });
+  /* ── Girdiler ── */
+  Deste.prototype.girdileriBagla = function () {
+    const self = this;
 
-    window.addEventListener("touchend", function (event) {
-      if (!self.inputEnabled || self.touchStartY === null) { return; }
-      var delta = self.touchStartY - event.changedTouches[0].clientY;
-      self.touchStartY = null;
-      if (Math.abs(delta) < SWIPE_THRESHOLD) { return; }
-      if (delta > 0) { self.next(); } else { self.prev(); }
-    }, { passive: true });
+    window.addEventListener(
+      "wheel",
+      (o) => {
+        if (!self.girdiAcik) return;
+        o.preventDefault();
+        if (self.kilitli) return;
 
-    window.addEventListener("keydown", function (event) {
-      if (!self.inputEnabled) { return; }
-      switch (event.key) {
+        self.tekerToplam += o.deltaY;
+        if (self.tekerToplam > TEKER_ESIK) self.ileri();
+        else if (self.tekerToplam < -TEKER_ESIK) self.geri();
+      },
+      { passive: false }
+    );
+
+    window.addEventListener(
+      "touchstart",
+      (o) => {
+        if (o.touches.length === 1) self.dokunusY = o.touches[0].clientY;
+      },
+      { passive: true }
+    );
+
+    window.addEventListener(
+      "touchend",
+      (o) => {
+        if (!self.girdiAcik || self.dokunusY === null) return;
+        const fark = self.dokunusY - o.changedTouches[0].clientY;
+        self.dokunusY = null;
+        if (Math.abs(fark) < KAYDIRMA_ESIK) return;
+        if (fark > 0) self.ileri();
+        else self.geri();
+      },
+      { passive: true }
+    );
+
+    window.addEventListener("keydown", (o) => {
+      if (!self.girdiAcik) return;
+      switch (o.key) {
         case "ArrowDown":
         case "PageDown":
-          event.preventDefault(); self.next(); break;
+        case " ":
+          o.preventDefault();
+          self.ileri();
+          break;
         case "ArrowUp":
         case "PageUp":
-          event.preventDefault(); self.prev(); break;
+          o.preventDefault();
+          self.geri();
+          break;
         case "Home":
-          event.preventDefault(); self.goTo(0, -1); break;
+          o.preventDefault();
+          self.git(0, -1);
+          break;
         case "End":
-          event.preventDefault(); self.goTo(self.slides.length - 1, 1); break;
+          o.preventDefault();
+          self.git(self.sahneler.length - 1, 1);
+          break;
       }
     });
 
-    this.navLinks.forEach(function (link) {
-      link.addEventListener("click", function (event) {
-        event.preventDefault();
-        var target = parseInt(link.getAttribute("data-goto"), 10);
-        if (!Number.isNaN(target)) { self.goTo(target); }
+    this.baglantilar.forEach((b) => {
+      b.addEventListener("click", (o) => {
+        const hedef = parseInt(b.dataset.git, 10);
+        if (Number.isNaN(hedef)) return;
+        o.preventDefault();
+        self.git(hedef);
       });
     });
   };
 
-  AK.Deck = Deck;
+  window.AKDeste = Deste;
 })();

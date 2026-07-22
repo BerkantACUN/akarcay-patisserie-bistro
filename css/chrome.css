@@ -1,0 +1,416 @@
+/* ═══ Sabit arayüz: logo, gezinme, imleç, mobil menü ═══ */
+
+.arayuz {
+  color: var(--fg);
+  transition: color 620ms var(--ease-soft);
+}
+
+/* ── Marka: sol üst köşede sabit ── */
+.marka {
+  position: fixed;
+  top: clamp(0.85rem, 1.6vw, 1.6rem);
+  left: var(--edge);
+  z-index: var(--z-chrome);
+  display: block;
+  width: var(--logo-w);
+  border-radius: 6px;
+  transition: transform 420ms var(--ease-back), filter 420ms var(--ease-soft);
+}
+.marka-logo {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+/* Krem levha yalnızca baskı içindir; beyaz zeminde kutu gibi durur */
+.marka-logo .lg-plate {
+  display: none;
+}
+.marka-logo .lg-square {
+  filter: drop-shadow(0 8px 18px rgba(92, 39, 22, 0.22));
+}
+.marka:hover {
+  transform: translateY(-2px) scale(1.02);
+}
+/* Koyu sahnede krem levha görünmez olur, çerçeve ile ayrılır */
+[data-tone="dark"] .marka-logo {
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.35));
+}
+
+/* Kaydırılan sayfalarda sabit arayüzün altına yumuşak perde —
+   içerik logonun arkasından geçerken okunaklılık korunur */
+body:not(.deck-page)::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: calc(var(--header-h) + 1rem);
+  z-index: calc(var(--z-chrome) - 1);
+  background: linear-gradient(
+    to bottom,
+    var(--paper-warm) 28%,
+    color-mix(in srgb, var(--paper-warm) 70%, transparent) 68%,
+    transparent
+  );
+  pointer-events: none;
+}
+
+/* ── Üst gezinme ── */
+.ust-menu {
+  position: fixed;
+  top: clamp(1.1rem, 1.9vw, 2rem);
+  right: var(--edge);
+  z-index: var(--z-chrome);
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 0.5rem + 1.5vw, 2.4rem);
+}
+.ust-menu a {
+  position: relative;
+  padding-block: 0.45em;
+  font-size: var(--text-ui);
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.78;
+  transition: opacity var(--dur-ui), color var(--dur-ui);
+}
+.ust-menu a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--dur-ui) var(--ease-expo);
+}
+.ust-menu a:hover {
+  opacity: 1;
+}
+.ust-menu a:hover::after,
+.ust-menu a[aria-current]::after {
+  transform: scaleX(1);
+}
+.ust-menu a[aria-current] {
+  opacity: 1;
+  color: var(--accent);
+}
+
+/* ── Hamburger ── */
+.menu-dugme {
+  display: none;
+  position: fixed;
+  top: clamp(0.9rem, 1.6vw, 1.7rem);
+  right: var(--edge);
+  z-index: calc(var(--z-overlay) + 2);
+  width: 46px;
+  height: 46px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--paper);
+  box-shadow: var(--shadow-soft);
+}
+.menu-dugme span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--terracotta);
+  margin-block: 3.5px;
+  transition: transform var(--dur-ui) var(--ease-expo);
+}
+.menu-dugme[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(5.5px) rotate(45deg);
+}
+.menu-dugme[aria-expanded="true"] span:nth-child(2) {
+  transform: translateY(-5.5px) rotate(-45deg);
+}
+
+/* ── Geri dönüş bağlantısı (alt sayfalarda) ── */
+.geri {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  transition: color var(--dur-ui), gap var(--dur-ui);
+}
+.geri:hover {
+  color: var(--terracotta);
+  gap: 0.9em;
+}
+.geri svg {
+  width: 1.05em;
+  height: 1.05em;
+  flex: none;
+}
+
+/* ── Sahne noktaları ── */
+.noktalar {
+  position: fixed;
+  right: var(--edge);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: var(--z-chrome);
+  display: grid;
+  gap: 0.95rem;
+  justify-items: center;
+}
+.noktalar button {
+  position: relative;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  opacity: 0.4;
+  transition: transform var(--dur-ui) var(--ease-back), opacity var(--dur-ui),
+    background var(--dur-ui);
+}
+.noktalar button::after {
+  content: attr(data-etiket);
+  position: absolute;
+  right: 150%;
+  top: 50%;
+  transform: translateY(-50%) translateX(6px);
+  padding: 0.3em 0.7em;
+  border-radius: 999px;
+  background: var(--terracotta);
+  color: #fff;
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-ui), transform var(--dur-ui) var(--ease-expo);
+}
+.noktalar button:hover {
+  opacity: 0.9;
+  transform: scale(1.3);
+}
+.noktalar button:hover::after {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+.noktalar button[aria-current="true"] {
+  opacity: 1;
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: scale(1.45);
+}
+
+/* ── Sayaç ── */
+.sayac {
+  position: fixed;
+  left: var(--edge);
+  bottom: var(--edge);
+  z-index: var(--z-chrome);
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.26em;
+  font-variant-numeric: tabular-nums;
+}
+.sayac-simdi {
+  color: var(--accent);
+}
+.sayac-cizgi {
+  width: 2.2rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.3;
+}
+.sayac-toplam {
+  opacity: 0.5;
+}
+
+/* ── Kaydırma ipucu ── */
+.ipucu {
+  position: fixed;
+  left: 50%;
+  bottom: calc(var(--edge) * 0.7);
+  transform: translateX(-50%);
+  z-index: var(--z-chrome);
+  display: grid;
+  justify-items: center;
+  gap: 0.5rem;
+  transition: opacity var(--dur-ui);
+}
+.ipucu.gizli {
+  opacity: 0;
+}
+.ipucu-yazi {
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+.ipucu-fare {
+  position: relative;
+  width: 24px;
+  height: 38px;
+  border: 1.5px solid currentColor;
+  border-radius: 999px;
+  opacity: 0.55;
+}
+.ipucu-nokta {
+  position: absolute;
+  left: 50%;
+  top: 7px;
+  width: 3.5px;
+  height: 7px;
+  margin-left: -1.75px;
+  border-radius: 999px;
+  background: currentColor;
+  animation: ipucu-in 2s var(--ease-soft) infinite;
+}
+@keyframes ipucu-in {
+  0% { transform: translateY(0); opacity: 0; }
+  25% { opacity: 1; }
+  75% { transform: translateY(13px); opacity: 0; }
+  100% { transform: translateY(13px); opacity: 0; }
+}
+
+/* ── Sosyal ── */
+.sosyal {
+  position: fixed;
+  right: var(--edge);
+  bottom: var(--edge);
+  z-index: var(--z-chrome);
+  display: flex;
+  gap: 0.7rem;
+}
+.sosyal a {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid var(--line);
+  border-radius: 50%;
+  opacity: 0.75;
+  transition: opacity var(--dur-ui), transform var(--dur-ui) var(--ease-back),
+    background var(--dur-ui), border-color var(--dur-ui), color var(--dur-ui);
+}
+.sosyal a:hover {
+  opacity: 1;
+  transform: translateY(-3px);
+  background: var(--accent);
+  border-color: transparent;
+  color: var(--paper);
+}
+.sosyal svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ── Özel imleç: şeker tanesi ── */
+.imlec {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: calc(var(--z-chrome) + 6);
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
+  border: 1.5px solid var(--terracotta);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 260ms, width 260ms var(--ease-back),
+    height 260ms var(--ease-back), margin 260ms var(--ease-back),
+    background 260ms, border-color 260ms;
+  will-change: transform;
+}
+.imlec.acik {
+  opacity: 0.85;
+}
+.imlec.buyuk {
+  width: 74px;
+  height: 74px;
+  margin: -37px 0 0 -37px;
+  background: rgba(146, 62, 37, 0.12);
+  border-color: transparent;
+}
+.imlec-nokta {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: calc(var(--z-chrome) + 7);
+  width: 5px;
+  height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+  border-radius: 50%;
+  background: var(--terracotta);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 260ms;
+  will-change: transform;
+}
+.imlec-nokta.acik {
+  opacity: 1;
+}
+
+/* ── Mobil menü katmanı ── */
+.mobil-menu {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-overlay);
+  display: grid;
+  place-items: center;
+  background: var(--paper-warm);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 460ms var(--ease-soft), visibility 460ms;
+}
+.mobil-menu.acik {
+  opacity: 1;
+  visibility: visible;
+}
+.mobil-menu nav {
+  display: grid;
+  gap: 1.1rem;
+  text-align: center;
+}
+.mobil-menu a {
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 8vw, 2.5rem);
+  font-weight: 480;
+  color: var(--clay-800);
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 460ms var(--ease-soft) var(--d, 0ms),
+    transform 460ms var(--ease-expo) var(--d, 0ms), color var(--dur-ui);
+}
+.mobil-menu.acik a {
+  opacity: 1;
+  transform: none;
+}
+.mobil-menu a:hover,
+.mobil-menu a[aria-current] {
+  color: var(--terracotta);
+  font-style: italic;
+}
+.mobil-menu a:nth-child(1) { --d: 60ms; }
+.mobil-menu a:nth-child(2) { --d: 110ms; }
+.mobil-menu a:nth-child(3) { --d: 160ms; }
+.mobil-menu a:nth-child(4) { --d: 210ms; }
+.mobil-menu a:nth-child(5) { --d: 260ms; }
+.mobil-menu-alt {
+  margin-top: 1.6rem;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pastalarımız — Akarçay Patisserie</title>
+<meta name="description" content="Akarçay Patisserie'nin el yapımı pastaları: orman meyveli, çikolatalı, klasik ve imza lezzetler.">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="icon" href="assets/logo/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,560;1,9..144,400;1,9..144,480&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/chrome.css">
+<link rel="stylesheet" href="css/intro.css">
+<link rel="stylesheet" href="css/gallery.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body class="galeri-sayfa" data-tone="light">
+
+<a class="skip-link" href="#izgara">Ürünlere atla</a>
+
+<!-- ═══ Sayfa geçiş perdesi ═══ -->
+<div class="gecis" aria-hidden="true">
+  <div class="gecis-katman"></div>
+  <div class="gecis-katman"></div>
+  <span class="gecis-amblem" data-logo="amblem"></span>
+</div>
+
+<a class="marka arayuz" href="index.html" data-gecis data-logo="yatay" aria-label="Akarçay Patisserie — Anasayfa"></a>
+<script src="js/logo.js"></script>
+
+<nav class="ust-menu arayuz" aria-label="Ana menü">
+  <a href="index.html" data-gecis>Anasayfa</a>
+  <a href="pastalar.html" aria-current="page">Pastalar</a>
+  <a href="menu.html" data-gecis>Menü</a>
+  <a href="index.html#iletisim" data-gecis>İletişim</a>
+</nav>
+
+<button class="menu-dugme" type="button" aria-expanded="false" aria-controls="mobil-menu" aria-label="Menüyü aç">
+  <span></span><span></span>
+</button>
+
+<span class="imlec" aria-hidden="true"></span>
+<span class="imlec-nokta" aria-hidden="true"></span>
+
+<main>
+  <header class="sayfa-bas">
+    <a class="geri" href="index.html" data-gecis>
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 12H5m0 0 5.5-5.5M5 12l5.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Anasayfa
+    </a>
+    <p class="kicker">Vitrinimiz</p>
+    <h1 class="headline">Pastalarımız</h1>
+    <p class="lead">Her biri elde, günlük malzemeyle hazırlanır. Bir pastayı seçin, büyütüp yakından bakın — özel siparişleriniz için bize ulaşabilirsiniz.</p>
+  </header>
+
+  <div class="suzgec" role="group" aria-label="Ürün süzgeci"></div>
+
+  <div class="urun-izgara" id="izgara"></div>
+</main>
+
+<footer class="sayfa-alt">
+  <span class="sayfa-alt-marka" data-logo="yatay" aria-hidden="true"></span>
+  <p>Pastry · Dessert · Coffee</p>
+</footer>
+
+<!-- ═══ Işık kutusu ═══ -->
+<div class="isik-kutu" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Ürün görseli">
+  <button class="isik-kapat" type="button" aria-label="Kapat">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  </button>
+  <button class="isik-gez isik-onceki" type="button" aria-label="Önceki ürün">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <button class="isik-gez isik-sonraki" type="button" aria-label="Sonraki ürün">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <div class="isik-icerik">
+    <img src="" alt="" width="900" height="940">
+    <h2 class="isik-ad"></h2>
+    <p class="isik-not"></p>
+  </div>
+</div>
+
+<div class="mobil-menu" id="mobil-menu" aria-hidden="true">
+  <nav aria-label="Mobil menü">
+    <a href="index.html" data-gecis>Anasayfa</a>
+    <a href="pastalar.html" aria-current="page">Pastalar</a>
+    <a href="menu.html" data-gecis>Menü</a>
+    <a href="index.html#iletisim" data-gecis>İletişim</a>
+    <p class="mobil-menu-alt">Pastry · Dessert · Coffee</p>
+  </nav>
+</div>
+
+<svg class="grain" aria-hidden="true">
+  <filter id="grain-f"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="stitch"/></filter>
+  <rect width="100%" height="100%" filter="url(#grain-f)"/>
+</svg>
+
+<script src="js/utils.js"></script>
+<script src="js/content.js"></script>
+<script src="js/intro.js"></script>
+<script src="js/chrome.js"></script>
+<script src="js/gallery.js"></script>
+<script>
+  (function () {
+    "use strict";
+    function baslat() {
+      AKArayuz.icerikYerlestir();
+      AKAcilis.gecisleriBagla();
+      AKArayuz.mobilMenu(null);
+      AKArayuz.imlec();
+      new AKGaleri(document.getElementById("izgara"));
+    }
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", baslat);
+    } else {
+      baslat();
+    }
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,303 @@
+/* ═══ Pastalar galerisi ═══ */
+
+.galeri-sayfa {
+  background: var(--paper-warm);
+}
+
+/* ── Başlık bloğu ── */
+.sayfa-bas {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+  padding: calc(var(--header-h) + clamp(2.5rem, 8vh, 6rem)) var(--edge) clamp(2rem, 5vh, 3.5rem);
+  text-align: center;
+  overflow: hidden;
+}
+.sayfa-bas::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -34%;
+  width: min(120vw, 1100px);
+  aspect-ratio: 1;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(227, 217, 198, 0.55) 0%, transparent 62%);
+  pointer-events: none;
+  z-index: -1;
+}
+.sayfa-bas .lead {
+  max-width: 46ch;
+}
+
+/* ── Süzgeç ── */
+.suzgec {
+  position: sticky;
+  top: calc(var(--header-h) + 0.6rem);
+  z-index: 20;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.7rem var(--edge);
+  background: color-mix(in srgb, var(--paper-warm) 86%, transparent);
+  backdrop-filter: blur(14px);
+  border-block: 1px solid var(--line);
+}
+.suzgec button {
+  padding: 0.6em 1.35em;
+  border-radius: 999px;
+  border: 1.5px solid var(--line);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  transition: color var(--dur-ui), background var(--dur-ui),
+    border-color var(--dur-ui), transform var(--dur-ui) var(--ease-back);
+}
+.suzgec button:hover {
+  color: var(--terracotta);
+  border-color: var(--clay-300);
+  transform: translateY(-2px);
+}
+.suzgec button[aria-pressed="true"] {
+  color: #fff;
+  background: var(--terracotta);
+  border-color: transparent;
+}
+
+/* ── Izgara ── */
+.urun-izgara {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(clamp(220px, 26vw, 320px), 1fr));
+  gap: clamp(1.1rem, 2.4vw, 2.2rem);
+  padding: clamp(2rem, 5vh, 3.4rem) var(--edge) clamp(4rem, 10vh, 7rem);
+  max-width: 96rem;
+  margin-inline: auto;
+}
+
+.urun-kart {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 0.2rem;
+  padding: clamp(1.1rem, 2.4vw, 1.8rem);
+  border-radius: var(--radius);
+  background: var(--paper);
+  box-shadow: 0 2px 8px -4px rgba(92, 39, 22, 0.16);
+  text-align: center;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 520ms var(--ease-expo), box-shadow 520ms var(--ease-soft);
+}
+/* Giriş animasyonu — IntersectionObserver "gorundu" ekler */
+.urun-kart {
+  opacity: 0;
+  transform: translateY(34px) scale(0.97);
+}
+.urun-kart.gorundu {
+  opacity: 1;
+  transform: none;
+  transition-delay: var(--g, 0ms);
+}
+.urun-kart:hover,
+.urun-kart:focus-visible {
+  transform: translateY(-9px);
+  box-shadow: var(--shadow-lift);
+}
+
+/* Kartın arkasında beliren sıcak leke */
+.urun-kart::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 22%, var(--sand-50) 0%, transparent 62%);
+  opacity: 0;
+  transition: opacity 520ms var(--ease-soft);
+}
+.urun-kart:hover::before {
+  opacity: 1;
+}
+
+.urun-kart-gorsel {
+  position: relative;
+  display: grid;
+  place-items: center;
+  /* align-self: start → ızgara satırı esnetmesin, tüm görseller eşit kutuda dursun */
+  align-self: start;
+  aspect-ratio: 1;
+  margin-bottom: 0.6rem;
+}
+/* Mutlak konum: görsel kutunun yüksekliğini belirlemesin, böylece
+   aspect-ratio geçerli kalır ve tüm kartlar aynı hizada durur */
+.urun-kart-gorsel img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 26px rgba(92, 39, 22, 0.22));
+  transition: transform 620ms var(--ease-expo), filter 520ms;
+}
+.urun-kart:hover .urun-kart-gorsel img {
+  transform: scale(1.07) rotate(-1.5deg);
+  filter: drop-shadow(0 30px 34px rgba(92, 39, 22, 0.3));
+}
+
+.urun-grup {
+  position: relative;
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--clay-400);
+}
+.urun-ad {
+  position: relative;
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 2vw, 1.45rem);
+  font-weight: 500;
+  color: var(--clay-800);
+}
+.urun-not {
+  position: relative;
+  /* İki satırlık sabit yükseklik — kart altları aynı hizada kalır */
+  min-height: 2.6em;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+.urun-fiyat {
+  position: relative;
+  margin-top: 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--terracotta);
+}
+
+/* Kart gizlendiğinde (süzgeç) */
+.urun-kart.suzuldu {
+  display: none;
+}
+
+/* ── Işık kutusu ── */
+.isik-kutu {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-overlay);
+  display: grid;
+  place-items: center;
+  padding: var(--edge);
+  background: rgba(42, 23, 16, 0.72);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 420ms var(--ease-soft), visibility 420ms;
+}
+.isik-kutu.acik {
+  opacity: 1;
+  visibility: visible;
+}
+.isik-icerik {
+  position: relative;
+  display: grid;
+  gap: 0.8rem;
+  justify-items: center;
+  max-width: min(92vw, 44rem);
+  text-align: center;
+  transform: scale(0.9) translateY(24px);
+  transition: transform 520ms var(--ease-expo);
+}
+.isik-kutu.acik .isik-icerik {
+  transform: none;
+}
+.isik-icerik img {
+  max-height: 60svh;
+  width: auto;
+  filter: drop-shadow(0 36px 50px rgba(0, 0, 0, 0.45));
+}
+.isik-ad {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4vw, 2.4rem);
+  color: var(--sand-50);
+}
+.isik-not {
+  max-width: 42ch;
+  color: rgba(247, 243, 234, 0.76);
+}
+.isik-kapat {
+  position: fixed;
+  top: var(--edge);
+  right: var(--edge);
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(247, 243, 234, 0.4);
+  color: var(--sand-50);
+  transition: transform var(--dur-ui) var(--ease-back), background var(--dur-ui);
+}
+.isik-kapat:hover {
+  transform: rotate(90deg);
+  background: rgba(247, 243, 234, 0.14);
+}
+.isik-gez {
+  position: fixed;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(247, 243, 234, 0.4);
+  color: var(--sand-50);
+  transform: translateY(-50%);
+  transition: background var(--dur-ui), transform var(--dur-ui) var(--ease-back);
+}
+.isik-gez:hover {
+  background: rgba(247, 243, 234, 0.14);
+}
+.isik-onceki { left: var(--edge); }
+.isik-sonraki { right: var(--edge); }
+.isik-gez svg { width: 20px; height: 20px; }
+
+/* ── Sayfa altı ── */
+.sayfa-alt {
+  display: grid;
+  justify-items: center;
+  gap: 1.2rem;
+  padding: clamp(3rem, 8vh, 5rem) var(--edge) clamp(2.5rem, 6vh, 4rem);
+  border-top: 1px solid var(--line);
+  text-align: center;
+  background: var(--sand-50);
+}
+.sayfa-alt-marka {
+  width: clamp(140px, 22vw, 200px);
+  opacity: 0.9;
+}
+.sayfa-alt p {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+@media (max-width: 768px) {
+  .urun-izgara {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 0.8rem;
+  }
+  .urun-kart {
+    padding: 0.9rem;
+  }
+  .isik-gez {
+    width: 42px;
+    height: 42px;
+  }
+  .isik-onceki { left: 0.5rem; }
+  .isik-sonraki { right: 0.5rem; }
+}

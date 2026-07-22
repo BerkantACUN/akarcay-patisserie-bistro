@@ -1,67 +1,112 @@
 /* ═══ Temel: sıfırlama, tipografi, ortak bileşenler ═══ */
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-html, body {
-  height: 100%;
-  overflow: hidden;
-  overscroll-behavior: none;
+html {
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
+  min-height: 100svh;
   font-family: var(--font-body);
   font-size: 16px;
-  line-height: 1.6;
-  color: var(--cream-100);
-  background: var(--espresso-800);
+  line-height: 1.62;
+  color: var(--fg);
+  background: var(--paper);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  overscroll-behavior: none;
 }
 
-img, svg { display: block; max-width: 100%; }
-button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
-a { color: inherit; text-decoration: none; }
+/* Sahne destesi olan sayfalar sayfa kaydırmasını devralır */
+body.deck-page,
+body.deck-page > .deck {
+  height: 100svh;
+  overflow: hidden;
+}
 
-::selection { background: var(--caramel-400); color: var(--espresso-900); }
+img,
+svg,
+picture {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: var(--terracotta);
+  color: #fff;
+}
 
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
-  border-radius: 2px;
+  border-radius: 4px;
 }
 
 .skip-link {
   position: fixed;
-  top: -100%;
+  top: -120%;
   left: 1rem;
-  z-index: var(--z-preloader);
-  padding: 0.6rem 1.2rem;
-  background: var(--cream-100);
-  color: var(--ink);
+  z-index: var(--z-intro);
+  padding: 0.7rem 1.3rem;
+  background: var(--terracotta);
+  color: #fff;
   border-radius: 999px;
   font-size: var(--text-ui);
+  font-weight: 700;
 }
-.skip-link:focus-visible { top: 1rem; }
+.skip-link:focus-visible {
+  top: 1rem;
+}
 
-/* ── Tipografi kalıpları ── */
+.gorsel-gizli {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ═══ Tipografi kalıpları ═══ */
+
 .kicker {
-  font-size: var(--text-kicker);
-  font-weight: 600;
-  letter-spacing: 0.42em;
-  text-transform: uppercase;
-  color: var(--accent);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1.1em;
+  gap: 1em;
+  font-size: var(--text-kicker);
+  font-weight: 700;
+  letter-spacing: 0.44em;
+  text-transform: uppercase;
+  color: var(--accent);
 }
-.kicker .anim { display: inline-flex; align-items: center; gap: 1.1em; }
-.kicker .anim::before, .kicker .anim::after {
+.kicker::before,
+.kicker::after {
   content: "";
-  width: 2.6em;
+  width: clamp(1.4rem, 3vw, 3rem);
   height: 1px;
   background: currentColor;
-  opacity: 0.55;
+  opacity: 0.5;
 }
 
 .headline {
@@ -69,93 +114,122 @@ a { color: inherit; text-decoration: none; }
   font-size: var(--text-hero);
   font-weight: 560;
   line-height: 1.02;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.022em;
   text-wrap: balance;
 }
 .headline em {
+  display: block;
+  margin-top: -0.12em;
   font-style: italic;
-  font-weight: 480;
+  font-weight: 400;
   color: var(--accent);
 }
 
 .lead {
+  max-width: 54ch;
+  margin-inline: auto;
   font-size: var(--text-lead);
   line-height: 1.75;
-  max-width: 56ch;
-  margin-inline: auto;
-  color: var(--chrome-soft);
+  color: var(--fg-soft);
   font-weight: 500;
 }
 
-.slide[data-theme="light"] .copy { color: var(--ink); }
-.slide[data-theme="light"] .lead { color: rgba(43, 27, 18, 0.72); }
-.slide[data-theme="light"] .headline em { color: var(--caramel-500); }
+/* ═══ Butonlar ═══ */
 
-/* ── Buton: hap formu, süpürme dolgusu ── */
 .btn {
+  --btn-fg: #fff;
+  --btn-bg: var(--terracotta);
   position: relative;
-  display: inline-block;
-  padding: 0.95em 2.6em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8em;
+  padding: 1.05em 2.5em;
   border-radius: 999px;
-  font-size: 0.92rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
+  font-size: 0.84rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
+  color: var(--btn-fg);
+  background: var(--btn-bg);
   overflow: hidden;
-  transition: color var(--dur-ui) var(--ease-soft), transform var(--dur-ui) var(--ease-soft);
   isolation: isolate;
+  box-shadow: var(--shadow-soft);
+  transition: transform var(--dur-ui) var(--ease-back),
+    box-shadow var(--dur-ui) var(--ease-soft);
 }
+/* Dolgu, imlecin girdiği yönden süpürerek gelir */
 .btn::before {
   content: "";
   position: absolute;
   inset: 0;
-  border-radius: inherit;
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform 0.45s var(--ease-out-expo);
   z-index: -1;
+  background: var(--clay-800);
+  transform: scaleY(0);
+  transform-origin: bottom center;
+  transition: transform 0.45s var(--ease-expo);
 }
-.btn:hover::before, .btn:focus-visible::before { transform: scaleX(1); }
-.btn:hover { transform: translateY(-2px); }
-.btn:active { transform: translateY(0) scale(0.98); }
+.btn:hover::before,
+.btn:focus-visible::before {
+  transform: scaleY(1);
+}
+.btn:hover,
+.btn:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lift);
+}
+.btn:active {
+  transform: translateY(-1px) scale(0.985);
+}
+.btn .ok {
+  width: 1.1em;
+  height: 1.1em;
+  transition: transform var(--dur-ui) var(--ease-back);
+}
+.btn:hover .ok {
+  transform: translateX(4px);
+}
 
-.btn-dark {
-  color: var(--cream-50);
-  background: var(--ink);
-  box-shadow: 0 10px 30px rgba(43, 27, 18, 0.28);
+.btn-hayalet {
+  --btn-fg: var(--fg);
+  --btn-bg: transparent;
+  border: 1.5px solid var(--line);
+  box-shadow: none;
 }
-.btn-dark::before { background: var(--cherry-700); }
+.btn-hayalet::before {
+  background: var(--accent);
+}
+.btn-hayalet:hover,
+.btn-hayalet:focus-visible {
+  --btn-fg: #fff;
+  border-color: transparent;
+  box-shadow: var(--shadow-soft);
+}
+[data-tone="dark"] .btn-hayalet:hover {
+  --btn-fg: var(--clay-800);
+}
 
-.btn-light {
-  color: var(--cream-100);
-  border: 1px solid var(--chrome-line);
-}
-.btn-light::before { background: var(--caramel-500); }
-.btn-light:hover, .btn-light:focus-visible { color: var(--espresso-900); border-color: transparent; }
+/* ═══ Doku katmanı ═══ */
 
-/* ── "Çok yakında" damgası ── */
-.cta-wrap { position: relative; display: grid; justify-items: center; gap: 0.9rem; }
-.cta-note {
-  font-size: 0.78rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--chrome-soft);
-  font-weight: 600;
-}
-.soon-stamp {
-  position: absolute;
-  top: -1.4rem;
-  right: -3.2rem;
-  padding: 0.45em 1.1em;
-  border: 2px solid var(--berry-400);
-  border-radius: 999px;
-  color: var(--berry-400);
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 0.95rem;
-  transform: rotate(8deg) scale(0);
-  opacity: 0;
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--z-chrome) + 4);
+  width: 100%;
+  height: 100%;
+  opacity: 0.045;
   pointer-events: none;
-  transition: transform 0.5s var(--ease-out-expo), opacity 0.3s;
+  mix-blend-mode: multiply;
 }
-.cta-wrap.show-soon .soon-stamp { transform: rotate(8deg) scale(1); opacity: 1; }
+
+/* ═══ Hareket azaltma ═══ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

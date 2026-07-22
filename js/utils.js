@@ -1,34 +1,53 @@
-/* ═══ Akarçay — yardımcı fonksiyonlar ═══ */
+/* ═══ Ortak yardımcılar ═══ */
 (function () {
   "use strict";
 
-  window.AK = window.AK || {};
+  const AK = {};
 
-  AK.qs = function (selector, scope) {
-    return (scope || document).querySelector(selector);
+  AK.qs = (sel, scope) => (scope || document).querySelector(sel);
+  AK.qsa = (sel, scope) => Array.from((scope || document).querySelectorAll(sel));
+
+  AK.clamp = (v, min, max) => Math.min(max, Math.max(min, v));
+  AK.lerp = (a, b, t) => a + (b - a) * t;
+  AK.pad2 = (n) => String(n).padStart(2, "0");
+
+  AK.azHareket = () =>
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  AK.dokunmatik = () =>
+    window.matchMedia("(hover: none), (pointer: coarse)").matches;
+
+  /** Sık tetiklenen olayları tek kare içinde birleştirir. */
+  AK.kareyeBagla = (fn) => {
+    let bekliyor = false;
+    let sonArg;
+    return function (arg) {
+      sonArg = arg;
+      if (bekliyor) return;
+      bekliyor = true;
+      requestAnimationFrame(() => {
+        bekliyor = false;
+        fn(sonArg);
+      });
+    };
   };
 
-  AK.qsa = function (selector, scope) {
-    return Array.prototype.slice.call((scope || document).querySelectorAll(selector));
+  /** Belirli süre boyunca çağrı gelmezse çalıştırır. */
+  AK.gecikmeli = (fn, ms) => {
+    let t;
+    return function (...args) {
+      clearTimeout(t);
+      t = setTimeout(() => fn.apply(this, args), ms);
+    };
   };
 
-  AK.clamp = function (value, min, max) {
-    return Math.min(max, Math.max(min, value));
+  /** Sayfa görünürlüğü değişince duraklat/devam et. */
+  AK.gorunurlukte = (durdur, devam) => {
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) durdur();
+      else devam();
+    });
   };
 
-  AK.lerp = function (current, target, factor) {
-    return current + (target - current) * factor;
-  };
-
-  AK.prefersReducedMotion = function () {
-    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  };
-
-  AK.isTouchDevice = function () {
-    return window.matchMedia("(hover: none), (pointer: coarse)").matches;
-  };
-
-  AK.pad2 = function (value) {
-    return String(value + 1).padStart(2, "0");
-  };
+  window.AK = AK;
 })();

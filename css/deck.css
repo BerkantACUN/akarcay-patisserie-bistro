@@ -1,0 +1,263 @@
+/* ═══ Sahne destesi: zeminler, geçiş koreografisi, katman fiziği ═══ */
+
+.deck {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-deck);
+  height: 100svh;
+  background: var(--bg);
+  transition: background 900ms var(--ease-soft);
+}
+
+/* ── Zemin katmanları ── */
+.zeminler,
+.zemin {
+  position: absolute;
+  inset: 0;
+}
+.zemin {
+  opacity: 0;
+  transition: opacity 1000ms var(--ease-soft);
+}
+.zemin.acik {
+  opacity: 1;
+}
+
+.zemin-isik {
+  background: radial-gradient(circle at 50% 42%, #ffffff 0%, var(--paper-warm) 52%, var(--sand-50) 100%);
+}
+.zemin-krem {
+  background: radial-gradient(circle at 50% 40%, #fdf9f1 0%, var(--sand-50) 46%, var(--sand-100) 100%);
+}
+.zemin-kil {
+  background: radial-gradient(circle at 50% 38%, var(--clay-600) 0%, var(--clay-700) 48%, var(--clay-800) 100%);
+}
+
+/* İmleci izleyen yumuşak ışık — sahneye derinlik verir */
+.zemin-hale {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.55;
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 45%),
+    rgba(227, 217, 198, 0.55),
+    transparent 70%
+  );
+  transition: opacity 600ms;
+}
+[data-tone="dark"] .zemin-hale {
+  background: radial-gradient(
+    460px circle at var(--mx, 50%) var(--my, 45%),
+    rgba(255, 236, 214, 0.16),
+    transparent 70%
+  );
+}
+
+/* ── Sahneler ── */
+.sahne {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: calc(var(--header-h) + 1.4vh) var(--edge) 0;
+  overflow: hidden;
+  visibility: hidden;
+  pointer-events: none;
+}
+.sahne.etkin {
+  visibility: visible;
+  pointer-events: auto;
+  z-index: 3;
+}
+.sahne.cikiyor {
+  visibility: visible;
+  z-index: 2;
+}
+
+.metin {
+  position: relative;
+  z-index: 6;
+  display: grid;
+  gap: clamp(0.75rem, 0.5rem + 1vh, 1.5rem);
+  max-width: 62rem;
+  text-align: center;
+}
+
+.dekor {
+  position: relative;
+  z-index: 3;
+  flex: 1;
+  width: min(100%, 78rem);
+}
+
+/* ── Katman fiziği ──
+   .katman  → JS fare paralaksı (data-derinlik px yarıçapı)
+   .anim    → sahne giriş/çıkış geçişi
+   .suzul   → sürekli süzülme döngüsü                         */
+.katman {
+  will-change: transform;
+}
+.dekor .katman {
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+.metin .katman {
+  position: relative;
+}
+
+.anim {
+  opacity: 0;
+  transform: translate3d(0, calc(var(--yon, 1) * 56px), 0) scale(0.95);
+  transition: transform var(--dur-slide) var(--ease-expo) var(--g, 0ms),
+    opacity calc(var(--dur-slide) * 0.8) var(--ease-soft) var(--g, 0ms);
+}
+.sahne.etkin .anim {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+.sahne.cikiyor .anim {
+  opacity: 0;
+  transform: translate3d(0, calc(var(--yon, 1) * -46px), 0) scale(0.97);
+  transition-duration: var(--dur-out), calc(var(--dur-out) * 0.7);
+  transition-delay: 0ms, 0ms;
+}
+
+/* İlk yüklemede animasyonsuz konumlanma */
+.deck.anim-yok .anim,
+.deck.anim-yok .zemin {
+  transition: none !important;
+}
+
+/* ── Süzülme ── */
+.suzul {
+  animation: suzul-y 6.4s ease-in-out infinite;
+}
+.suzul-b {
+  animation: suzul-yr 7.8s ease-in-out infinite alternate-reverse;
+}
+.suzul-c {
+  animation: suzul-y 5.4s ease-in-out -2.4s infinite;
+}
+@keyframes suzul-y {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(1.4deg); }
+}
+@keyframes suzul-yr {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-17px) rotate(-2deg); }
+}
+
+/* ── Ürün görselleri ── */
+.urun-gorsel {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 30px 42px rgba(92, 39, 22, 0.26));
+}
+[data-tone="dark"] .urun-gorsel {
+  filter: drop-shadow(0 34px 48px rgba(0, 0, 0, 0.42));
+}
+
+/* Vitrin (ana ürün) fareyle hafifçe eğilir */
+.vitrin-sarmal {
+  transform-style: preserve-3d;
+  transition: transform 520ms var(--ease-soft);
+}
+
+.golge-leke {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(92, 39, 22, 0.26) 0%,
+    rgba(92, 39, 22, 0) 68%
+  );
+}
+[data-tone="dark"] .golge-leke {
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.45) 0%, transparent 68%);
+}
+
+/* ── Şeker tanesi serpintisi ── */
+.serpinti {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* ── Kayan şerit ── */
+.serit {
+  position: relative;
+  z-index: 4;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  padding-block: 0.7rem;
+  border-block: 1px solid var(--line);
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+.serit-ic {
+  display: flex;
+  width: max-content;
+  gap: 2.4rem;
+  animation: serit-kay 26s linear infinite;
+}
+.serit-ic span {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(0.95rem, 2.2vw, 1.5rem);
+  color: var(--accent);
+  white-space: nowrap;
+}
+.serit-ic span::after {
+  content: "✦";
+  margin-left: 2.4rem;
+  font-style: normal;
+  opacity: 0.55;
+}
+@keyframes serit-kay {
+  to { transform: translateX(-50%); }
+}
+.serit:hover .serit-ic {
+  animation-play-state: paused;
+}
+
+/* ── İletişim ızgarası ── */
+.iletisim-izgara {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.2rem, 3vw, 3.4rem);
+  padding-top: clamp(1.3rem, 3vh, 2.2rem);
+  border-top: 1px solid var(--line);
+}
+.iletisim-oge h3 {
+  margin-bottom: 0.6em;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.iletisim-oge p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--fg-soft);
+  font-weight: 500;
+}
+
+.cta-sarmal {
+  display: grid;
+  justify-items: center;
+  gap: 0.75rem;
+  margin-top: clamp(0.6rem, 2vh, 1.4rem);
+}
+.cta-not {
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--fg-soft);
+  opacity: 0.75;
+}

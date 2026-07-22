@@ -1,60 +1,105 @@
-/* ═══ Akarçay Patisserie & Bistro — Tasarım Token'ları ═══ */
+/* ═══════════════════════════════════════════════════════════
+   Akarçay Patisserie — Tasarım Token'ları
+   Kurumsal palet: AKARCAY-PATISSERIE-LOGO-CMYK-BASKI.pdf
+     Terracotta  #923E25  (RGB 146,62,37 · Pantone 1535C · RAL 2013)
+     Oyster White #E3D9C6 (RGB 227,217,198 · Pantone 468 · RAL 1013)
+   ═══════════════════════════════════════════════════════════ */
 
 :root {
-  /* Palet — sıcak patisserie */
-  --espresso-900: #1F130D;
-  --espresso-800: #2E1C13;
-  --espresso-700: #3A2418;
-  --mocha-700: #4A2E18;
-  --cherry-800: #571E2B;
-  --cherry-700: #7A2B3C;
-  --olive-800: #2A331F;
-  --olive-700: #3D4A2F;
-  --cream-50: #FBF5E9;
-  --cream-100: #F6EDDC;
-  --cream-300: #EBD9BC;
-  --caramel-400: #D9A441;
-  --caramel-500: #C98A3D;
-  --gold-300: #E8C97F;
-  --berry-400: #C4536A;
-  --pistachio-400: #A9BC8F;
-  --ink: #2B1B12;
+  /* ── Kurumsal çekirdek ── */
+  --terracotta: #923E25;
+  --oyster: #E3D9C6;
 
-  /* Rol bazlı renkler (sahne temasına göre JS/CSS değiştirir) */
-  --chrome: var(--cream-100);
-  --chrome-soft: rgba(246, 237, 220, 0.55);
-  --chrome-line: rgba(246, 237, 220, 0.28);
-  --accent: var(--caramel-400);
+  /* ── Terracotta ölçeği ── */
+  --clay-900: #3D1A0F;
+  --clay-800: #5C2716;
+  --clay-700: #71301C;
+  --clay-600: #923E25;   /* kurumsal */
+  --clay-500: #AE5537;
+  --clay-400: #C97A5C;
+  --clay-300: #E0A78E;
+  --clay-200: #F0CDBB;
+  --clay-100: #F9E7DD;
 
-  /* Tipografi */
-  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  /* ── Oyster / krem ölçeği ── */
+  --sand-400: #C9BCA1;
+  --sand-300: #D8CBB2;
+  --sand-200: #E3D9C6;   /* kurumsal */
+  --sand-100: #EFE8DA;
+  --sand-50: #F7F3EA;
+
+  /* ── Zemin: beyaz ve sıcak beyazlar ── */
+  --paper: #FFFFFF;
+  --paper-warm: #FDFBF7;
+  --paper-tint: #FBF6EE;
+
+  /* ── Mürekkep ── */
+  --ink: #2A1710;
+  --ink-soft: #6B5548;
+  --ink-faint: #9C8778;
+
+  /* ── Vurgu ── */
+  --gold: #C9962F;
+  --berry: #A8355A;
+  --pistachio: #7D8F5A;
+
+  /* ── Rol bazlı (sahne temasına göre değişir) ── */
+  --bg: var(--paper);
+  --fg: var(--ink);
+  --fg-soft: var(--ink-soft);
+  --accent: var(--terracotta);
+  --line: rgba(42, 23, 16, 0.14);
+
+  /* ── Tipografi ── */
+  --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
   --font-body: "Manrope", "Segoe UI", system-ui, sans-serif;
-  --text-hero: clamp(2.6rem, 1rem + 6.8vw, 6.6rem);
-  --text-kicker: clamp(0.7rem, 0.62rem + 0.35vw, 0.88rem);
-  --text-lead: clamp(0.95rem, 0.88rem + 0.35vw, 1.13rem);
-  --text-ui: 0.82rem;
 
-  /* Ritim */
-  --space-edge: clamp(1.25rem, 0.8rem + 2.4vw, 3.5rem);
-  --header-h: clamp(4.2rem, 3.4rem + 2vw, 5.6rem);
+  --text-hero: clamp(2.35rem, 0.9rem + 5.2vw, 5.4rem);
+  --text-h2: clamp(1.9rem, 1rem + 3.4vw, 3.6rem);
+  --text-kicker: clamp(0.66rem, 0.6rem + 0.3vw, 0.8rem);
+  --text-lead: clamp(0.96rem, 0.9rem + 0.35vw, 1.15rem);
+  --text-ui: 0.78rem;
 
-  /* Hareket fiziği */
-  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  /* ── Ritim ── */
+  --edge: clamp(1.1rem, 0.7rem + 2.2vw, 3.2rem);
+  --header-h: clamp(4rem, 3rem + 3vw, 6.2rem);
+  --logo-w: clamp(148px, 10vw + 88px, 268px);
+
+  /* ── Hareket ── */
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-soft: cubic-bezier(0.33, 1, 0.68, 1);
-  --dur-slide: 1200ms;
-  --dur-out: 640ms;
-  --dur-ui: 350ms;
+  --ease-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-slide: 1150ms;
+  --dur-out: 620ms;
+  --dur-ui: 340ms;
 
-  /* Katman düzeni */
+  /* ── Yükseklik (z) ── */
   --z-deck: 1;
   --z-chrome: 40;
   --z-overlay: 60;
-  --z-preloader: 80;
+  --z-curtain: 90;
+  --z-intro: 100;
+
+  /* ── Yüzey efektleri ── */
+  --shadow-soft: 0 18px 50px -18px rgba(92, 39, 22, 0.34);
+  --shadow-lift: 0 34px 70px -22px rgba(92, 39, 22, 0.42);
+  --radius: 22px;
 }
 
-/* Aydınlık sahnede (Menü) arayüz mürekkep rengine döner */
-html[data-scene-theme="light"] {
-  --chrome: var(--ink);
-  --chrome-soft: rgba(43, 27, 18, 0.55);
-  --chrome-line: rgba(43, 27, 18, 0.22);
+/* Koyu sahneler (kontrast için ara sahne) */
+[data-tone="dark"] {
+  --bg: var(--clay-700);
+  --fg: var(--sand-50);
+  --fg-soft: rgba(247, 243, 234, 0.74);
+  --accent: var(--sand-200);
+  --line: rgba(247, 243, 234, 0.24);
+}
+
+/* Krem sahneler */
+[data-tone="cream"] {
+  --bg: var(--sand-50);
+  --fg: var(--clay-900);
+  --fg-soft: rgba(61, 26, 15, 0.7);
+  --accent: var(--terracotta);
+  --line: rgba(61, 26, 15, 0.16);
 }
