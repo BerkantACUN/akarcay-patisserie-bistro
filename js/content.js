@@ -24,50 +24,52 @@
       haritaUrl: "",
     },
 
-    /* Ana sayfa sahneleri — sıra buradaki sıradır */
+    /* Ana sayfa sahneleri — her sahne bir ürün kategorisi, sıra buradaki sıradır.
+       Görseli gelmemiş kategoriler marka mührü taşıyan tabakla gösterilir. */
     sahneler: [
       {
         id: "anasayfa",
         tone: "light",
-        kicker: "Akarçay Patisserie",
+        kicker: "Yaş Pastalar",
         baslik: ["Tatlı Bir", "Başlangıç"],
         metin:
-          "Her sabah tezgâhımızda taze krema, gerçek tereyağı ve mevsim meyveleri buluşur. " +
-          "Acele etmeyen bir mutfaktan çıkan her pasta, günün en tatlı kararı olsun diye hazırlanır.",
+          "Her kat elde hazırlanır: taze krema, gerçek tereyağı ve mevsim meyveleri. " +
+          "Doğum günü, kutlama ya da sadece canınız çektiği için.",
+        cta: { yazi: "Ürünlerimize Bakın", href: "pastalar.html" },
         vitrin: "pasta-4503",
         uydular: ["pasta-4504", "pasta-4231", "pasta-4501", "pasta-4232"],
       },
       {
-        id: "patisserie",
+        id: "kahvaltilik",
         tone: "cream",
-        kicker: "El Emeği",
-        baslik: ["Katman", "Katman"],
+        kicker: "Kahvaltılıklar",
+        baslik: ["Güne", "Sıcacık"],
         metin:
-          "Pandispanyadan kremaya, çikolatadan meyveye — her kat tek tek elde hazırlanır. " +
-          "Vitrinimizdeki hiçbir pasta bir diğerinin aynısı değildir.",
-        vitrin: "pasta-4232",
-        uydular: ["pasta-4234", "pasta-4502", "pasta-4233"],
+          "Fırından yeni çıkmış poğaça ve kruvasanlar, serpme kahvaltı tabakları ve " +
+          "günün ilk çayı — sabahlar burada başlar.",
+        gorselBekliyor: true,
       },
       {
-        id: "vitrin",
+        id: "tatlilar",
         tone: "dark",
-        kicker: "Vitrinimiz",
-        baslik: ["Gözünüzle", "Tadın"],
+        kicker: "Tatlılar",
+        baslik: ["Kaşık", "Kaşık"],
         metin:
-          "Doğum günü, kutlama ya da sadece canınız çektiği için — her ana yakışan bir pastamız var.",
-        cta: { yazi: "Ürünlerimize Bakın", href: "pastalar.html" },
+          "Sütlü tatlılardan şerbetlilere, profiterolden cheesecake'e — günün her " +
+          "saatine bir tatlı bahane.",
         seritYazi: "el yapımı · günlük taze · mevsim meyveleri · gerçek tereyağı",
+        gorselBekliyor: true,
       },
       {
-        id: "menu",
+        id: "icecekler",
         tone: "light",
-        kicker: "Menü",
-        baslik: ["Sofra", "Kuruldu"],
+        kicker: "İçecekler & Kahve",
+        baslik: ["Fincanın", "Sıcak Tarafı"],
         metin:
-          "Pastalarımızdan kahvelerimize, günün her saatine uygun tatlar tek menüde.",
+          "Özenle kavrulmuş çekirdekler, ince demlenmiş çaylar, ev yapımı limonata " +
+          "ve taze sıkma meyve suları.",
         cta: { yazi: "Menüyü Aç", href: "menu.html" },
-        vitrin: "pasta-4500",
-        uydular: ["pasta-4501", "pasta-4504"],
+        gorselBekliyor: true,
       },
       {
         id: "iletisim",

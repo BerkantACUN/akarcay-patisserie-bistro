@@ -44,13 +44,12 @@
 
 <!-- ═══ Gezinme ═══ -->
 <nav class="ust-menu arayuz" aria-label="Ana menü">
-  <a href="#anasayfa" data-git="0">Anasayfa</a>
-  <a href="#pastalar" data-git="1">Pastalar</a>
-  <a href="#kahvaltilik" data-git="2">Kahvaltı</a>
-  <a href="#tatlilar" data-git="3">Tatlılar</a>
-  <a href="#icecekler" data-git="4">İçecekler</a>
+  <a href="#anasayfa" data-git="0">Pastalar</a>
+  <a href="#kahvaltilik" data-git="1">Kahvaltı</a>
+  <a href="#tatlilar" data-git="2">Tatlılar</a>
+  <a href="#icecekler" data-git="3">İçecekler</a>
   <a href="menu.html" data-gecis>Menü</a>
-  <a href="#iletisim" data-git="5">İletişim</a>
+  <a href="#iletisim" data-git="4">İletişim</a>
 </nav>
 
 <button class="menu-dugme" type="button" aria-expanded="false" aria-controls="mobil-menu" aria-label="Menüyü aç">
@@ -58,16 +57,15 @@
 </button>
 
 <nav class="noktalar arayuz" aria-label="Sahne gezinmesi">
-  <button type="button" data-git="0" data-etiket="Başlangıç" aria-label="1. sahne — Tatlı Bir Başlangıç" aria-current="true"></button>
-  <button type="button" data-git="1" data-etiket="Pastalar" aria-label="2. sahne — Pastalar"></button>
-  <button type="button" data-git="2" data-etiket="Kahvaltı" aria-label="3. sahne — Kahvaltılıklar"></button>
-  <button type="button" data-git="3" data-etiket="Tatlılar" aria-label="4. sahne — Tatlılar"></button>
-  <button type="button" data-git="4" data-etiket="İçecekler" aria-label="5. sahne — İçecekler"></button>
-  <button type="button" data-git="5" data-etiket="İletişim" aria-label="6. sahne — Bize Uğrayın"></button>
+  <button type="button" data-git="0" data-etiket="Pastalar" aria-label="1. sahne — Tatlı Bir Başlangıç" aria-current="true"></button>
+  <button type="button" data-git="1" data-etiket="Kahvaltı" aria-label="2. sahne — Kahvaltılıklar"></button>
+  <button type="button" data-git="2" data-etiket="Tatlılar" aria-label="3. sahne — Tatlılar"></button>
+  <button type="button" data-git="3" data-etiket="İçecekler" aria-label="4. sahne — İçecekler"></button>
+  <button type="button" data-git="4" data-etiket="İletişim" aria-label="5. sahne — Bize Uğrayın"></button>
 </nav>
 
 <div class="sayac arayuz" aria-hidden="true">
-  <span class="sayac-simdi">01</span><span class="sayac-cizgi"></span><span class="sayac-toplam">06</span>
+  <span class="sayac-simdi">01</span><span class="sayac-cizgi"></span><span class="sayac-toplam">05</span>
 </div>
 
 <div class="ipucu arayuz" aria-hidden="true">
@@ -93,21 +91,26 @@
   <div class="zeminler" aria-hidden="true">
     <div class="zemin zemin-isik acik"></div>
     <div class="zemin zemin-krem"></div>
-    <div class="zemin zemin-isik"></div>
     <div class="zemin zemin-kil"></div>
-    <div class="zemin zemin-krem"></div>
     <div class="zemin zemin-isik"></div>
+    <div class="zemin zemin-krem"></div>
     <div class="zemin-hale"></div>
   </div>
 
   <canvas class="serpinti" aria-hidden="true"></canvas>
 
-  <!-- ── 1 · Tatlı Bir Başlangıç ── -->
-  <section class="sahne etkin" id="anasayfa" data-sahne-tone="light" role="group" aria-roledescription="sahne" aria-label="1 / 6 — Tatlı Bir Başlangıç">
+  <!-- ── 1 · Tatlı Bir Başlangıç · Yaş Pastalar ── -->
+  <section class="sahne etkin" id="anasayfa" data-sahne-tone="light" role="group" aria-roledescription="sahne" aria-label="1 / 5 — Tatlı Bir Başlangıç">
     <div class="metin">
-      <p class="kicker katman" data-derinlik="6" style="--g:40ms"><span class="anim">Akarçay Patisserie</span></p>
+      <p class="kicker katman" data-derinlik="6" style="--g:40ms"><span class="anim">Yaş Pastalar</span></p>
       <h1 class="headline katman" data-derinlik="10" style="--g:130ms"><span class="anim">Tatlı Bir <em>Başlangıç</em></span></h1>
-      <p class="lead katman" data-derinlik="8" style="--g:240ms"><span class="anim">Her sabah tezgâhımızda taze krema, gerçek tereyağı ve mevsim meyveleri buluşur. Acele etmeyen bir mutfaktan çıkan her lezzet, günün en tatlı kararı olsun diye hazırlanır.</span></p>
+      <p class="lead katman" data-derinlik="8" style="--g:240ms"><span class="anim">Her kat elde hazırlanır: taze krema, gerçek tereyağı ve mevsim meyveleri. Doğum günü, kutlama ya da sadece canınız çektiği için.</span></p>
+      <div class="cta-sarmal katman" data-derinlik="12" style="--g:330ms"><div class="anim">
+        <a class="btn" href="pastalar.html" data-gecis>
+          Ürünlerimize Bakın
+          <svg class="ok" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m0 0-5.5-5.5M19 12l-5.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div></div>
     </div>
     <div class="dekor">
       <div class="katman s1-golge" data-derinlik="16" style="--g:300ms"><div class="anim"><div class="golge-leke"></div></div></div>
@@ -129,41 +132,8 @@
     </div>
   </section>
 
-  <!-- ── 2 · Pastalar ── -->
-  <section class="sahne" id="pastalar" data-sahne-tone="cream" role="group" aria-roledescription="sahne" aria-label="2 / 6 — Pastalar">
-    <div class="metin">
-      <p class="kicker katman" data-derinlik="6" style="--g:40ms"><span class="anim">Pastalar</span></p>
-      <h2 class="headline katman" data-derinlik="10" style="--g:130ms"><span class="anim">Katman <em>Katman</em></span></h2>
-      <p class="lead katman" data-derinlik="8" style="--g:240ms"><span class="anim">Doğum günü, kutlama ya da sadece canınız çektiği için. Pandispanyadan kremaya her kat elde hazırlanır.</span></p>
-      <div class="cta-sarmal katman" data-derinlik="12" style="--g:330ms"><div class="anim">
-        <a class="btn" href="pastalar.html" data-gecis>
-          Ürünlerimize Bakın
-          <svg class="ok" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m0 0-5.5-5.5M19 12l-5.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-      </div></div>
-    </div>
-    <div class="dekor">
-      <div class="vitrin-yay katman" data-derinlik="20" style="--g:420ms"><div class="anim">
-        <a class="yay-oge" href="pastalar.html" data-gecis style="--x:-30rem; --y:1.4rem; --r:-9deg" aria-label="Çilek rüyası pastası">
-          <img class="urun-gorsel" src="assets/urun/pasta-4504-sm.webp" width="460" height="504" alt="" loading="lazy" decoding="async"></a>
-        <a class="yay-oge" href="pastalar.html" data-gecis style="--x:-15rem; --y:-1.4rem; --r:5deg" aria-label="Akarçay imza pastası">
-          <img class="urun-gorsel" src="assets/urun/pasta-4233-sm.webp" width="460" height="582" alt="" loading="lazy" decoding="async"></a>
-        <a class="yay-oge" href="pastalar.html" data-gecis style="--x:0rem; --y:-2.6rem; --r:-3deg" aria-label="Çikolata damlalı pasta">
-          <img class="urun-gorsel" src="assets/urun/pasta-4232-sm.webp" width="460" height="447" alt="" loading="lazy" decoding="async"></a>
-        <a class="yay-oge" href="pastalar.html" data-gecis style="--x:15rem; --y:-1.4rem; --r:7deg" aria-label="Karamel bisküvili pasta">
-          <img class="urun-gorsel" src="assets/urun/pasta-4502-sm.webp" width="460" height="499" alt="" loading="lazy" decoding="async"></a>
-        <a class="yay-oge" href="pastalar.html" data-gecis style="--x:30rem; --y:1.4rem; --r:-6deg" aria-label="Üç katlı çikolatalı pasta">
-          <img class="urun-gorsel" src="assets/urun/pasta-4234-sm.webp" width="460" height="523" alt="" loading="lazy" decoding="async"></a>
-      </div></div>
-    </div>
-    <div class="serit katman" data-derinlik="8" style="--g:520ms"><div class="anim"><div class="serit-ic">
-      <span>el yapımı</span><span>günlük taze</span><span>mevsim meyveleri</span><span>gerçek tereyağı</span>
-      <span>el yapımı</span><span>günlük taze</span><span>mevsim meyveleri</span><span>gerçek tereyağı</span>
-    </div></div></div>
-  </section>
-
-  <!-- ── 3 · Kahvaltılıklar ── -->
-  <section class="sahne" id="kahvaltilik" data-sahne-tone="light" role="group" aria-roledescription="sahne" aria-label="3 / 6 — Kahvaltılıklar">
+  <!-- ── 2 · Kahvaltılıklar ── -->
+  <section class="sahne" id="kahvaltilik" data-sahne-tone="cream" role="group" aria-roledescription="sahne" aria-label="2 / 5 — Kahvaltılıklar">
     <div class="metin">
       <p class="kicker katman" data-derinlik="6" style="--g:40ms"><span class="anim">Kahvaltılıklar</span></p>
       <h2 class="headline katman" data-derinlik="10" style="--g:130ms"><span class="anim">Güne <em>Sıcacık</em></span></h2>
@@ -186,8 +156,8 @@
     </div>
   </section>
 
-  <!-- ── 4 · Tatlılar (koyu) ── -->
-  <section class="sahne" id="tatlilar" data-sahne-tone="dark" role="group" aria-roledescription="sahne" aria-label="4 / 6 — Tatlılar">
+  <!-- ── 3 · Tatlılar (koyu) ── -->
+  <section class="sahne" id="tatlilar" data-sahne-tone="dark" role="group" aria-roledescription="sahne" aria-label="3 / 5 — Tatlılar">
     <div class="metin">
       <p class="kicker katman" data-derinlik="6" style="--g:40ms"><span class="anim">Tatlılar</span></p>
       <h2 class="headline katman" data-derinlik="10" style="--g:130ms"><span class="anim">Kaşık <em>Kaşık</em></span></h2>
@@ -208,10 +178,14 @@
         <div class="tabak tabak-kucuk"><img class="tabak-muhur" src="assets/logo/akarcay-muhur.svg" width="120" height="120" alt="" loading="lazy"></div>
       </div></div></div>
     </div>
+    <div class="serit katman" data-derinlik="8" style="--g:560ms"><div class="anim"><div class="serit-ic">
+      <span>el yapımı</span><span>günlük taze</span><span>mevsim meyveleri</span><span>gerçek tereyağı</span>
+      <span>el yapımı</span><span>günlük taze</span><span>mevsim meyveleri</span><span>gerçek tereyağı</span>
+    </div></div></div>
   </section>
 
-  <!-- ── 5 · İçecekler ── -->
-  <section class="sahne" id="icecekler" data-sahne-tone="cream" role="group" aria-roledescription="sahne" aria-label="5 / 6 — İçecekler">
+  <!-- ── 4 · İçecekler ── -->
+  <section class="sahne" id="icecekler" data-sahne-tone="light" role="group" aria-roledescription="sahne" aria-label="4 / 5 — İçecekler">
     <div class="metin">
       <p class="kicker katman" data-derinlik="6" style="--g:40ms"><span class="anim">İçecekler &amp; Kahve</span></p>
       <h2 class="headline katman" data-derinlik="10" style="--g:130ms"><span class="anim">Fincanın <em>Sıcak Tarafı</em></span></h2>
@@ -238,8 +212,8 @@
     </div>
   </section>
 
-  <!-- ── 6 · Bize Uğrayın ── -->
-  <section class="sahne" id="iletisim" data-sahne-tone="light" role="group" aria-roledescription="sahne" aria-label="6 / 6 — Bize Uğrayın">
+  <!-- ── 5 · Bize Uğrayın ── -->
+  <section class="sahne" id="iletisim" data-sahne-tone="cream" role="group" aria-roledescription="sahne" aria-label="5 / 5 — Bize Uğrayın">
     <div class="lambalar katman" data-derinlik="10" style="--g:80ms" aria-hidden="true"><div class="anim">
       <svg viewBox="0 0 600 190">
         <defs><radialGradient id="hale" cx=".5" cy=".5" r=".5">
@@ -277,11 +251,11 @@
 <!-- ═══ Mobil menü ═══ -->
 <div class="mobil-menu" id="mobil-menu" aria-hidden="true">
   <nav aria-label="Mobil menü">
-    <a href="#anasayfa" data-git="0">Anasayfa</a>
-    <a href="#pastalar" data-git="1">Pastalar</a>
-    <a href="#kahvaltilik" data-git="2">Kahvaltılıklar</a>
-    <a href="#tatlilar" data-git="3">Tatlılar</a>
-    <a href="#icecekler" data-git="4">İçecekler</a>
+    <a href="#anasayfa" data-git="0">Pastalar</a>
+    <a href="#kahvaltilik" data-git="1">Kahvaltılıklar</a>
+    <a href="#tatlilar" data-git="2">Tatlılar</a>
+    <a href="#icecekler" data-git="3">İçecekler</a>
+    <a href="#iletisim" data-git="4">İletişim</a>
     <a href="menu.html" data-gecis>Menü</a>
     <p class="mobil-menu-alt">Pastry · Dessert · Coffee</p>
   </nav>

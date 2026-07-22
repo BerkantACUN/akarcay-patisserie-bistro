@@ -104,23 +104,27 @@
   };
 
   /* ── StPageFlip kurulumu ── */
+  /** Kitap, sarmalın ölçülen boşluğunu oranını koruyarak doldurur. */
   Kitap.prototype.olcu = function () {
-    // Başlık, kumanda ve ipucu için ayrılan dikey pay
-    const CEVRE = 340;
+    const sarmal = this.kok.parentElement;
+    const enAlan = (sarmal ? sarmal.clientWidth : window.innerWidth) - 4;
+    const boyAlan = (sarmal ? sarmal.clientHeight : window.innerHeight) - 4;
     const tek = window.innerWidth < 900;
-    const alan = this.kok.parentElement;
-    const kullanilabilirEn = (alan ? alan.clientWidth : window.innerWidth) - 8;
 
-    let sayfaYuk = AK.clamp(window.innerHeight - CEVRE, 300, 760);
+    // Önce yüksekliği doldur, genişlik taşarsa geri kıs
+    let sayfaYuk = boyAlan;
     let sayfaGen = sayfaYuk * EN_BOY;
 
-    // Genişlik taşarsa yükseklikten kıs — kitap her zaman ekrana sığar
-    const enSinir = tek ? kullanilabilirEn : Math.min(kullanilabilirEn, MASA_GENISLIK) / 2;
+    const enSinir = tek ? enAlan : Math.min(enAlan, MASA_GENISLIK) / 2;
     if (sayfaGen > enSinir) {
       sayfaGen = enSinir;
       sayfaYuk = sayfaGen / EN_BOY;
     }
-    return { genislik: Math.round(sayfaGen), yukseklik: Math.round(sayfaYuk), tek };
+    return {
+      genislik: Math.max(200, Math.round(sayfaGen)),
+      yukseklik: Math.max(280, Math.round(sayfaYuk)),
+      tek,
+    };
   };
 
   Kitap.prototype.kur = function () {
@@ -132,11 +136,13 @@
       size: "fixed",
       showCover: true,
       usePortrait: true,
-      maxShadowOpacity: 0.42,
-      mobileScrollSupport: true,
-      flippingTime: AK.azHareket() ? 1 : 780,
+      maxShadowOpacity: 0.38,
+      // Sayfa artık kaydırılmıyor; dikey sürükleme de sayfa çevirsin
+      mobileScrollSupport: false,
+      flippingTime: AK.azHareket() ? 1 : 700,
       drawShadow: true,
-      swipeDistance: 24,
+      // Kısa kazara dokunuşlar sayfayı çevirmesin
+      swipeDistance: 42,
     });
 
     this.flip.loadFromHTML(this.kok.querySelectorAll(".sayfa"));
@@ -181,43 +187,55 @@
   };
 
   /* ── Kumanda: düğmeler, klavye, tekerlek ── */
+
+  /** Bir hamlede yalnızca tek sayfa çevrilsin diye kilitli sarmalayıcı. */
+  Kitap.prototype.cevir = function (yon) {
+    if (this.kilitli) return;
+    this.kilitli = true;
+
+    if (yon > 0) this.flip.flipNext();
+    else this.flip.flipPrev();
+
+    clearTimeout(this.kilitZaman);
+    this.kilitZaman = setTimeout(() => {
+      this.kilitli = false;
+    }, 880);
+  };
+
   Kitap.prototype.kumandayiBagla = function () {
     const self = this;
 
-    this.oncekiEl?.addEventListener("click", () => self.flip.flipPrev());
-    this.sonrakiEl?.addEventListener("click", () => self.flip.flipNext());
+    this.oncekiEl?.addEventListener("click", () => self.cevir(-1));
+    this.sonrakiEl?.addEventListener("click", () => self.cevir(1));
 
     window.addEventListener("keydown", (o) => {
       if (o.key === "ArrowRight" || o.key === "PageDown") {
         o.preventDefault();
-        self.flip.flipNext();
+        self.cevir(1);
       } else if (o.key === "ArrowLeft" || o.key === "PageUp") {
         o.preventDefault();
-        self.flip.flipPrev();
+        self.cevir(-1);
       }
     });
 
-    // Dikey tekerlek de sayfa çevirsin — "yukarı kaydırınca sayfa dönsün"
-    let toplam = 0;
-    let kilit = false;
-    window.addEventListener(
-      "wheel",
-      (o) => {
-        if (kilit) return;
-        toplam += o.deltaY;
-        if (Math.abs(toplam) < 42) return;
-
-        if (toplam > 0) self.flip.flipNext();
-        else self.flip.flipPrev();
-
-        toplam = 0;
-        kilit = true;
-        setTimeout(() => {
-          kilit = false;
-        }, 820);
-      },
-      { passive: true }
-    );
+    // Tekerlek yalnızca fareli cihazlarda; dokunmatikte sürükleme zaten çevirir
+    if (!AK.dokunmatik()) {
+      let toplam = 0;
+      window.addEventListener(
+        "wheel",
+        (o) => {
+          if (self.kilitli) {
+            toplam = 0;
+            return;
+          }
+          toplam += o.deltaY;
+          if (Math.abs(toplam) < 46) return;
+          self.cevir(toplam > 0 ? 1 : -1);
+          toplam = 0;
+        },
+        { passive: true }
+      );
+    }
 
     // Ses açma/kapama
     this.sesEl?.addEventListener("click", () => {

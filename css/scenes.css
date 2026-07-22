@@ -1,12 +1,12 @@
 /* ═══ Sahne kompozisyonları: her sahnenin kendi yerleşimi ═══ */
 
-/* ─────────── Sahne 1 · Tatlı Bir Başlangıç ─────────── */
-.s1-vitrin { left: 50%; top: 47%; width: clamp(210px, 25vw, 380px); }
-.s1-golge  { left: 50%; top: 78%; width: clamp(210px, 24vw, 360px); height: clamp(44px, 5vw, 78px); }
-.s1-u1 { left: 14%; top: 26%; width: clamp(86px, 10.5vw, 170px); }
-.s1-u2 { left: 86%; top: 32%; width: clamp(78px, 9.5vw, 154px); }
-.s1-u3 { left: 21%; top: 76%; width: clamp(72px, 8.5vw, 140px); }
-.s1-u4 { left: 80%; top: 74%; width: clamp(80px, 9.5vw, 152px); }
+/* ─────────── Sahne 1 · Tatlı Bir Başlangıç · Yaş Pastalar ─────────── */
+.s1-vitrin { left: 50%; top: 44%; width: clamp(190px, 22vw, 340px); }
+.s1-golge  { left: 50%; top: 74%; width: clamp(190px, 21vw, 320px); height: clamp(40px, 4.6vw, 70px); }
+.s1-u1 { left: 14%; top: 26%; width: clamp(80px, 9.6vw, 156px); }
+.s1-u2 { left: 86%; top: 32%; width: clamp(74px, 8.8vw, 142px); }
+.s1-u3 { left: 21%; top: 76%; width: clamp(68px, 8vw, 128px); }
+.s1-u4 { left: 80%; top: 73%; width: clamp(74px, 8.8vw, 140px); }
 
 /* ─────────── Sahne 2 · Katman Katman ─────────── */
 .s2-vitrin { left: 50%; top: 48%; width: clamp(200px, 24vw, 360px); }
