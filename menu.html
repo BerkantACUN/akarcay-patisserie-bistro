@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Menü — Akarçay Patisserie</title>
-<meta name="description" content="Akarçay Patisserie menüsü: pastalar, fırın ürünleri, kahveler ve içecekler.">
+<meta name="description" content="Akarçay Patisserie menüsü: kahvaltı, pizzalar, et ve tavuk yemekleri, tatlılar, kahveler ve içecekler.">
 <meta name="theme-color" content="#FFFFFF">
 <link rel="icon" href="assets/logo/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,91 +14,97 @@
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/chrome.css">
 <link rel="stylesheet" href="css/intro.css">
-<link rel="stylesheet" href="css/menubook.css">
-<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/menu.css">
 </head>
-<body class="menu-sayfa" data-tone="light">
+<body class="menu-govde" data-tone="light">
 
-<a class="skip-link" href="#kitap">Menüye atla</a>
+<a class="skip-link" href="#gorunum-kategoriler">Menüye atla</a>
 
+<!-- Sayfa geçiş perdesi -->
 <div class="gecis" aria-hidden="true">
   <div class="gecis-katman"></div>
   <div class="gecis-katman"></div>
   <span class="gecis-amblem" data-logo="amblem"></span>
 </div>
 
-<a class="marka arayuz" href="index.html" data-gecis data-logo="yatay" aria-label="Akarçay Patisserie — Anasayfa"></a>
-<script src="js/logo.js"></script>
-
-<nav class="ust-menu arayuz" aria-label="Ana menü">
-  <a href="index.html" data-gecis>Anasayfa</a>
-  <a href="pastalar.html" data-gecis>Pastalar</a>
-  <a href="menu.html" aria-current="page">Menü</a>
-  <a href="index.html#iletisim" data-gecis>İletişim</a>
-</nav>
-
-<button class="menu-dugme" type="button" aria-expanded="false" aria-controls="mobil-menu" aria-label="Menüyü aç">
-  <span></span><span></span>
-</button>
-
 <span class="imlec" aria-hidden="true"></span>
 <span class="imlec-nokta" aria-hidden="true"></span>
 
-<main class="kitap-alan">
-  <header class="kitap-bas">
-    <a class="geri" href="index.html" data-gecis>
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 12H5m0 0 5.5-5.5M5 12l5.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      Anasayfa
-    </a>
-    <p class="kicker">Akarçay Patisserie</p>
-  </header>
+<main class="menu-sahne">
 
-  <div class="kitap-sarmal">
-    <div class="kitap" id="kitap" aria-label="Menü kitabı"></div>
-  </div>
+  <!-- ═══ Görünüm 1 · Kapak ═══ -->
+  <section class="gorunum" id="gorunum-kapak" tabindex="0" role="button" aria-label="Menüyü aç">
+    <div class="kapak-ic">
+      <img class="kapak-amblem" src="assets/logo/akarcay-muhur.svg" width="168" height="168" alt="">
+      <p class="kapak-ust">Akarçay Patisserie</p>
+      <h1 class="kapak-baslik">Menü</h1>
+      <p class="kapak-cizgi"><span>Lezzet · Kahve · Tatlı</span></p>
+      <p class="kapak-slogan">Kahvaltıdan tatlıya, günün her anına yakışan tatlar.</p>
+      <span class="btn kapak-btn">
+        İçeriğe Göz At
+        <svg class="ok" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m0 0-5.5-5.5M19 12l-5.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <p class="kapak-dokun">veya ekrana dokunun</p>
+    </div>
+  </section>
 
-  <div class="kitap-kumanda">
-    <button class="kitap-dugme kitap-onceki" type="button" aria-label="Önceki sayfa">
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </button>
-    <span class="kitap-sayac" aria-live="polite">01 / 08</span>
-    <button class="kitap-dugme kitap-sonraki" type="button" aria-label="Sonraki sayfa">
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </button>
-    <button class="ses-dugme" type="button" aria-pressed="true" aria-label="Sesi kapat">
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11 5 6.5 9H3v6h3.5L11 19z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-    </button>
-  </div>
+  <!-- ═══ Görünüm 2 · Kategoriler ═══ -->
+  <section class="gorunum" id="gorunum-kategoriler" aria-label="Menü kategorileri">
+    <header class="menu-bar">
+      <a class="menu-bar-marka" href="index.html" data-gecis aria-label="Anasayfa">
+        <img class="menu-bar-amblem" src="assets/logo/akarcay-amblem.svg" width="42" height="42" alt="">
+        <span class="menu-bar-ad"><strong>Akarçay</strong><span>Menü</span></span>
+      </a>
+      <div class="menu-ara">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/><path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <input type="search" id="menu-ara-input" placeholder="Kategori ara…" aria-label="Kategori ara" autocomplete="off">
+      </div>
+    </header>
+    <div class="menu-kaydir">
+      <div id="kategori-govde"></div>
+      <p class="ara-bos" id="ara-bos">Aramanızla eşleşen kategori bulunamadı.</p>
+    </div>
+  </section>
 
-  <p class="kitap-ipucu">Sayfayı sürükleyin · kaydırın · ok tuşlarını kullanın</p>
+  <!-- ═══ Görünüm 3 · Detay ═══ -->
+  <section class="gorunum" id="gorunum-detay" aria-label="Kategori detayı">
+    <header class="detay-bar">
+      <button class="geri-menu" type="button" id="detay-geri">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 12H5m0 0 5.5-5.5M5 12l5.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Ana Menü
+      </button>
+      <span class="detay-bar-baslik" id="detay-bar-baslik"></span>
+    </header>
+    <div class="detay-kaydir">
+      <div class="detay-ic" id="detay-govde"></div>
+    </div>
+  </section>
+
 </main>
 
-<div class="mobil-menu" id="mobil-menu" aria-hidden="true">
-  <nav aria-label="Mobil menü">
-    <a href="index.html" data-gecis>Anasayfa</a>
-    <a href="pastalar.html" data-gecis>Pastalar</a>
-    <a href="menu.html" aria-current="page">Menü</a>
-    <a href="index.html#iletisim" data-gecis>İletişim</a>
-    <p class="mobil-menu-alt">Pastry · Dessert · Coffee</p>
-  </nav>
+<div class="mobil-menu" id="mobil-menu" aria-hidden="true"></div>
+
+<!-- Fotoğraf büyütme -->
+<div class="foto-buyut" id="foto-buyut" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Menü görseli">
+  <button class="foto-buyut-kapat" type="button" aria-label="Kapat">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  </button>
+  <img src="" alt="">
 </div>
 
-<script src="vendor/page-flip.browser.js"></script>
 <script src="js/utils.js"></script>
-<script src="js/content.js"></script>
-<script src="js/sfx.js"></script>
+<script src="js/menu-data.js"></script>
+<script src="js/logo.js"></script>
 <script src="js/intro.js"></script>
 <script src="js/chrome.js"></script>
-<script src="js/menubook.js"></script>
+<script src="js/menu-view.js"></script>
 <script>
   (function () {
     "use strict";
     function baslat() {
-      AKArayuz.icerikYerlestir();
       AKAcilis.gecisleriBagla();
-      AKArayuz.mobilMenu(null);
       AKArayuz.imlec();
-      new AKKitap(document.getElementById("kitap"));
+      if (window.AKAR_MENU) new AKMenuAkis(window.AKAR_MENU);
     }
     if (document.readyState === "loading") {
       document.addEventListener("DOMContentLoaded", baslat);
