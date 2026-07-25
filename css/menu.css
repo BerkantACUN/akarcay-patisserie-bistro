@@ -717,8 +717,13 @@
   .kat-izgara {
     grid-template-columns: 1fr;
   }
+  /* Uzun başlık taşmasın */
   .detay-bar-baslik {
     font-size: 1rem;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   .urun-alt {
     padding-right: 0;
@@ -726,6 +731,27 @@
   .paket-fiyat {
     margin-left: 0;
     width: 100%;
+  }
+
+  /* Menü fotoğrafı kenardan kenara — tam genişlik, boşluksuz */
+  .detay-ic {
+    max-width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .detay-fotolar {
+    max-width: 100%;
+    gap: 0;
+  }
+  .detay-foto-kutu {
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .detay-foto-kutu::after {
+    right: 0.7rem;
+    bottom: 0.7rem;
   }
 }
 
