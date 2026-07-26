@@ -141,3 +141,34 @@
   0%, 100% { opacity: 0.7; transform: scale(1); }
   50% { opacity: 1; transform: scale(1.08); }
 }
+
+/* ─────────── İçecekler sahnesi · tanıtım afişleri ─────────── */
+.afis-gorsel {
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  box-shadow: 0 34px 52px -20px rgba(92, 39, 22, 0.44);
+}
+.ic-afis-1 {
+  left: 31%;
+  top: 55%;
+  width: clamp(150px, 19vw, 288px);
+  z-index: 3;
+}
+.ic-afis-2 {
+  left: 69%;
+  top: 46%;
+  width: clamp(148px, 18.5vw, 282px);
+  z-index: 2;
+}
+.s4-golge {
+  left: 50%;
+  top: 82%;
+  width: clamp(240px, 40vw, 540px);
+  height: clamp(40px, 6vw, 90px);
+}
+
+@media (max-width: 768px) {
+  .ic-afis-1 { left: 30%; top: 56%; width: min(42vw, 210px); }
+  .ic-afis-2 { left: 70%; top: 45%; width: min(41vw, 205px); }
+}

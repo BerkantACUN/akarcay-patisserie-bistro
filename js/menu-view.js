@@ -86,7 +86,7 @@
     this.elKapak = document.getElementById("gorunum-kapak");
     this.elKategoriler = document.getElementById("gorunum-kategoriler");
     this.elDetay = document.getElementById("gorunum-detay");
-    this.elListe = document.getElementById("ic-liste");
+    this.elGrid = document.getElementById("kat-grid");
     this.elDetayIc = document.getElementById("detay-govde");
     this.elDetayBaslik = document.getElementById("detay-bar-baslik");
 
@@ -119,17 +119,18 @@
         .join('<i aria-hidden="true">·</i>');
     }
 
-    // Sağ panel: tıklanabilir kategori listesi
-    if (this.elListe) {
-      this.elListe.innerHTML = this.kategoriler
-        .map(
-          (k) =>
-            `<li><button class="ic-oge" type="button" data-slug="${k.slug}">` +
-            `<svg class="ic-oge-ikon" viewBox="0 0 16 16" aria-hidden="true"><use href="#ic-yaprak"/></svg>` +
-            `<span class="ic-oge-ad">${kacis(k.ad)}</span>` +
-            `<span class="ic-oge-cizgi"></span>` +
-            `</button></li>`
-        )
+    // Kategori kutuları: arka planda ilgili menü fotoğrafı + isim
+    if (this.elGrid) {
+      this.elGrid.innerHTML = this.kategoriler
+        .map((k, i) => {
+          const gorsel = this.gorselYollari(k)[0];
+          return (
+            `<button class="kat-kutu" type="button" data-slug="${k.slug}" style="--i:${i}">` +
+            `<img class="kat-kutu-foto" src="${gorsel}" alt="" loading="lazy" decoding="async">` +
+            `<span class="kat-kutu-ad">${kacis(k.ad)}</span>` +
+            `</button>`
+          );
+        })
         .join("");
     }
   };
@@ -304,10 +305,10 @@
       }
     });
 
-    // Kategori listesi (olay delegasyonu)
-    this.elListe.addEventListener("click", (o) => {
-      const oge = o.target.closest(".ic-oge");
-      if (oge) self.kategoriAc(oge.dataset.slug);
+    // Kategori kutuları (olay delegasyonu)
+    this.elGrid.addEventListener("click", (o) => {
+      const kutu = o.target.closest(".kat-kutu");
+      if (kutu) self.kategoriAc(kutu.dataset.slug);
     });
 
     // Geri düğmesi

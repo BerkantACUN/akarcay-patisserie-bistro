@@ -139,98 +139,159 @@
   50% { opacity: 1; }
 }
 
-/* ─────────── İÇİNDEKİLER (karşılama + kategori listesi) ─────────── */
+/* ─────────── KATEGORİLER (fotoğraflı kutular) + KARŞILAMA ─────────── */
 #gorunum-kategoriler {
   overflow: hidden;
 }
-.icindekiler {
-  display: flex;
+.kat-sar {
   height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: clamp(1.2rem, 3.5vh, 2.6rem) var(--edge) clamp(2rem, 5vh, 3.5rem);
+  -webkit-overflow-scrolling: touch;
 }
 
-/* ── Sol panel: karşılama ── */
-.ic-sol {
+/* Kategori ızgarası */
+.kat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(clamp(150px, 22vw, 230px), 1fr));
+  gap: clamp(0.6rem, 1.6vw, 1.1rem);
+  max-width: 82rem;
+  margin: 0 auto;
+}
+
+.kat-kutu {
   position: relative;
-  flex: 0 0 44%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: clamp(1rem, 3vh, 2rem);
-  padding: clamp(1.6rem, 4vh, 3.2rem) clamp(1.4rem, 3vw, 3rem);
-  background: var(--sand-100);
+  aspect-ratio: 4 / 5;
+  border-radius: 16px;
   overflow: hidden;
+  cursor: pointer;
+  background: var(--clay-700);
+  box-shadow: 0 8px 22px -12px rgba(92, 39, 22, 0.5);
+  opacity: 0;
+  transform: translateY(22px) scale(0.98);
+  animation: kutu-gel 0.55s var(--ease-expo) forwards;
+  animation-delay: calc(var(--i, 0) * 45ms);
 }
-.ic-desen {
+@keyframes kutu-gel {
+  to { opacity: 1; transform: none; }
+}
+.kat-kutu-foto {
   position: absolute;
-  left: -1.5rem;
-  bottom: -1rem;
-  width: clamp(90px, 14vw, 150px);
-  height: auto;
-  color: var(--caramel-500);
-  opacity: 0.16;
-  pointer-events: none;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 22%;
+  transition: transform 0.6s var(--ease-expo);
 }
-.ic-marka {
+/* Zarif gölge: alttan koyu terracotta, üstte şeffaf */
+.kat-kutu::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(45, 20, 12, 0.9) 0%,
+    rgba(45, 20, 12, 0.55) 32%,
+    rgba(45, 20, 12, 0.12) 62%,
+    rgba(45, 20, 12, 0.28) 100%
+  );
+  transition: background 0.4s;
+}
+.kat-kutu-ad {
+  position: absolute;
+  left: clamp(0.7rem, 2vw, 1.1rem);
+  right: clamp(0.7rem, 2vw, 1.1rem);
+  bottom: clamp(0.7rem, 2vh, 1.1rem);
+  z-index: 2;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(0.95rem, 0.75rem + 0.8vw, 1.35rem);
+  line-height: 1.1;
+  color: #fff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+/* Alt kenarda ince altın vurgu çizgisi */
+.kat-kutu-ad::after {
+  content: "";
   display: block;
-  width: clamp(210px, 22vw, 320px);
-  flex: none;
+  width: 1.8rem;
+  height: 2px;
+  margin-top: 0.5rem;
+  border-radius: 2px;
+  background: var(--caramel-400);
+  transition: width 0.4s var(--ease-expo);
 }
-.ic-marka .marka-logo {
+.kat-kutu:hover,
+.kat-kutu:focus-visible {
+  outline: none;
+}
+.kat-kutu:hover .kat-kutu-foto,
+.kat-kutu:focus-visible .kat-kutu-foto {
+  transform: scale(1.07);
+}
+.kat-kutu:hover::after,
+.kat-kutu:focus-visible::after {
+  background: linear-gradient(
+    to top,
+    rgba(45, 20, 12, 0.92) 0%,
+    rgba(146, 62, 37, 0.5) 40%,
+    rgba(45, 20, 12, 0.15) 75%,
+    rgba(45, 20, 12, 0.3) 100%
+  );
+}
+.kat-kutu:hover .kat-kutu-ad::after,
+.kat-kutu:focus-visible .kat-kutu-ad::after {
+  width: 3.4rem;
+}
+
+/* ── Alt karşılama bloğu ── */
+.hosgeldiniz-blok {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: clamp(0.7rem, 2vh, 1.2rem);
+  max-width: 44rem;
+  margin: clamp(2.4rem, 6vh, 4.5rem) auto 0;
+  padding-top: clamp(1.8rem, 4vh, 3rem);
+  border-top: 1px solid var(--line);
+}
+.hg-marka {
+  display: block;
+  width: clamp(180px, 20vw, 260px);
+}
+.hg-marka .marka-logo {
   width: 100%;
   height: auto;
   overflow: visible;
 }
-.ic-marka .marka-logo .lg-plate {
+.hg-marka .marka-logo .lg-plate {
   display: none;
 }
-/* Açık zeminde logoyu belirginleştir: amblem kenarı + harf kalınlığı */
-.ic-marka .marka-logo .lg-petal {
-  stroke: var(--clay-500);
-  stroke-width: 1.4;
-}
-.ic-marka .marka-logo .lg-square {
-  stroke: var(--clay-900);
-  stroke-width: 2;
-}
-.ic-marka .marka-logo .lg-letter,
-.ic-marka .marka-logo .lg-subletter {
-  stroke: var(--terracotta);
-  stroke-width: 2.4;
-}
-
-.ic-govde {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  gap: clamp(0.8rem, 2.4vh, 1.6rem);
-  max-width: 30rem;
-}
-.ic-hosgeldiniz {
+.hg-baslik {
   font-family: var(--font-display);
-  font-size: clamp(1.9rem, 1rem + 3.4vw, 3.4rem);
+  font-size: clamp(1.7rem, 1rem + 3vw, 3rem);
   font-weight: 500;
   line-height: 1.02;
   letter-spacing: -0.01em;
   text-transform: uppercase;
   color: var(--terracotta);
 }
-.ic-cicek {
+.hg-cicek {
   color: var(--caramel-500);
 }
-.ic-cicek svg {
+.hg-cicek svg {
   width: 44px;
   height: 22px;
 }
-.ic-metin {
+.hg-metin {
   display: grid;
   gap: clamp(0.7rem, 2vh, 1.1rem);
 }
-.ic-metin p {
-  font-size: clamp(0.82rem, 0.7rem + 0.5vw, 0.98rem);
-  line-height: 1.7;
+.hg-metin p {
+  font-size: clamp(0.85rem, 0.75rem + 0.4vw, 1rem);
+  line-height: 1.75;
   color: var(--ink-soft);
 }
 .ic-nokta {
@@ -243,107 +304,20 @@
   margin: 0 auto;
   display: block;
 }
-.ic-alt {
+.hg-alt {
   display: flex;
   align-items: center;
   gap: 0.7rem;
-  flex: none;
+  margin-top: 0.4rem;
   font-size: 0.68rem;
   font-weight: 800;
   letter-spacing: 0.3em;
   text-transform: uppercase;
   color: var(--clay-500);
 }
-.ic-alt i {
+.hg-alt i {
   color: var(--caramel-400);
   font-style: normal;
-}
-
-/* ── Sağ panel: kategori listesi ── */
-.ic-sag {
-  position: relative;
-  flex: 1;
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding: clamp(1.6rem, 4vh, 3rem) clamp(1.2rem, 3vw, 3rem) clamp(2rem, 5vh, 3.5rem);
-  background: var(--clay-700);
-  -webkit-overflow-scrolling: touch;
-}
-.ic-sag-sus {
-  display: block;
-  width: 56px;
-  height: 36px;
-  margin: 0 auto clamp(0.8rem, 2vh, 1.6rem);
-  color: var(--caramel-300);
-  opacity: 0.7;
-}
-.ic-liste {
-  list-style: none;
-  max-width: 30rem;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-}
-.ic-oge {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  width: 100%;
-  padding: clamp(0.6rem, 1.4vh, 0.85rem) 0.4rem;
-  text-align: left;
-  color: var(--sand-100);
-  border-bottom: 1px solid rgba(227, 217, 198, 0.16);
-  cursor: pointer;
-  transition: color var(--dur-ui), padding-left var(--dur-ui) var(--ease-expo);
-}
-.ic-oge:hover,
-.ic-oge:focus-visible {
-  color: #fff;
-  padding-left: 1rem;
-  outline: none;
-}
-.ic-oge-ikon {
-  flex: none;
-  width: 15px;
-  height: 15px;
-  color: var(--caramel-300);
-  transition: transform var(--dur-ui) var(--ease-back);
-}
-.ic-oge:hover .ic-oge-ikon {
-  transform: scale(1.25) rotate(-8deg);
-}
-.ic-oge-ad {
-  font-size: clamp(0.82rem, 0.7rem + 0.55vw, 1.05rem);
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-.ic-oge-cizgi {
-  flex: 1;
-  height: 0;
-  margin-left: 0.4rem;
-  border-bottom: 1px dotted rgba(227, 217, 198, 0.28);
-  transform: translateY(-2px);
-  opacity: 0;
-  transition: opacity var(--dur-ui);
-}
-.ic-oge:hover .ic-oge-cizgi {
-  opacity: 1;
-}
-.ic-oge::after {
-  content: "";
-  flex: none;
-  width: 7px;
-  height: 7px;
-  border-right: 1.5px solid var(--caramel-300);
-  border-top: 1.5px solid var(--caramel-300);
-  transform: rotate(45deg) scale(0);
-  transition: transform var(--dur-ui) var(--ease-back);
-}
-.ic-oge:hover::after,
-.ic-oge:focus-visible::after {
-  transform: rotate(45deg) scale(1);
 }
 
 /* ─────────── DETAY ─────────── */
@@ -705,29 +679,13 @@
 
 /* ─────────── Duyarlı ─────────── */
 @media (max-width: 768px) {
-  /* İçindekiler mobilde tek sütun: üstte karşılama, altta liste */
-  #gorunum-kategoriler {
-    overflow-y: auto;
-    overflow-x: hidden;
-    -webkit-overflow-scrolling: touch;
+  /* Kategori kutuları mobilde iki sütun */
+  .kat-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
   }
-  .icindekiler {
-    flex-direction: column;
-    height: auto;
-    min-height: 100%;
-  }
-  .ic-sol {
-    flex: none;
-    gap: 1.2rem;
-    padding: clamp(1.4rem, 5vh, 2.4rem) 1.4rem 2rem;
-  }
-  .ic-govde {
-    max-width: none;
-    gap: 1rem;
-  }
-  .ic-sag {
-    flex: none;
-    overflow: visible;
+  .hosgeldiniz-blok {
+    margin-top: clamp(2rem, 5vh, 3rem);
   }
 
   /* Uzun başlık taşmasın */
