@@ -156,6 +156,23 @@
     );
   };
 
+  /* İki sayfalık kategoriler → içindekiler kutusu için çoklu görsel */
+  const IKI_SAYFA = { "tavuk-yemekleri": 2, "et-yemekleri": 2 };
+
+  /** Kategori kutusu için görsel yolu (admin yüklediyse o öncelikli). */
+  MenuAkis.prototype.gorselYollari = function (kat) {
+    if (kat.gorseller && kat.gorseller.length) return kat.gorseller;
+    const sayfa = IKI_SAYFA[kat.slug];
+    if (sayfa) {
+      const out = [];
+      for (let i = 1; i <= sayfa; i += 1) {
+        out.push(`assets/menu/${kat.slug}-${i}.webp`);
+      }
+      return out;
+    }
+    return [`assets/menu/${kat.slug}.webp`];
+  };
+
   /* Detay = kategorinin düzenlenebilir ürün/fiyat listesi (D1'den gelir,
      admin panelinden anında güncellenir). */
   MenuAkis.prototype.detayCiz = function (kat) {
