@@ -156,39 +156,59 @@
     );
   };
 
-  /* İki sayfalık (çok görselli) kategoriler */
-  const IKI_SAYFA = { "tavuk-yemekleri": 2, "et-yemekleri": 2 };
-
-  /** Kategori görsellerinin yollarını döndürür (admin verisi öncelikli). */
-  MenuAkis.prototype.gorselYollari = function (kat) {
-    if (kat.gorseller && kat.gorseller.length) return kat.gorseller;
-    const sayfa = IKI_SAYFA[kat.slug];
-    if (sayfa) {
-      const out = [];
-      for (let i = 1; i <= sayfa; i += 1) {
-        out.push(`assets/menu/${kat.slug}-${i}.webp`);
-      }
-      return out;
-    }
-    return [`assets/menu/${kat.slug}.webp`];
-  };
-
-  /* Detay = kategorinin menü kartı fotoğraf(lar)ı. Metin verisi (ürün/fiyat)
-     admin paneli için menu-data.js'te saklanır; burada görsel gösterilir. */
+  /* Detay = kategorinin düzenlenebilir ürün/fiyat listesi (D1'den gelir,
+     admin panelinden anında güncellenir). */
   MenuAkis.prototype.detayCiz = function (kat) {
-    const gorseller = this.gorselYollari(kat);
-    const fotolar = gorseller
-      .map(
-        (src, i) =>
-          `<figure class="detay-foto-kutu">` +
-          `<img class="detay-foto" src="${src}" ` +
-          `alt="${kacis(kat.ad)} menüsü${gorseller.length > 1 ? " — sayfa " + (i + 1) : ""}" ` +
-          `loading="${i === 0 ? "eager" : "lazy"}" decoding="async">` +
-          `</figure>`
-      )
-      .join("");
+    let sira = 0;
+    const p = [];
 
-    this.elDetayIc.innerHTML = `<div class="detay-fotolar">${fotolar}</div>`;
+    p.push(
+      `<div class="detay-hero">` +
+        `<p class="kicker">${kacis(kat.grup || "")}</p>` +
+        `<h1>${kacis(kat.ad)}</h1>` +
+        (kat.tanit ? `<p class="detay-tanit">${kacis(kat.tanit)}</p>` : "") +
+        `</div>`
+    );
+
+    // Öne çıkan paketler (kahvaltı vb.)
+    (kat.paketler || []).forEach((pk) => {
+      p.push(
+        `<div class="paket">` +
+          `<div class="paket-bas">` +
+          `<span class="paket-ad">${kacis(pk.ad)}</span>` +
+          (pk.birim ? `<span class="paket-birim">${kacis(pk.birim)}</span>` : "") +
+          `<span class="paket-fiyat">${kacis(pk.fiyat || "")}</span>` +
+          `</div>` +
+          (pk.aciklama ? `<p class="paket-aciklama">${kacis(pk.aciklama)}</p>` : "") +
+          (pk.kalori ? `<span class="paket-kalori">≈ ${pk.kalori} kcal</span>` : "") +
+          `</div>`
+      );
+    });
+
+    // Düz ürün listesi
+    if (kat.urunler && kat.urunler.length) {
+      p.push(
+        `<ul class="urun-liste">` +
+          kat.urunler.map((u) => this.urunSatiri(u, sira++)).join("") +
+          `</ul>`
+      );
+    }
+
+    // Alt gruplar
+    (kat.altGruplar || []).forEach((g) => {
+      p.push(`<h3 class="altgrup-bas">${kacis(g.baslik)}</h3>`);
+      p.push(
+        `<ul class="urun-liste">` +
+          (g.urunler || []).map((u) => this.urunSatiri(u, sira++)).join("") +
+          `</ul>`
+      );
+    });
+
+    p.push(
+      `<p class="detay-dipnot">${kacis((this.menu.meta && this.menu.meta.dipNot) || "")}</p>`
+    );
+
+    this.elDetayIc.innerHTML = p.join("");
     this.elDetayBaslik.textContent = kat.ad;
     this.elDetay.querySelector(".detay-kaydir").scrollTop = 0;
   };
