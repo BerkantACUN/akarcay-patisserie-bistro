@@ -388,7 +388,40 @@
   padding: clamp(1.4rem, 4vh, 3rem) var(--edge) clamp(3rem, 8vh, 5rem);
 }
 
-/* ── Menü kartı fotoğrafları ── */
+/* ── Menü kartı: yemek fotoğrafı kenarda, ortada krem "kâğıt" + yazı ── */
+.detay-kart {
+  position: relative;
+  max-width: 660px;
+  margin: 0 auto;
+  border-radius: 20px;
+  overflow: hidden;
+  background-image: var(--foto);
+  background-size: cover;
+  background-position: center;
+  box-shadow: var(--shadow-soft);
+  opacity: 0;
+  transform: translateY(16px) scale(0.99);
+  animation: foto-gel 0.6s var(--ease-expo) forwards;
+}
+.detay-kart::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(38, 17, 10, 0.22);
+}
+.detay-kagit {
+  position: relative;
+  margin: clamp(0.9rem, 6%, 3.2rem);
+  padding: clamp(1.4rem, 4vw, 2.6rem);
+  background: rgba(251, 246, 238, 0.96);
+  border-radius: 14px;
+  box-shadow: 0 14px 44px rgba(38, 17, 10, 0.3);
+}
+.detay-kagit .detay-hero {
+  margin-bottom: clamp(1rem, 3vh, 1.8rem);
+}
+
+/* ── (eski, kullanılmıyor) fotoğraf ── */
 .detay-fotolar {
   max-width: 640px;
   margin: 0 auto;
@@ -711,25 +744,18 @@
     width: 100%;
   }
 
-  /* Menü fotoğrafı kenardan kenara — tam genişlik, boşluksuz */
+  /* Menü kartı mobilde kenardan kenara; kâğıt biraz içeride */
   .detay-ic {
     max-width: 100%;
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 0;
-    padding-bottom: 0;
+    padding: 0;
   }
-  .detay-fotolar {
+  .detay-kart {
     max-width: 100%;
-    gap: 0;
-  }
-  .detay-foto-kutu {
     border-radius: 0;
-    box-shadow: none;
   }
-  .detay-foto-kutu::after {
-    right: 0.7rem;
-    bottom: 0.7rem;
+  .detay-kagit {
+    margin: clamp(0.6rem, 4%, 1.4rem);
+    padding: clamp(1.1rem, 5vw, 1.8rem);
   }
 }
 

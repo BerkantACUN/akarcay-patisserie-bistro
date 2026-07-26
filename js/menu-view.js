@@ -225,7 +225,13 @@
       `<p class="detay-dipnot">${kacis((this.menu.meta && this.menu.meta.dipNot) || "")}</p>`
     );
 
-    this.elDetayIc.innerHTML = p.join("");
+    // Kartın yemek fotoğrafı arka planda; ortadaki krem "kâğıt" üzerine
+    // düzenlenebilir yazılar (font/renk kartla aynı, panelden güncellenir).
+    const gorsel = this.gorselYollari(kat)[0];
+    this.elDetayIc.innerHTML =
+      `<div class="detay-kart" style="--foto:url('${gorsel}')">` +
+      `<div class="detay-kagit">${p.join("")}</div>` +
+      `</div>`;
     this.elDetayBaslik.textContent = kat.ad;
     this.elDetay.querySelector(".detay-kaydir").scrollTop = 0;
   };
