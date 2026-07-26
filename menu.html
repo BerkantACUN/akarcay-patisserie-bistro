@@ -124,14 +124,16 @@
 <script src="js/logo.js"></script>
 <script src="js/intro.js"></script>
 <script src="js/chrome.js"></script>
+<script src="js/veri.js"></script>
 <script src="js/menu-view.js"></script>
 <script>
   (function () {
     "use strict";
-    function baslat() {
+    async function baslat() {
       AKAcilis.gecisleriBagla();
       AKArayuz.imlec();
-      if (window.AKAR_MENU) new AKMenuAkis(window.AKAR_MENU);
+      const menu = await AKVeri("/api/menu", window.AKAR_MENU);
+      if (menu) new AKMenuAkis(menu);
     }
     if (document.readyState === "loading") {
       document.addEventListener("DOMContentLoaded", baslat);

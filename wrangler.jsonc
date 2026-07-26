@@ -1,0 +1,37 @@
+{
+  // Akarçay Patisserie — Cloudflare Worker (site + admin API)
+  "name": "akarcay",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-07-01",
+
+  // Özel alan adı (Cloudflare otomatik DNS + SSL kurar)
+  "routes": [
+    { "pattern": "akarcaypatisserie.com", "custom_domain": true },
+    { "pattern": "www.akarcaypatisserie.com", "custom_domain": true }
+  ],
+
+  // Statik site dosyaları (mevcut HTML/CSS/JS/görseller)
+  "assets": {
+    "directory": ".",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": true
+  },
+
+  // Menü ve içerik veritabanı
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "akarcay-db",
+      "database_id": "94eff042-b957-4f7e-a9a3-61a4ceb5a4ab"
+    }
+  ],
+
+  // Görsel deposu (admin panelinden yüklenen fotoğraflar)
+  "r2_buckets": [
+    {
+      "binding": "GORSEL",
+      "bucket_name": "akarcay-gorseller"
+    }
+  ]
+}

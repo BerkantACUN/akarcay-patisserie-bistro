@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Akarçay — Yönetim Paneli</title>
+<style>
+  :root {
+    --terracotta: #923E25; --clay-700: #71301C; --clay-800: #5C2716;
+    --sand-50: #F7F3EA; --sand-100: #EFE8DA; --sand-200: #E3D9C6;
+    --paper: #FFFFFF; --ink: #2A1710; --ink-soft: #6B5548; --line: rgba(42,23,16,.14);
+    --ok: #3E7A4B; --hata: #B23A3A;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Segoe UI", system-ui, sans-serif; color: var(--ink); background: var(--sand-50); line-height: 1.5; }
+  button { font: inherit; cursor: pointer; border: none; }
+  input, textarea, select { font: inherit; }
+  .gizli { display: none !important; }
+
+  /* Giriş */
+  .giris-sar { min-height: 100vh; display: grid; place-items: center; padding: 1.5rem; }
+  .giris-kart { width: min(100%, 380px); background: var(--paper); border-radius: 18px; padding: 2.4rem 2rem; box-shadow: 0 20px 50px -20px rgba(92,39,22,.3); text-align: center; }
+  .giris-kart h1 { font-size: 1.5rem; color: var(--terracotta); margin-bottom: .4rem; }
+  .giris-kart p { color: var(--ink-soft); font-size: .9rem; margin-bottom: 1.6rem; }
+  .giris-kart input { width: 100%; padding: .85rem 1rem; border: 1.5px solid var(--line); border-radius: 12px; margin-bottom: 1rem; }
+  .giris-kart input:focus { outline: none; border-color: var(--terracotta); }
+
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; padding: .8rem 1.5rem; border-radius: 12px; background: var(--terracotta); color: #fff; font-weight: 700; transition: background .2s, transform .2s; }
+  .btn:hover { background: var(--clay-700); }
+  .btn:active { transform: scale(.98); }
+  .btn:disabled { opacity: .5; cursor: default; }
+  .btn-sade { background: transparent; color: var(--terracotta); border: 1.5px solid var(--line); }
+  .btn-sade:hover { background: var(--sand-100); }
+  .btn-mini { padding: .4rem .7rem; border-radius: 8px; font-size: .8rem; }
+  .btn-sil { background: transparent; color: var(--hata); border: 1px solid rgba(178,58,58,.3); }
+  .btn-sil:hover { background: rgba(178,58,58,.08); }
+
+  /* Üst çubuk */
+  .ust { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; gap: 1rem; padding: .9rem 1.4rem; background: var(--paper); border-bottom: 1px solid var(--line); box-shadow: 0 2px 10px -6px rgba(0,0,0,.15); }
+  .ust h1 { font-size: 1.1rem; color: var(--terracotta); }
+  .ust .esnek { flex: 1; }
+  .ust .durum { font-size: .82rem; color: var(--ink-soft); }
+  .ust .durum.ok { color: var(--ok); }
+  .ust .durum.hata { color: var(--hata); }
+
+  .sekmeler { display: flex; gap: .4rem; padding: .8rem 1.4rem 0; background: var(--paper); border-bottom: 1px solid var(--line); }
+  .sekme { padding: .6rem 1.1rem; border-radius: 10px 10px 0 0; background: transparent; color: var(--ink-soft); font-weight: 600; }
+  .sekme.etkin { background: var(--sand-100); color: var(--terracotta); }
+
+  .govde { max-width: 1100px; margin: 0 auto; padding: 1.4rem; display: grid; grid-template-columns: 260px 1fr; gap: 1.2rem; align-items: start; }
+  @media (max-width: 800px) { .govde { grid-template-columns: 1fr; } }
+
+  /* Kategori listesi */
+  .kat-liste { background: var(--paper); border-radius: 14px; padding: .7rem; box-shadow: 0 4px 14px -8px rgba(92,39,22,.2); position: sticky; top: 72px; }
+  .kat-liste .baslik { font-size: .72rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); padding: .5rem .6rem; }
+  .kat-sec { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: .6rem .7rem; border-radius: 9px; background: transparent; text-align: left; color: var(--ink); font-weight: 600; font-size: .9rem; }
+  .kat-sec:hover { background: var(--sand-50); }
+  .kat-sec.etkin { background: var(--terracotta); color: #fff; }
+  .kat-sec .say { font-size: .72rem; opacity: .7; }
+
+  /* Düzenleyici */
+  .duzen { background: var(--paper); border-radius: 14px; padding: 1.4rem; box-shadow: 0 4px 14px -8px rgba(92,39,22,.2); }
+  .alan { margin-bottom: 1rem; }
+  .alan label { display: block; font-size: .78rem; font-weight: 700; color: var(--ink-soft); margin-bottom: .35rem; }
+  .alan input, .alan textarea, .alan select { width: 100%; padding: .7rem .85rem; border: 1.5px solid var(--line); border-radius: 10px; background: var(--sand-50); }
+  .alan input:focus, .alan textarea:focus { outline: none; border-color: var(--terracotta); background: #fff; }
+  .alan textarea { resize: vertical; min-height: 60px; }
+  .satir2 { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; }
+
+  .bolum-bas { display: flex; align-items: center; justify-content: space-between; margin: 1.4rem 0 .8rem; padding-top: 1.2rem; border-top: 1px solid var(--line); }
+  .bolum-bas h3 { font-size: 1rem; color: var(--terracotta); }
+
+  .urun { border: 1px solid var(--line); border-radius: 12px; padding: .9rem; margin-bottom: .7rem; background: var(--sand-50); }
+  .urun-ust { display: grid; grid-template-columns: 2fr 1fr 1fr auto; gap: .6rem; align-items: end; }
+  @media (max-width: 620px) { .urun-ust { grid-template-columns: 1fr 1fr; } }
+  .urun .alan { margin-bottom: .6rem; }
+  .urun .mini label { font-size: .68rem; }
+  .urun .mini input { padding: .5rem .6rem; font-size: .88rem; }
+
+  .gorsel-kutu { display: flex; align-items: center; gap: 1rem; padding: 1rem; border: 1.5px dashed var(--line); border-radius: 12px; background: var(--sand-50); }
+  .gorsel-kutu img { width: 90px; height: 90px; object-fit: cover; border-radius: 10px; background: var(--sand-200); }
+  .gorsel-kutu .bilgi { flex: 1; font-size: .82rem; color: var(--ink-soft); }
+
+  .yukleniyor { min-height: 100vh; display: grid; place-items: center; color: var(--ink-soft); }
+  .toast { position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%) translateY(2rem); background: var(--clay-800); color: #fff; padding: .8rem 1.4rem; border-radius: 12px; opacity: 0; transition: all .3s; z-index: 50; font-size: .9rem; }
+  .toast.gor { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .toast.hata { background: var(--hata); }
+</style>
+</head>
+<body>
+
+<!-- Yükleniyor -->
+<div class="yukleniyor" id="yukleniyor">Yükleniyor…</div>
+
+<!-- Giriş -->
+<div class="giris-sar gizli" id="giris">
+  <form class="giris-kart" id="giris-form">
+    <h1>Akarçay Yönetim</h1>
+    <p>Menüyü düzenlemek için giriş yapın.</p>
+    <input type="password" id="giris-sifre" placeholder="Şifre" autocomplete="current-password" required>
+    <button class="btn" type="submit" style="width:100%">Giriş Yap</button>
+    <p id="giris-hata" style="color:var(--hata); margin:1rem 0 0; font-size:.85rem;"></p>
+  </form>
+</div>
+
+<!-- Panel -->
+<div class="gizli" id="panel">
+  <header class="ust">
+    <h1>Akarçay Yönetim</h1>
+    <span class="esnek"></span>
+    <span class="durum" id="durum"></span>
+    <button class="btn" id="kaydet-btn">Kaydet</button>
+    <button class="btn-sade btn" id="cikis-btn">Çıkış</button>
+  </header>
+
+  <div class="sekmeler">
+    <button class="sekme etkin" data-sekme="menu">Menü</button>
+    <button class="sekme" data-sekme="iletisim">İletişim & Karşılama</button>
+  </div>
+
+  <!-- MENÜ SEKMESİ -->
+  <div class="govde" id="sekme-menu">
+    <aside class="kat-liste">
+      <div class="baslik">Kategoriler</div>
+      <div id="kat-liste-govde"></div>
+      <button class="btn-sade btn btn-mini" id="kat-ekle" style="width:100%; margin-top:.5rem;">+ Kategori Ekle</button>
+    </aside>
+    <main class="duzen" id="kat-duzen">
+      <p style="color:var(--ink-soft)">Soldan bir kategori seçin.</p>
+    </main>
+  </div>
+
+  <!-- İLETİŞİM SEKMESİ -->
+  <div class="govde gizli" id="sekme-iletisim" style="grid-template-columns:1fr;">
+    <main class="duzen" id="iletisim-duzen"></main>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function () {
+  "use strict";
+  const $ = (s, k) => (k || document).querySelector(s);
+  const el = (t, o = {}) => Object.assign(document.createElement(t), o);
+  let menu = null, icerik = null, seciliKat = null, aktifSekme = "menu";
+
+  function toast(mesaj, hata) {
+    const t = $("#toast");
+    t.textContent = mesaj; t.className = "toast gor" + (hata ? " hata" : "");
+    setTimeout(() => (t.className = "toast"), 2600);
+  }
+  function durumYaz(mesaj, tip) { const d = $("#durum"); d.textContent = mesaj; d.className = "durum " + (tip || ""); }
+
+  async function api(yol, secenek) {
+    const c = await fetch(yol, secenek);
+    if (!c.ok) { const h = await c.json().catch(() => ({})); throw new Error(h.hata || ("Hata " + c.status)); }
+    return c;
+  }
+
+  // ── Açılış: giriş durumu ──
+  async function baslat() {
+    try {
+      const durum = await (await fetch("/api/durum")).json();
+      if (durum.girisVar) await panelAc();
+      else { $("#yukleniyor").classList.add("gizli"); $("#giris").classList.remove("gizli"); }
+    } catch { $("#yukleniyor").textContent = "Sunucuya ulaşılamadı."; }
+  }
+
+  // ── Giriş ──
+  $("#giris-form").addEventListener("submit", async (o) => {
+    o.preventDefault();
+    $("#giris-hata").textContent = "";
+    try {
+      await api("/api/giris", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ sifre: $("#giris-sifre").value }) });
+      $("#giris").classList.add("gizli");
+      await panelAc();
+    } catch (e) { $("#giris-hata").textContent = e.message; }
+  });
+
+  $("#cikis-btn").addEventListener("click", async () => {
+    await fetch("/api/cikis", { method: "POST" });
+    location.reload();
+  });
+
+  async function panelAc() {
+    menu = await (await fetch("/api/menu")).json();
+    icerik = await (await fetch("/api/icerik")).json();
+    $("#yukleniyor").classList.add("gizli");
+    $("#panel").classList.remove("gizli");
+    katListeCiz();
+    iletisimCiz();
+    if (menu.kategoriler && menu.kategoriler.length) katSec(0);
+  }
+
+  // ── Sekmeler ──
+  document.querySelectorAll(".sekme").forEach((s) => s.addEventListener("click", () => {
+    aktifSekme = s.dataset.sekme;
+    document.querySelectorAll(".sekme").forEach((x) => x.classList.toggle("etkin", x === s));
+    $("#sekme-menu").classList.toggle("gizli", aktifSekme !== "menu");
+    $("#sekme-iletisim").classList.toggle("gizli", aktifSekme !== "iletisim");
+  }));
+
+  // ── Kategori listesi ──
+  function katSayisi(k) {
+    let n = (k.urunler || []).length + (k.paketler || []).length;
+    (k.altGruplar || []).forEach((g) => (n += (g.urunler || []).length));
+    return n;
+  }
+  function katListeCiz() {
+    const g = $("#kat-liste-govde"); g.innerHTML = "";
+    (menu.kategoriler || []).forEach((k, i) => {
+      const b = el("button", { className: "kat-sec" + (i === seciliKat ? " etkin" : "") });
+      b.innerHTML = `<span>${k.ad || "(adsız)"}</span><span class="say">${katSayisi(k)}</span>`;
+      b.addEventListener("click", () => katSec(i));
+      g.appendChild(b);
+    });
+  }
+
+  function katSec(i) { seciliKat = i; katListeCiz(); katDuzenCiz(); }
+
+  // ── Kategori düzenleyici ──
+  function urunSatiri(u, sil) {
+    const d = el("div", { className: "urun" });
+    const ust = el("div", { className: "urun-ust" });
+    ust.append(
+      alanYap("Ürün adı", u.ad || "", (v) => (u.ad = v)),
+      miniAlan("Fiyat", u.fiyat || "", (v) => (u.fiyat = v)),
+      miniAlan("Kalori", u.kalori || "", (v) => (u.kalori = v ? Number(v) || v : "")),
+      silDugme(sil)
+    );
+    d.appendChild(ust);
+    d.appendChild(alanYap("Açıklama", u.aciklama || "", (v) => (u.aciklama = v), true));
+    return d;
+  }
+  function alanYap(etiket, deger, degisti, cokSatir) {
+    const a = el("div", { className: "alan" });
+    a.appendChild(el("label", { textContent: etiket }));
+    const g = el(cokSatir ? "textarea" : "input", { value: deger });
+    g.addEventListener("input", () => degisti(g.value));
+    a.appendChild(g);
+    return a;
+  }
+  function miniAlan(etiket, deger, degisti) {
+    const a = alanYap(etiket, deger, degisti); a.classList.add("mini"); return a;
+  }
+  function silDugme(fn) {
+    const b = el("button", { className: "btn btn-sil btn-mini", textContent: "Sil" });
+    b.addEventListener("click", fn); return b;
+  }
+
+  function katDuzenCiz() {
+    const k = menu.kategoriler[seciliKat];
+    const m = $("#kat-duzen"); m.innerHTML = "";
+    if (!k) return;
+
+    m.appendChild(alanYap("Kategori adı", k.ad || "", (v) => { k.ad = v; katListeCiz(); }));
+    m.appendChild(alanYap("Grup (bölüm)", k.grup || "", (v) => (k.grup = v)));
+    if ("tanit" in k || true) m.appendChild(alanYap("Tanıtım (opsiyonel)", k.tanit || "", (v) => (k.tanit = v)));
+
+    // Görsel
+    m.appendChild(gorselBolum(k));
+
+    // Düz ürünler
+    if (!k.altGruplar) {
+      k.urunler = k.urunler || [];
+      const bas = el("div", { className: "bolum-bas" });
+      bas.innerHTML = "<h3>Ürünler</h3>";
+      const ekle = el("button", { className: "btn btn-mini", textContent: "+ Ürün" });
+      ekle.addEventListener("click", () => { k.urunler.push({ ad: "Yeni ürün", fiyat: "" }); katDuzenCiz(); katListeCiz(); });
+      bas.appendChild(ekle); m.appendChild(bas);
+      k.urunler.forEach((u, i) => m.appendChild(urunSatiri(u, () => { k.urunler.splice(i, 1); katDuzenCiz(); katListeCiz(); })));
+    }
+
+    // Alt gruplar
+    (k.altGruplar || []).forEach((grup) => {
+      const bas = el("div", { className: "bolum-bas" });
+      bas.innerHTML = `<h3>${grup.baslik || "Alt grup"}</h3>`;
+      const ekle = el("button", { className: "btn btn-mini", textContent: "+ Ürün" });
+      ekle.addEventListener("click", () => { grup.urunler.push({ ad: "Yeni ürün", fiyat: "" }); katDuzenCiz(); katListeCiz(); });
+      bas.appendChild(ekle); m.appendChild(bas);
+      (grup.urunler || []).forEach((u, i) => m.appendChild(urunSatiri(u, () => { grup.urunler.splice(i, 1); katDuzenCiz(); katListeCiz(); })));
+    });
+
+    // Paketler (kahvaltı gibi)
+    if (k.paketler) {
+      const bas = el("div", { className: "bolum-bas" });
+      bas.innerHTML = "<h3>Paketler</h3>"; m.appendChild(bas);
+      k.paketler.forEach((p, i) => {
+        const d = el("div", { className: "urun" });
+        d.appendChild(alanYap("Paket adı", p.ad || "", (v) => (p.ad = v)));
+        const s2 = el("div", { className: "satir2" });
+        s2.append(alanYap("Fiyat", p.fiyat || "", (v) => (p.fiyat = v)), alanYap("Birim", p.birim || "", (v) => (p.birim = v)));
+        d.appendChild(s2);
+        d.appendChild(alanYap("Açıklama", p.aciklama || "", (v) => (p.aciklama = v), true));
+        d.appendChild(silDugme(() => { k.paketler.splice(i, 1); katDuzenCiz(); }));
+        m.appendChild(d);
+      });
+    }
+
+    // Kategori sil
+    const alt = el("div", { className: "bolum-bas" });
+    const sil = el("button", { className: "btn btn-sil", textContent: "Bu kategoriyi sil" });
+    sil.addEventListener("click", () => {
+      if (!confirm(`"${k.ad}" kategorisi silinsin mi?`)) return;
+      menu.kategoriler.splice(seciliKat, 1); seciliKat = 0; katListeCiz(); katDuzenCiz();
+    });
+    alt.appendChild(sil); m.appendChild(alt);
+  }
+
+  function gorselBolum(k) {
+    const gorsel = (k.gorseller && k.gorseller[0]) || ("assets/menu/" + k.slug + ".webp");
+    const kutu = el("div", { className: "gorsel-kutu" });
+    const img = el("img", { src: gorsel.startsWith("http") || gorsel.startsWith("/") ? gorsel : "/" + gorsel, alt: "" });
+    img.onerror = () => (img.style.opacity = ".3");
+    const bilgi = el("div", { className: "bilgi", textContent: "Kategori kapak görseli" });
+    const gir = el("input", { type: "file", accept: "image/*", className: "gizli" });
+    const sec = el("button", { className: "btn btn-sade btn-mini", textContent: "Görsel Değiştir" });
+    sec.addEventListener("click", () => gir.click());
+    gir.addEventListener("change", async () => {
+      if (!gir.files[0]) return;
+      bilgi.textContent = "Yükleniyor…";
+      try {
+        const fd = new FormData(); fd.append("dosya", gir.files[0]);
+        const c = await api("/api/gorsel", { method: "POST", body: fd });
+        const { url } = await c.json();
+        k.gorseller = [url]; img.src = url; img.style.opacity = "1";
+        bilgi.textContent = "Yüklendi ✓ (Kaydet'e basmayı unutmayın)";
+      } catch (e) { bilgi.textContent = "Hata: " + e.message; }
+    });
+    const sag = el("div", { style: "flex:1" }); sag.append(bilgi, gir, sec);
+    kutu.append(img, sag);
+    return kutu;
+  }
+
+  // ── Kategori ekle ──
+  $("#kat-ekle").addEventListener("click", () => {
+    const slug = "yeni-" + Date.now();
+    menu.kategoriler = menu.kategoriler || [];
+    menu.kategoriler.push({ slug, ad: "Yeni Kategori", grup: (menu.gruplar && menu.gruplar[0]) || "Genel", urunler: [] });
+    seciliKat = menu.kategoriler.length - 1; katListeCiz(); katDuzenCiz();
+  });
+
+  // ── İletişim & Karşılama ──
+  function iletisimCiz() {
+    const m = $("#iletisim-duzen"); m.innerHTML = "";
+    const i = (icerik.iletisim = icerik.iletisim || {});
+    m.appendChild(el("h3", { textContent: "İletişim Bilgileri", style: "color:var(--terracotta); margin-bottom:1rem;" }));
+    m.appendChild(alanYap("Adres", i.adres || "", (v) => (i.adres = v)));
+    m.appendChild(alanYap("Çalışma Saatleri", i.saatler || "", (v) => (i.saatler = v)));
+    m.appendChild(alanYap("Telefon", i.telefon || "", (v) => (i.telefon = v)));
+    m.appendChild(alanYap("Instagram bağlantısı", i.instagram || "", (v) => (i.instagram = v)));
+    m.appendChild(alanYap("Facebook bağlantısı", i.facebook || "", (v) => (i.facebook = v)));
+
+    const mm = (menu.meta = menu.meta || {});
+    const bas = el("div", { className: "bolum-bas" }); bas.innerHTML = "<h3>Menü Dipnotu</h3>"; m.appendChild(bas);
+    m.appendChild(alanYap("Fiyat/KDV notu", mm.dipNot || "", (v) => (mm.dipNot = v), true));
+  }
+
+  // ── Kaydet ──
+  $("#kaydet-btn").addEventListener("click", async () => {
+    durumYaz("Kaydediliyor…");
+    try {
+      await api("/api/menu", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(menu) });
+      await api("/api/icerik", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(icerik) });
+      durumYaz("Kaydedildi ✓", "ok"); toast("Değişiklikler kaydedildi.");
+    } catch (e) { durumYaz("Hata!", "hata"); toast(e.message, true); }
+  });
+
+  baslat();
+})();
+</script>
+</body>
+</html>

@@ -2,7 +2,11 @@
 (function () {
   "use strict";
 
-  function baslat() {
+  async function baslat() {
+    // İçeriği (iletişim vb.) canlı veritabanından çek, yoksa statik yedek
+    if (window.AKVeri) {
+      window.AKAR_CONTENT = await AKVeri("/api/icerik", window.AKAR_CONTENT);
+    }
     AKArayuz.icerikYerlestir();
     AKAcilis.gecisleriBagla();
 

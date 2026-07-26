@@ -101,13 +101,17 @@
 
 <script src="js/utils.js"></script>
 <script src="js/content.js"></script>
+<script src="js/veri.js"></script>
 <script src="js/intro.js"></script>
 <script src="js/chrome.js"></script>
 <script src="js/gallery.js"></script>
 <script>
   (function () {
     "use strict";
-    function baslat() {
+    async function baslat() {
+      if (window.AKVeri) {
+        window.AKAR_CONTENT = await AKVeri("/api/icerik", window.AKAR_CONTENT);
+      }
       AKArayuz.icerikYerlestir();
       AKAcilis.gecisleriBagla();
       AKArayuz.mobilMenu(null);

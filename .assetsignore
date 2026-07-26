@@ -1,0 +1,35 @@
+# Siteye DAHİL EDİLMEYECEK dosyalar (güvenlik + gereksizler)
+worker
+db
+node_modules
+.git
+.wrangler
+.tmp-logo
+.tmp-menu
+.tmp-tat
+.tmp-yeni
+Menü
+Pastalar
+docs
+
+# Uzantıya göre hariç (hassas/gereksiz)
+*.md
+*.pdf
+*.txt
+*.jpg
+*.jpeg
+*.log
+
+# Proje/yapılandırma dosyaları
+.gitignore
+.assetsignore
+.dev.vars
+wrangler.jsonc
+package.json
+package-lock.json
+
+# Kişisel/hassas dosyalar (asla yayınlanmamalı)
+cloudflare*
+proton*
+*hesab*
+*recovery*
