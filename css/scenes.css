@@ -142,6 +142,15 @@
   50% { opacity: 1; transform: scale(1.08); }
 }
 
+/* ─────────── Sahne 2 · Adet Tatlılar (asimetrik kompozisyon) ─────────── */
+.at-vitrin { left: 51%; top: 45%; width: clamp(200px, 24vw, 360px); }
+.at-golge  { left: 51%; top: 74%; width: clamp(200px, 23vw, 340px); height: clamp(40px, 4.8vw, 76px); }
+.at-u1 { left: 17%; top: 28%; width: clamp(78px, 9.5vw, 150px); }
+.at-u2 { left: 84%; top: 24%; width: clamp(80px, 9.8vw, 156px); }
+.at-u3 { left: 14%; top: 71%; width: clamp(74px, 9vw, 140px); }
+.at-u4 { left: 86%; top: 66%; width: clamp(78px, 9.5vw, 148px); }
+.at-u5 { left: 33%; top: 83%; width: clamp(70px, 8.4vw, 130px); }
+
 /* ─────────── İçecekler sahnesi · tanıtım afişleri ─────────── */
 .afis-gorsel {
   width: 100%;

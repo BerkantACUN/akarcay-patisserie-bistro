@@ -66,7 +66,16 @@
   .s1-u3 { left: 17%; top: 74%; width: min(20vw, 88px); }
   .s1-u4 { left: 84%; top: 71%; width: min(21vw, 92px); }
 
-  /* Sahne 2 */
+  /* Sahne 2 · Adet Tatlılar — uydular köşelere, vitrin ortada */
+  .at-vitrin { left: 50%; top: 45%; width: min(58vw, 260px); }
+  .at-golge { left: 50%; top: 71%; width: min(52vw, 230px); }
+  .at-u1 { left: 15%; top: 22%; width: min(24vw, 104px); }
+  .at-u2 { left: 85%; top: 19%; width: min(24vw, 106px); }
+  .at-u3 { left: 15%; top: 72%; width: min(21vw, 92px); }
+  .at-u4 { left: 85%; top: 68%; width: min(22vw, 96px); }
+  .at-u5 { display: none; }
+
+  /* Sahne 2 (eski) */
   .s2-vitrin { top: 47%; width: min(54vw, 240px); }
   .s2-golge { top: 73%; width: min(50vw, 220px); }
   .s2-u1 { left: 14%; top: 24%; width: min(23vw, 98px); }
