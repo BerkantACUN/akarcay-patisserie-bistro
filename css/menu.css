@@ -9,6 +9,11 @@
   background: var(--paper);
   color: var(--ink);
 }
+/* Sayfa üstündeki okunabilirlik perdesi (chrome.css) menüde gerekmez;
+   terracotta panelin üstünde beyaz bulut olarak görünüyordu — iptal */
+.menu-govde::before {
+  content: none !important;
+}
 
 /* Görünüm sahnesi — üç görünüm üst üste, aktif olan görünür */
 .menu-sahne {
