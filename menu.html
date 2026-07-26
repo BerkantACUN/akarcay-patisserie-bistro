@@ -48,21 +48,29 @@
     </div>
   </section>
 
-  <!-- ═══ Görünüm 2 · Kategoriler ═══ -->
-  <section class="gorunum" id="gorunum-kategoriler" aria-label="Menü kategorileri">
-    <header class="menu-bar">
-      <a class="menu-bar-marka" href="index.html" data-gecis aria-label="Anasayfa">
-        <img class="menu-bar-amblem" src="assets/logo/akarcay-amblem.svg" width="42" height="42" alt="">
-        <span class="menu-bar-ad"><strong>Akarçay</strong><span>Menü</span></span>
-      </a>
-      <div class="menu-ara">
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/><path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-        <input type="search" id="menu-ara-input" placeholder="Kategori ara…" aria-label="Kategori ara" autocomplete="off">
+  <!-- ═══ Görünüm 2 · İçindekiler ═══ -->
+  <section class="gorunum" id="gorunum-kategoriler" aria-label="Menü içindekiler">
+    <div class="icindekiler">
+      <!-- Sol: karşılama -->
+      <div class="ic-sol">
+        <svg class="ic-desen" viewBox="0 0 120 320" aria-hidden="true" preserveAspectRatio="xMidYMax meet">
+          <use href="#dal-suslemesi"/>
+        </svg>
+        <a class="ic-marka" href="index.html" data-gecis data-logo="yatay" aria-label="Akarçay Patisserie — Anasayfa"></a>
+        <div class="ic-govde">
+          <h1 class="ic-hosgeldiniz" id="ic-hosgeldiniz"></h1>
+          <span class="ic-cicek" aria-hidden="true">
+            <svg viewBox="0 0 40 20"><use href="#cicek-ayrac"/></svg>
+          </span>
+          <div class="ic-metin" id="ic-metin"></div>
+        </div>
+        <div class="ic-alt" id="ic-alt" aria-hidden="true"></div>
       </div>
-    </header>
-    <div class="menu-kaydir">
-      <div id="kategori-govde"></div>
-      <p class="ara-bos" id="ara-bos">Aramanızla eşleşen kategori bulunamadı.</p>
+      <!-- Sağ: kategori listesi -->
+      <nav class="ic-sag" aria-label="Menü kategorileri">
+        <svg class="ic-sag-sus" viewBox="0 0 60 40" aria-hidden="true"><use href="#cicek-ayrac"/></svg>
+        <ul class="ic-liste" id="ic-liste"></ul>
+      </nav>
     </div>
   </section>
 
@@ -91,6 +99,36 @@
   </button>
   <img src="" alt="">
 </div>
+
+<!-- Süsleme sembolleri -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="cicek-ayrac" viewBox="0 0 40 20">
+      <g fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round">
+        <path d="M20 4c-1.5 2-1.5 5 0 7 1.5-2 1.5-5 0-7Z" fill="currentColor" stroke="none"/>
+        <path d="M20 11c-2.5 1.5-6 1.5-9 0M20 11c2.5 1.5 6 1.5 9 0"/>
+        <path d="M11 11c-1.5-1-3-1-4.5-.5M29 11c1.5-1 3-1 4.5-.5"/>
+        <circle cx="20" cy="14.5" r="1.1" fill="currentColor" stroke="none"/>
+      </g>
+    </symbol>
+    <symbol id="dal-suslemesi" viewBox="0 0 120 320">
+      <g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" opacity="0.9">
+        <path d="M18 312C34 250 30 170 54 96 68 52 92 30 108 16"/>
+        <g stroke-width="1.2">
+          <path d="M40 190c-10-6-18-4-26 2M40 190c-2-11 2-19 10-25"/>
+          <path d="M52 150c-10-6-18-4-26 2M52 150c-2-11 2-19 10-25"/>
+          <path d="M66 112c-10-6-18-4-26 2M66 112c-2-11 2-19 10-25"/>
+          <path d="M82 74c-10-6-18-4-26 2M82 74c-2-11 2-19 10-25"/>
+          <path d="M32 232c-10-6-18-4-26 2M32 232c-2-11 2-19 10-25"/>
+        </g>
+      </g>
+    </symbol>
+    <symbol id="ic-yaprak" viewBox="0 0 16 16">
+      <path d="M3 13c0-5 4-9 10-10-1 6-5 10-10 10Z" fill="currentColor" opacity="0.9"/>
+      <path d="M3 13C6 10 9 8 12 6" fill="none" stroke="var(--paper-warm)" stroke-width="0.8" opacity="0.5"/>
+    </symbol>
+  </defs>
+</svg>
 
 <script src="js/utils.js"></script>
 <script src="js/menu-data.js"></script>

@@ -25,6 +25,17 @@
       dipNot: "Fiyatlarımıza KDV dahildir. 25/07/2026 tarihinden itibaren geçerli fiyatlardır. Görseller sunum önerisidir.",
     },
 
+    // İçindekiler / karşılama sayfası (admin panelinden düzenlenebilir)
+    icindekiler: {
+      hosgeldiniz: ["Akarçay'a", "Hoş Geldiniz"],
+      paragraflar: [
+        "Her gün taze hazırlanan kahvaltılar, özenle sunulan ana yemekler, tatlı dokunuşlar ve kahve keyfi Akarçay Patisserie'de bir araya geliyor.",
+        "Günün her saatine uygun menümüz; kahvaltıdan atıştırmalıklara, pizzalardan makarnalara, tavuk ve et yemeklerinden tatlılara kadar uzanan zengin bir lezzet seçkisi sunar.",
+        "Şık sunum, sıcak atmosfer ve profesyonel servis anlayışıyla Akarçay'da her buluşmayı keyifli bir deneyime dönüştürüyoruz.",
+      ],
+      altYazi: ["Lezzet", "Keyif", "Anları"],
+    },
+
     // Izgara sayfasındaki bölüm sırası
     gruplar: [
       "Kahvaltı",

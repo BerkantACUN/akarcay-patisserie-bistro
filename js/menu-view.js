@@ -86,50 +86,52 @@
     this.elKapak = document.getElementById("gorunum-kapak");
     this.elKategoriler = document.getElementById("gorunum-kategoriler");
     this.elDetay = document.getElementById("gorunum-detay");
-    this.elIzgara = document.getElementById("kategori-govde");
+    this.elListe = document.getElementById("ic-liste");
     this.elDetayIc = document.getElementById("detay-govde");
     this.elDetayBaslik = document.getElementById("detay-bar-baslik");
-    this.elAra = document.getElementById("menu-ara-input");
-    this.elAraBos = document.getElementById("ara-bos");
 
-    this.kategorileriCiz();
+    this.icindekileriCiz();
     this.olaylariBagla();
     this.buyutBagla();
     this.hashUygula(true);
   }
 
-  /* ─────────── Kategori ızgarası ─────────── */
-  MenuAkis.prototype.kategorileriCiz = function () {
-    const parcalar = this.menu.gruplar.map((grup) => {
-      const katlar = this.kategoriler.filter((k) => k.grup === grup);
-      if (!katlar.length) return "";
+  /* ─────────── İçindekiler (karşılama + kategori listesi) ─────────── */
+  MenuAkis.prototype.icindekileriCiz = function () {
+    const ic = this.menu.icindekiler || {};
 
-      const kartlar = katlar
+    const hg = document.getElementById("ic-hosgeldiniz");
+    if (hg && ic.hosgeldiniz) {
+      hg.innerHTML = ic.hosgeldiniz.map(kacis).join("<br>");
+    }
+
+    const metin = document.getElementById("ic-metin");
+    if (metin && ic.paragraflar) {
+      metin.innerHTML = ic.paragraflar
+        .map((p) => `<p>${kacis(p)}</p>`)
+        .join('<span class="ic-nokta" aria-hidden="true"><svg viewBox="0 0 40 20"><use href="#cicek-ayrac"/></svg></span>');
+    }
+
+    const alt = document.getElementById("ic-alt");
+    if (alt && ic.altYazi) {
+      alt.innerHTML = ic.altYazi
+        .map((a) => `<span>${kacis(a)}</span>`)
+        .join('<i aria-hidden="true">·</i>');
+    }
+
+    // Sağ panel: tıklanabilir kategori listesi
+    if (this.elListe) {
+      this.elListe.innerHTML = this.kategoriler
         .map(
           (k) =>
-            `<button class="kat-kart" type="button" data-slug="${k.slug}" ` +
-            `data-ad="${kacis(k.ad.toLocaleLowerCase("tr"))}">` +
-            `<span class="kat-kart-ikon"><svg viewBox="0 0 24 24" aria-hidden="true">${ikonFor(
-              k.slug
-            )}</svg></span>` +
-            `<span class="kat-kart-yazi">` +
-            `<span class="kat-kart-ad">${kacis(k.ad)}</span>` +
-            `<span class="kat-kart-say">${urunSayisi(k)} çeşit</span>` +
-            `</span>` +
-            `<svg class="kat-kart-ok" viewBox="0 0 24 24" fill="none" aria-hidden="true" width="18" height="18"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>` +
-            `</button>`
+            `<li><button class="ic-oge" type="button" data-slug="${k.slug}">` +
+            `<svg class="ic-oge-ikon" viewBox="0 0 16 16" aria-hidden="true"><use href="#ic-yaprak"/></svg>` +
+            `<span class="ic-oge-ad">${kacis(k.ad)}</span>` +
+            `<span class="ic-oge-cizgi"></span>` +
+            `</button></li>`
         )
         .join("");
-
-      return (
-        `<section class="bolum" data-grup="${kacis(grup)}">` +
-        `<header class="bolum-bas"><h2>${kacis(grup)}</h2></header>` +
-        `<div class="kat-izgara">${kartlar}</div>` +
-        `</section>`
-      );
-    });
-
-    this.elIzgara.innerHTML = parcalar.join("");
+    }
   };
 
   /* ─────────── Detay ─────────── */
@@ -265,26 +267,6 @@
     if (hashYaz !== false) history.replaceState(null, "", "#menu");
   };
 
-  /* ─────────── Arama ─────────── */
-  MenuAkis.prototype.ara = function (terim) {
-    const t = (terim || "").trim().toLocaleLowerCase("tr");
-    const kartlar = AK.qsa(".kat-kart", this.elIzgara);
-    let bulunan = 0;
-
-    kartlar.forEach((kart) => {
-      const eslesme = !t || kart.dataset.ad.indexOf(t) !== -1;
-      kart.classList.toggle("gizli", !eslesme);
-      if (eslesme) bulunan += 1;
-    });
-
-    AK.qsa(".bolum", this.elIzgara).forEach((bolum) => {
-      const gorunur = AK.qsa(".kat-kart:not(.gizli)", bolum).length > 0;
-      bolum.classList.toggle("bos", !gorunur);
-    });
-
-    if (this.elAraBos) this.elAraBos.classList.toggle("gorunur", bulunan === 0);
-  };
-
   /* ─────────── Hash ─────────── */
   MenuAkis.prototype.hashUygula = function (ilk) {
     const h = window.location.hash.replace("#", "");
@@ -322,23 +304,15 @@
       }
     });
 
-    // Kategori kartları (olay delegasyonu)
-    this.elIzgara.addEventListener("click", (o) => {
-      const kart = o.target.closest(".kat-kart");
-      if (kart) self.kategoriAc(kart.dataset.slug);
+    // Kategori listesi (olay delegasyonu)
+    this.elListe.addEventListener("click", (o) => {
+      const oge = o.target.closest(".ic-oge");
+      if (oge) self.kategoriAc(oge.dataset.slug);
     });
 
     // Geri düğmesi
     const geri = document.getElementById("detay-geri");
     if (geri) geri.addEventListener("click", () => self.anaMenu());
-
-    // Arama
-    if (this.elAra) {
-      this.elAra.addEventListener(
-        "input",
-        AK.gecikmeli((o) => self.ara(o.target.value), 120)
-      );
-    }
 
     // Klavye: Esc → geri (lightbox açıksa önce o kapanır)
     window.addEventListener("keydown", (o) => {
